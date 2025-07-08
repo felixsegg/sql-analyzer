@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="root" prefWidth="700.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <VBox spacing="10.0">
+            <BorderPane.margin>
+                <Insets bottom="10.0" />
+            </BorderPane.margin>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <Label fx:id="headerLabel" style="-fx-font-size: 18;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="lastEditedLabel" />
+                <Button fx:id="refreshBtn" text="Refresh" />
+            </HBox>
+            <Separator prefWidth="200.0" />
+        </VBox>
+    </top>
+    <center>
+        <SplitPane dividerPositions="0.4" orientation="VERTICAL">
+            <SplitPane dividerPositions="0.4">
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+                <VBox spacing="10.0">
+                    <padding>
+                        <Insets right="5.0" />
+                    </padding>
+                    <VBox>
+                        <TextField fx:id="nameTF" promptText="Name" />
+                        <Label text="Name">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                        </Label>
+                    </VBox>
+                   <VBox>
+                       <TextArea fx:id="descriptionTA" promptText="Description" wrapText="true" VBox.vgrow="ALWAYS" />
+                       <Label text="Description">
+                           <font>
+                               <Font size="10.0" />
+                           </font>
+                       </Label>
+                   </VBox>
+               <VBox layoutX="10.0" layoutY="61.0">
+                  <children>
+                     <ComboBox fx:id="complexityCB" prefWidth="150.0" promptText="Choose..." />
+                     <Label text="Complexity">
+                        <font>
+                           <Font size="10.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </VBox>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets left="5.0" />
+                    </padding>
+                    <TextArea fx:id="promptContextTA" promptText="Prompt Context" VBox.vgrow="ALWAYS" />
+                    <Label text="Prompt Context">
+                        <font>
+                            <Font size="10.0" />
+                        </font>
+                    </Label>
+                </VBox>
+            </SplitPane>
+            <VBox>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+                <TextArea fx:id="sqlTA" promptText="SQL" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Consolas" size="12.0" />
+               </font></TextArea>
+                <Label text="SQL">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Label>
+            </VBox>
+        </SplitPane>
+    </center>
+    <bottom>
+        <VBox>
+            <HBox alignment="TOP_RIGHT" spacing="10.0">
+                <Button fx:id="deleteBtn" text="Delete" />
+                <Button fx:id="saveBtn" defaultButton="true" text="Save" />
+                <VBox.margin>
+                    <Insets top="10.0" />
+                </VBox.margin>
+            </HBox>
+        </VBox>
+    </bottom>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</BorderPane>
