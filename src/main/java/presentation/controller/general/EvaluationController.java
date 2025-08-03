@@ -20,6 +20,7 @@ import logic.service.GeneratedQueryService;
 import logic.service.LLMService;
 import logic.util.CsvExporter;
 import logic.util.eval.StatementComparator;
+import logic.util.eval.impl.ComparatorType;
 import logic.util.eval.impl.LLMComparator;
 import logic.util.eval.impl.SyntacticComparator;
 import logic.util.thread.EvaluationThread;
@@ -49,6 +50,11 @@ public class EvaluationController extends WorkerWindow {
     int threadPoolSize = 1;
     int maxReps = 3;
     
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
+        enableHelp();
+    }
     
     @Override
     public String getTitle() {
@@ -97,7 +103,7 @@ public class EvaluationController extends WorkerWindow {
         Stage stage = new Stage();
         TitledInitializableWindow controller = new SettingsController();
         
-        WindowManager.loadFxmlInto(stage, "fxml/evaluationSettings.fxml", controller);
+        WindowManager.loadFxmlInto(stage, "evaluationSettings", controller);
         
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(getStage());
@@ -106,7 +112,7 @@ public class EvaluationController extends WorkerWindow {
     
     private class SettingsController extends TitledInitializableWindow {
         @FXML
-        private ComboBox<String> comparatorCB;
+        private ComboBox<ComparatorType> comparatorCB;
         @FXML
         private ComboBox<LLM> llmCB;
         @FXML
@@ -151,20 +157,21 @@ public class EvaluationController extends WorkerWindow {
         }
         
         private void initializeComparatorCB() {
-            comparatorCB.getItems().setAll("Syntactic", "LLM");
-            // TODO this is not nicely solved
-            comparatorCB.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> llmSettingsHBox.setDisable(newV == null || !newV.equals("LLM")));
-            if (comparator instanceof SyntacticComparator) {
-                comparatorCB.getSelectionModel().select(0);
-            }
-            else if (comparator instanceof LLMComparator) {
-                comparatorCB.getSelectionModel().select(1);
-            }
+            comparatorCB.getItems().setAll(ComparatorType.values());
+            // TODO this is not nicely solved, consider introducing enum ComparatorType to fix it
+            comparatorCB.getSelectionModel().selectedItemProperty().addListener(
+                    (obs, oldV, newV)
+                            -> llmSettingsHBox.setDisable(newV == null || !newV.equals(ComparatorType.LLM))
+            );
+            if (comparator instanceof SyntacticComparator)
+                comparatorCB.getSelectionModel().select(ComparatorType.SYNTACTIC);
+            else if (comparator instanceof LLMComparator)
+                comparatorCB.getSelectionModel().select(ComparatorType.LLM);
         }
         
         private void initializeLLMCB() {
             llmCB.getItems().setAll(LLMService.getInstance().getAll());
-            llmCB.setConverter(new StringConverter<LLM>() {
+            llmCB.setConverter(new StringConverter<>() {
                 @Override
                 public String toString(LLM object) {
                     return object.getDisplayedName();
@@ -212,9 +219,9 @@ public class EvaluationController extends WorkerWindow {
             if (!checkInputs())
                 return;
             
-            if (comparatorCB.getValue().equals("Syntactic"))
+            if (comparatorCB.getValue().equals(ComparatorType.SYNTACTIC))
                 comparator = SyntacticComparator.getInstance();
-            else if (comparatorCB.getValue().equals("LLM"))
+            else if (comparatorCB.getValue().equals(ComparatorType.LLM))
                 comparator = new LLMComparator(llmCB.getValue(), tempSlider.getValue());
             
             threadPoolSize = Integer.parseInt(poolSizeTF.getText());
@@ -231,7 +238,7 @@ public class EvaluationController extends WorkerWindow {
             if (comparatorCB.getValue() == null) {
                 UIUtil.signalBorder(comparatorCB);
                 return false;
-            } else if (comparatorCB.getValue().equals("LLM")) {
+            } else if (comparatorCB.getValue().equals(ComparatorType.LLM)) {
                 if (llmCB.getValue() == null) {
                     UIUtil.signalBorder(llmCB);
                     return false;

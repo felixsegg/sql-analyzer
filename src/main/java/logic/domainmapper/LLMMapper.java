@@ -1,7 +1,7 @@
 package logic.domainmapper;
 
 import logic.bdo.LLM;
-import logic.llmapi.impl.LlmApi;
+import logic.promptable.util.PromptableApi;
 import persistence.dto.LLMDTO;
 
 public class LLMMapper extends AbstractBusinessDomainMapper<LLM, LLMDTO> {
@@ -24,7 +24,7 @@ public class LLMMapper extends AbstractBusinessDomainMapper<LLM, LLMDTO> {
         if (!cacheMapDTOtoBDO.containsKey(dto) || cacheMapDTOtoBDO.get(dto).getVersion() < dto.getVersion())
             putIntoMaps(dto, new LLM(
                     dto.getName(),
-                    LlmApi.valueOf(dto.getApi()),
+                    PromptableApi.valueOf(dto.getApi()),
                     dto.getModel(),
                     dto.getMinTemperature(),
                     dto.getMaxTemperature(),

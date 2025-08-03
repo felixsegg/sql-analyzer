@@ -6,8 +6,17 @@ import logic.service.SampleQueryService;
 import presentation.util.WindowManager;
 import presentation.uielements.window.OverviewWindow;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class SampleQueryOverviewController extends OverviewWindow<SampleQuery> {
     private final SampleQueryService service = SampleQueryService.getInstance();
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
+        enableHelp();
+    }
     
     @Override
     protected BDOService<SampleQuery> getService() {

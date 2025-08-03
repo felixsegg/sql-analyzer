@@ -13,6 +13,7 @@
             </BorderPane.margin>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                 <Label fx:id="headerLabel" style="-fx-font-size: 18;" />
+                <Label fx:id="helpControl" alignment="CENTER" minWidth="15.0" style="-fx-background-color: lightblue;" text="?" />
                 <Region HBox.hgrow="ALWAYS" />
                 <Label fx:id="lastEditedLabel" />
                 <Button fx:id="refreshBtn" text="Refresh" />
@@ -21,52 +22,44 @@
         </VBox>
     </top>
     <center>
-      <HBox>
-         <children>
+        <HBox>
             <VBox spacing="10.0">
-               <children>
-                  <VBox layoutX="10.0" layoutY="10.0" VBox.vgrow="NEVER">
-                     <padding>
-                        <Insets right="5.0" />
-                     </padding>
-                     <children>
-                        <ComboBox fx:id="sampleQueryCB" minWidth="150.0" promptText="Choose..." VBox.vgrow="NEVER" />
-                        <Label text="Sample query">
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox layoutX="10.0" layoutY="61.0" VBox.vgrow="NEVER">
-                     <padding>
-                        <Insets right="5.0" />
-                     </padding>
-                     <children>
-                        <ComboBox fx:id="promptTypeCB" minWidth="150.0" promptText="Choose..." />
-                        <Label text="Prompt type">
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <Separator orientation="VERTICAL" prefHeight="200.0" />
-                <VBox>
+                <VBox layoutX="10.0" layoutY="10.0" VBox.vgrow="NEVER">
                     <padding>
-                        <Insets left="5.0" />
+                        <Insets right="5.0"/>
                     </padding>
-                    <TextArea fx:id="promptTA" promptText="Prompt Text" wrapText="true" VBox.vgrow="ALWAYS" />
-                    <Label text="Prompt text">
+                    <ComboBox fx:id="sampleQueryCB" minWidth="150.0" promptText="Choose..." VBox.vgrow="NEVER"/>
+                    <Label text="Sample query">
                         <font>
-                            <Font size="10.0" />
+                            <Font size="10.0"/>
                         </font>
                     </Label>
                 </VBox>
-         </children>
-      </HBox>
+                <VBox layoutX="10.0" layoutY="61.0" VBox.vgrow="NEVER">
+                    <padding>
+                        <Insets right="5.0"/>
+                    </padding>
+                    <ComboBox fx:id="promptTypeCB" minWidth="150.0" promptText="Choose..."/>
+                    <Label text="Prompt type">
+                        <font>
+                            <Font size="10.0"/>
+                        </font>
+                    </Label>
+                </VBox>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0"/>
+            <VBox>
+                <padding>
+                    <Insets left="5.0"/>
+                </padding>
+                <TextArea fx:id="promptTA" promptText="Prompt Text" wrapText="true" VBox.vgrow="ALWAYS"/>
+                <Label text="Prompt text">
+                    <font>
+                        <Font size="10.0"/>
+                    </font>
+                </Label>
+            </VBox>
+        </HBox>
     </center>
     <bottom>
         <VBox>

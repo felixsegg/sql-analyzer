@@ -1,4 +1,4 @@
-package logic.llmapi.impl;
+package logic.promptable.impl.llm;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
@@ -6,7 +6,8 @@ import java.net.http.HttpResponse;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import logic.llmapi.LLMException;
+import logic.promptable.exception.LLMException;
+import logic.promptable.exception.RateLimitException;
 import logic.service.ConfigService;
 
 public class DeepSeekPromptHandler extends AbstractLLMHandler {
@@ -21,11 +22,6 @@ public class DeepSeekPromptHandler extends AbstractLLMHandler {
             String endpoint = "https://api.deepseek.com/chat/completions";
             
             JsonArray messages = new JsonArray();
-            JsonObject system = new JsonObject();
-            system.addProperty("role", "system");
-            system.addProperty("content", "You are a helpful assistant."); // TODO: Das hier weg
-            messages.add(system);
-            
             JsonObject user = new JsonObject();
             user.addProperty("role", "user");
             user.addProperty("content", input);
@@ -41,7 +37,9 @@ public class DeepSeekPromptHandler extends AbstractLLMHandler {
             HttpRequest request = HttpRequest.newBuilder().uri(URI.create(endpoint)).header("Authorization", "Bearer " + getApiKey()).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(gson.toJson(requestBody))).build();
             
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode() != 200) {
+            if (response.statusCode() == 429)
+                throw new RateLimitException(); // Should never happen according to the DeepSeek docs
+            else if (response.statusCode() != 200) {
                 try {
                     JsonObject errorJson = gson.fromJson(response.body(), JsonObject.class);
                     if (errorJson.has("error") && errorJson.getAsJsonObject("error").has("message"))

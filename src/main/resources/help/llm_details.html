@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LLM Details Help</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <b>LLM Details Help</b><br><br>
+    This window allows you to define and manage Large Language Models (LLMs) used by the SQL evaluation tool.
+    <ul>
+        <li>
+            <b>Name:</b><br>
+            Provide a descriptive name for the LLM. This name will help you identify the model within the application.
+        </li>
+        <li>
+            <b>API:</b><br>
+            Choose the API provider used to communicate with the LLM.<br>
+            Available options are:
+            <ul>
+                <li>OpenAI (ChatGPT)</li>
+                <li>Google Gemini</li>
+                <li>Anthropic Claude</li>
+                <li>DeepSeek AI</li>
+                <li>Numerical dummy (returns random numbers for demo/testing)</li>
+                <li>SQL dummy (returns a fixed SQL query for demo/testing)</li>
+            </ul>
+        </li>
+        <li>
+            <b>Model:</b><br>
+            Specify the model identifier as required by the selected API.<br>
+            Examples: <code>gpt-4o-mini-2024-07-18</code>, <code>claude-sonnet-4-20250514</code>
+        </li>
+        <li>
+            <b>Min and Max Temperature:</b><br>
+            Set the range for the temperature parameter. Lower values (close to 0) produce more predictable output. Higher values (up to 1) produce more varied and creative responses.<br>
+            <br>
+            <i>Recommendation:</i> Choose a small range (e.g., 0.7-0.8) to prevent cached responses and encourage diverse results.
+        </li>
+    </ul>
+</body>
+</html>

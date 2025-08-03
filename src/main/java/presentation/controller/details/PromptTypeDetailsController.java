@@ -24,6 +24,7 @@ public class PromptTypeDetailsController extends DetailsWindow<PromptType> {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+        enableHelp();
     }
     
     @Override

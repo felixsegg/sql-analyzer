@@ -11,9 +11,13 @@ import javafx.scene.control.Label;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class UIUtil {
+    private static final Logger log = LoggerFactory.getLogger(UIUtil.class);
+    
     private UIUtil() {
     }
     
@@ -95,4 +99,5 @@ public class UIUtil {
             }
         });
     }
+    
 }

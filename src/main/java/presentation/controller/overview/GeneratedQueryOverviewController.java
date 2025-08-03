@@ -6,8 +6,17 @@ import logic.service.GeneratedQueryService;
 import presentation.util.WindowManager;
 import presentation.uielements.window.OverviewWindow;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class GeneratedQueryOverviewController extends OverviewWindow<GeneratedQuery> {
     private final BDOService<GeneratedQuery> service = GeneratedQueryService.getInstance();
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
+        enableHelp();
+    }
     
     @Override
     protected void addItem() {

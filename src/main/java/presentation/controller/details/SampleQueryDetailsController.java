@@ -27,6 +27,7 @@ public class SampleQueryDetailsController extends DetailsWindow<SampleQuery> {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+        enableHelp();
         
         complexityCB.getItems().addAll(SampleQuery.Complexity.values());
     }

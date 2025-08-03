@@ -1,4 +1,4 @@
-package logic.llmapi;
+package logic.promptable.exception;
 
 public class LLMException extends Exception {
     public LLMException(String message) {

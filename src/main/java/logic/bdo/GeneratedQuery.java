@@ -4,9 +4,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import logic.llmapi.Promptable;
-
-import java.time.Instant;
 
 public class GeneratedQuery extends BusinessDomainObject implements SQLQueryWrapper {
     private final StringProperty sql = new SimpleStringProperty();

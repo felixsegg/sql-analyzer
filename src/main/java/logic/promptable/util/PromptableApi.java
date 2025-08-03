@@ -1,17 +1,18 @@
-package logic.llmapi.impl;
+package logic.promptable.util;
 
-public enum LlmApi {
+public enum PromptableApi {
     DEEP_SEEK("DeepSeek"),
     OPEN_AI("OpenAI"),
     GEMINI("Gemini"),
     ANTHROPIC_CLAUDE("Claude"),
-    STAR_CODER("StarCoder"),
     DUMMY_NUMERICAL("Numerical dummy"),
-    DUMMY_SQL("SQL dummy");
+    DUMMY_SQL("SQL dummy"),
+    DUMMY_NUMERICAL_RL("Rate limited numerical dummy"),
+    DUMMY_SQL_RL("Rate limited SQL dummy");
     
     private final String displayedName;
     
-    LlmApi(String displayedName) {
+    PromptableApi(String displayedName) {
         this.displayedName = displayedName;
     }
     

@@ -3,9 +3,9 @@ package logic.util.thread;
 import logic.bdo.GeneratedQuery;
 import logic.bdo.LLM;
 import logic.bdo.Prompt;
-import logic.llmapi.LLMException;
-import logic.service.LLMService;
-import logic.service.PromptService;
+import logic.promptable.exception.LLMException;
+import logic.promptable.exception.RateLimitException;
+import logic.promptable.util.PromptAuthorizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +27,8 @@ public class GenerationThread extends WorkerThread {
     private final Collection<LLM> llms;
     private final Collection<Prompt> prompts;
     private final Consumer<LLM> startedProgress, finishedProgress;
+    
+    private final PromptAuthorizer authorizer = PromptAuthorizer.getInstance();
     
     
     private static final AtomicInteger counter = new AtomicInteger(1);
@@ -84,16 +86,21 @@ public class GenerationThread extends WorkerThread {
         String model = llm.getModel();
         
         startedProgress.accept(llm);
+        
         try {
-            String fullPrompt = getFullPrompt(prompt);
-            String sql = llm.getPromptable().prompt(fullPrompt, model, temperature);
-            
-            if (sql.startsWith("```sql")) sql = sql.substring(6);
-            if (sql.endsWith("```")) sql = sql.substring(0, sql.length() - 3);
-            
-            // TODO: Consider rate limits.
-            
-            gqs.add(new GeneratedQuery(sql, llm, prompt));
+            while(true) try {
+                    authorizer.waitUntilAuthorized(llm);
+                    String fullPrompt = getFullPrompt(prompt);
+                    String sql = llm.getPromptable().prompt(fullPrompt, model, temperature);
+                    
+                    if (sql.startsWith("```sql")) sql = sql.substring(6);
+                    if (sql.endsWith("```")) sql = sql.substring(0, sql.length() - 3);
+                    
+                    gqs.add(new GeneratedQuery(sql, llm, prompt));
+                    break;
+                } catch (RateLimitException e) {
+                    authorizer.registerInstant(llm, e.getRetryInstant());
+                }
         } catch (LLMException e) {
             String errorMsg = "ERROR: LLM Exception for llm '" + llm.getDisplayedName() + "' and Prompt '" + prompt.getDisplayedName() + "' in iteration #" + iteration + 1 + " of " + repetitionCount + ":\n\t" + e.getMessage();
             log.error(errorMsg, e);

@@ -71,13 +71,7 @@ public class ConfigService {
         props.setProperty("deepseek.key", "");
         props.setProperty("gemini.key", "");
         props.setProperty("claude.key", "");
-        props.setProperty("starcoder.key", "");
-        
-        props.setProperty("generation.repetition.count", "10");
-        props.setProperty("generation.thread.count", "10");
-        
-        // TODO: %appdata% instead
-        props.setProperty("csv.output.path", "./output");
+        props.setProperty("csv.output.path", CONFIG_PATH.getParent().resolve("output").toAbsolutePath().toString());
     }
     
     public void save() {

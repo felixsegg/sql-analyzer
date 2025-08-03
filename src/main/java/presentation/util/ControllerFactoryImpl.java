@@ -29,10 +29,6 @@ public class ControllerFactoryImpl implements ControllerFactory {
             case GENERATION -> new GenerationController();
             case CONFIG -> new ConfigController();
             
-            // TODO
-            case EVALUATION_SETTINGS -> throw new IllegalArgumentException("Not implemented yet");
-            case GENERATION_SETTINGS -> throw new IllegalArgumentException("Not implemented yet");
-            
             case SAMPLE_QUERY_OVERVIEW -> new SampleQueryOverviewController();
             case LLM_OVERVIEW -> new LLMOverviewController();
             case PROMPT_TYPE_OVERVIEW -> new PromptTypeOverviewController();

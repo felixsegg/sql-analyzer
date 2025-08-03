@@ -43,6 +43,12 @@ public class GenerationController extends WorkerWindow {
     private final ConfigService config = ConfigService.getInstance();
     
     @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
+        enableHelp();
+    }
+    
+    @Override
     public String getTitle() {
         return "Generation";
     }
@@ -92,7 +98,7 @@ public class GenerationController extends WorkerWindow {
         Stage stage = new Stage();
         TitledInitializableWindow controller = new SettingsController();
         
-        WindowManager.loadFxmlInto(stage, "fxml/generationSettings.fxml", controller);
+        WindowManager.loadFxmlInto(stage, "generationSettings", controller);
         
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(getStage());

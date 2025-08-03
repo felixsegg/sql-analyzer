@@ -1,9 +1,16 @@
 package presentation.util;
 
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import logic.bdo.*;
@@ -11,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import presentation.uielements.window.*;
 
-import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
 
@@ -19,30 +25,27 @@ public class WindowManager {
     private static final Logger log = LoggerFactory.getLogger(WindowManager.class);
     
     private static final ControllerFactory controllerFactory = ControllerFactoryImpl.getInstance();
-    private static Image icon = null;
+    private static final Image icon;
     
     static {
-        InputStream iconInputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("icon/icon.png");
-        if (iconInputStream != null)
-            icon = new Image(iconInputStream);
-        else log.error("Could not load icon.");
+        icon = ResourceLoader.loadIcon("icon.png");
+        if (icon == null) log.error("Could not load icon.");
     }
     
     private static final Map<Stage, WindowType> stageTypeMap = new HashMap<>();
     
-    public static void loadFxmlInto(Stage stage, String fxmlPath, TitledInitializableWindow controller) {
+    public static void loadFxmlInto(Stage stage, String fxmlName, TitledInitializableWindow controller) {
         stage.setTitle("SQL analyzer - " + controller.getTitle());
         
         try {
-            log.info("Loading fxml from {}...", fxmlPath);
-            URL fxmlUrl = Thread.currentThread().getContextClassLoader().getResource(fxmlPath);
+            URL fxmlUrl = ResourceLoader.getFxmlUrl(fxmlName);
             FXMLLoader loader = new FXMLLoader(fxmlUrl);
             loader.setController(controller);
             Parent root = loader.load();
             stage.setScene(new Scene(root));
             if (icon != null) stage.getIcons().add(icon);
         } catch (Exception e) {
-            log.error("Couldn't load fxml resource for {}.", fxmlPath, e);
+            log.error("Could not load fxml resource for {}.", fxmlName, e);
         }
     }
     
@@ -81,7 +84,9 @@ public class WindowManager {
         if (foundStage == null) {
             stage = new Stage();
             
-            loadFxmlInto(stage, windowType.getFxmlPath(), controllerFactory.createController(windowType));
+            TitledInitializableWindow controller = controllerFactory.createController(windowType);
+            loadFxmlInto(stage, windowType.getFxmlName(), controller);
+            controller.setWindowType(windowType);
             stage.setOnCloseRequest(e -> {
                 e.consume();
                 stage.hide();
@@ -128,14 +133,61 @@ public class WindowManager {
         DetailsWindow<BusinessDomainObject> controller
                 = (DetailsWindow<BusinessDomainObject>) controllerFactory.createController(windowType);
         
-        loadFxmlInto(stage, windowType.getFxmlPath(), controller);
+        loadFxmlInto(stage, windowType.getFxmlName(), controller);
         
         controller.setObject(bdo);
         controller.setParentWindow(callingController);
+        controller.setWindowType(windowType);
         stageTypeMap.put(stage, windowType);
         
         stage.setOnCloseRequest(e -> stageTypeMap.remove(stage));
         stage.show();
+    }
+    
+    public static void showHelpWindowFor(TitledInitializableWindow callingController) {
+        WindowType windowType = callingController.getWindowType();
+        String htmlUrl = windowType.getHelpHtmlUrl();
+        if (htmlUrl == null) {
+            log.warn("WindowType {} either has no help html set or failed to load the resource!", windowType.name());
+            return;
+        }
+        
+        Stage owner = callingController.getStage();
+        Stage stage = new Stage();
+        stage.setTitle("Help - " + callingController.getTitle());
+        if (icon != null)
+            stage.getIcons().add(icon);
+        stage.initOwner(owner);
+        stage.setResizable(false);
+        
+        ProgressIndicator spinner = new ProgressIndicator();
+        spinner.setMaxSize(50, 50);
+        
+        StackPane stack = new StackPane(spinner);
+        
+        if (owner != null) {
+            stage.setX(owner.getX() + (owner.getWidth() - stage.getWidth()) / 2);
+            stage.setY(owner.getY() + (owner.getHeight() - stage.getHeight()) / 2);
+        }
+        
+        Scene scene = new Scene(stack, 500, 400);
+        stage.setScene(scene);
+        stage.show();
+        
+        Platform.runLater(() -> {
+            WebView webView = new WebView();
+            webView.getEngine().load(htmlUrl);
+            ChangeListener<Worker.State> listener = (obs, oldState, newState) -> {
+                if (newState == Worker.State.SUCCEEDED)
+                    stack.getChildren().setAll(webView);
+                else if (newState == Worker.State.FAILED || newState == Worker.State.CANCELLED){
+                    Label failedLabel = new Label("Loading help failed.");
+                    stack.getChildren().setAll(failedLabel);
+                    log.warn("Loading of html failed. Worker state of WebView: {}.", newState.name());
+                }
+            };
+            webView.getEngine().getLoadWorker().stateProperty().addListener(listener);
+        });
     }
     
     /**
@@ -149,14 +201,14 @@ public class WindowManager {
     /**
      * Opens the specified popup window, therefore rendering the owner inactive for the mean time.
      *
-     * @Returns the result of the popup window
      */
     public static void openPopup(WindowType windowType, TitledInitializableWindow controller, Stage owner) {
         if (windowType.getWindowTypeType() == WindowType.WindowTypeType.POPUP)
             throw new IllegalArgumentException("For non popup windows, use other openWindow() methods");
         
         Stage stage = new Stage();
-        loadFxmlInto(stage, windowType.getFxmlPath(), controller);
+        loadFxmlInto(stage, windowType.getFxmlName(), controller);
+        controller.setWindowType(windowType);
         
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(owner);
@@ -166,4 +218,6 @@ public class WindowManager {
         
         stage.showAndWait();
     }
+    
+
 }

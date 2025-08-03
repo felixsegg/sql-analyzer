@@ -1,4 +1,4 @@
-package logic.llmapi.impl;
+package logic.promptable.impl.llm;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
@@ -6,7 +6,8 @@ import java.net.http.HttpResponse;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import logic.llmapi.LLMException;
+import logic.promptable.exception.LLMException;
+import logic.promptable.exception.RateLimitException;
 import logic.service.ConfigService;
 
 public class ClaudePromptHandler extends AbstractLLMHandler {
@@ -41,7 +42,9 @@ public class ClaudePromptHandler extends AbstractLLMHandler {
                     .build();
             
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode() != 200) {
+            if (response.statusCode() == 429)
+                throw new RateLimitException(extractRetryAfter(response));
+            else if (response.statusCode() != 200) {
                 try {
                     JsonObject errorJson = gson.fromJson(response.body(), JsonObject.class);
                     if (errorJson.has("error") && errorJson.getAsJsonObject("error").has("message"))
@@ -66,6 +69,29 @@ public class ClaudePromptHandler extends AbstractLLMHandler {
         } catch (Exception e) {
             throw new LLMException("Exception while calling Claude", e);
         }
+    }
+    
+    private long extractRetryAfter(HttpResponse<String> response) {
+        String retryAfter = response.headers()
+                .firstValue("retry-after")
+                .orElse(null);
+        if (retryAfter != null) {
+            try {
+                return Long.parseLong(retryAfter);
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        String reset = response.headers()
+                .firstValue("anthropic-ratelimit-requests-reset")
+                .orElse(null);
+        if (reset != null) {
+            try {
+                java.time.Instant resetTime = java.time.Instant.parse(reset);
+                return java.time.Duration.between(java.time.Instant.now(), resetTime).getSeconds();
+            } catch (Exception ignored) {
+            }
+        }
+        return -1;
     }
     
     private String getApiKey() {

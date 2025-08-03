@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About SQL Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<b>About &amp; Workflow</b><br><br>
+<p>
+    This tool enables systematic evaluation of Large Language Models (LLMs) for the automated generation of SQL queries
+    from natural language prompts. It provides a structured workflow for preparing, generating, and evaluating SQL
+    statements using various LLMs and prompt formulations. The underlying domain model is shown below.
+</p>
+<img src="Domain model ER diagram.png" alt="ER-Diagram: SQL Analyzer domain model" class="er-diagram">
+<p>
+    The process typically follows these steps:
+</p>
+<ol>
+    <li>
+        <b>Define LLMs:</b><br>
+        Register all LLMs to be tested, including API provider, model name, and a min/max temperature range to avoid
+        cached responses.
+    </li>
+    <li>
+        <b>Add Sample Queries:</b><br>
+        Enter all reference SQL queries (Sample Queries) from your production system. Each is assigned a name,
+        description, complexity, and a prompt context containing the placeholder <code>§§§</code>.
+    </li>
+    <li>
+        <b>Define Prompt Types:</b><br>
+        Create the prompt types that represent the different ways to phrase user requests (e.g., descriptive, technical,
+        goal-oriented, keyword-based).
+    </li>
+    <li>
+        <b>Create Prompts:</b><br>
+        For each combination of Sample Query and Prompt Type, define a matching prompt. These prompts will be used to
+        generate SQL statements.
+    </li>
+    <li>
+        <b>Generate Queries:</b><br>
+        Select all desired LLMs and prompts. For each combination, the tool generates multiple SQL statements (number of
+        repetitions configurable) by sending requests to the selected LLMs. Each request uses a temperature sampled
+        evenly from the specified min/max interval to prevent repeated (cached) responses.
+    </li>
+    <li>
+        <b>Evaluate Results:</b><br>
+        The generated SQL statements are compared to the original Sample Queries using a selectable evaluation method.
+        The recommended method is LLM-based semantic similarity scoring, but syntactic comparison is also available.
+    </li>
+    <li>
+        <b>Export CSV:</b><br>
+        Results are exported as a CSV file, containing similarity scores for each generated query. This file can be
+        further processed externally (e.g., in R or Excel).
+    </li>
+</ol>
+<p>
+    The tool supports systematic experiments on the impact of model selection, prompt phrasing, and query complexity. It
+    enables evaluation of LLMs in the context of text-to-SQL applications.
+</p>
+</body>
+</html>

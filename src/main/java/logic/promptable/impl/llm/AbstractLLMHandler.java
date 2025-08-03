@@ -1,8 +1,8 @@
-package logic.llmapi.impl;
+package logic.promptable.impl.llm;
 
 import java.net.http.HttpClient;
 import com.google.gson.Gson;
-import logic.llmapi.Promptable;
+import logic.promptable.Promptable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

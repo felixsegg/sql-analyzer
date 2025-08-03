@@ -1,34 +1,34 @@
 package logic.bdo;
 
 import javafx.beans.property.*;
-import logic.llmapi.Promptable;
-import logic.llmapi.impl.LlmApi;
-import logic.llmapi.impl.LlmApiFactory;
+import logic.promptable.Promptable;
+import logic.promptable.util.PromptableApi;
+import logic.promptable.util.PromptableFactory;
 
 public class LLM extends BusinessDomainObject {
     private final StringProperty name = new SimpleStringProperty();
-    private final ObjectProperty<LlmApi> llmApi = new SimpleObjectProperty<>();
+    private final ObjectProperty<PromptableApi> llmApi = new SimpleObjectProperty<>();
     private final StringProperty model = new SimpleStringProperty();
     private final DoubleProperty minTemperature = new SimpleDoubleProperty();
     private final DoubleProperty maxTemperature = new SimpleDoubleProperty();
     
     
     
-    private Promptable promptable; // lazy loaded, generated for LlmApi
+    private Promptable promptable; // lazy loaded, generated for PromptableApi
     
     public LLM() {
         this("", null, "", 0, 1, null);
     }
     
-    public LLM(String name, LlmApi llmApi, String model, double minTemperature, double maxTemperature) {
-        this(name, llmApi, model, minTemperature, maxTemperature, null);
+    public LLM(String name, PromptableApi promptableApi, String model, double minTemperature, double maxTemperature) {
+        this(name, promptableApi, model, minTemperature, maxTemperature, null);
     }
     
-    public LLM(String name, LlmApi llmApi, String model, double minTemperature, double maxTemperature, Long version) {
+    public LLM(String name, PromptableApi promptableApi, String model, double minTemperature, double maxTemperature, Long version) {
         super(version);
         
         this.name.set(name);
-        this.llmApi.set(llmApi);
+        this.llmApi.set(promptableApi);
         this.model.set(model);
         this.minTemperature.set(minTemperature);
         this.maxTemperature.set(maxTemperature);
@@ -51,7 +51,7 @@ public class LLM extends BusinessDomainObject {
     
     public Promptable getPromptable() {
         if (promptable == null)
-            promptable = LlmApiFactory.getInstance().getPromptable(llmApi.get());
+            promptable = PromptableFactory.getInstance().getPromptable(llmApi.get());
         return promptable;
     }
     
@@ -59,16 +59,16 @@ public class LLM extends BusinessDomainObject {
         this.name.set(name);
     }
     
-    public void setLlmApi(LlmApi llmApi) {
-        this.llmApi.set(llmApi);
+    public void setLlmApi(PromptableApi promptableApi) {
+        this.llmApi.set(promptableApi);
         this.promptable = null;
     }
     
-    public LlmApi getLlmApi() {
+    public PromptableApi getLlmApi() {
         return llmApi.get();
     }
     
-    public ObjectProperty<LlmApi> llmApiProperty() {
+    public ObjectProperty<PromptableApi> llmApiProperty() {
         return llmApi;
     }
     

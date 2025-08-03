@@ -1,4 +1,4 @@
-package logic.llmapi.impl;
+package logic.promptable.impl.llm;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
@@ -6,7 +6,8 @@ import java.net.http.HttpResponse;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import logic.llmapi.LLMException;
+import logic.promptable.exception.LLMException;
+import logic.promptable.exception.RateLimitException;
 import logic.service.ConfigService;
 
 public class GeminiPromptHandler extends AbstractLLMHandler {
@@ -47,7 +48,9 @@ public class GeminiPromptHandler extends AbstractLLMHandler {
             
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             
-            if (response.statusCode() != 200) {
+            if (response.statusCode() == 429)
+                throw new RateLimitException(extractRetryAfter(response));
+            else if (response.statusCode() != 200) {
                 try {
                     JsonObject errorJson = gson.fromJson(response.body(), JsonObject.class);
                     if (errorJson.has("error") && errorJson.getAsJsonObject("error").has("message"))
@@ -81,6 +84,17 @@ public class GeminiPromptHandler extends AbstractLLMHandler {
         catch (Exception e) {
             throw new LLMException("Exception while calling OpenAI", e);
         }
+    }
+    
+    private long extractRetryAfter(HttpResponse<String> response) {
+        var retryHeader = response.headers().firstValue("retry-after").orElse(null);
+        if (retryHeader != null) {
+            try {
+                return Long.parseLong(retryHeader);
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return -1;
     }
     
     private String getApiKey() {

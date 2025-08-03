@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 public class ConfigController extends TitledInitializableWindow {
     @FXML private Label headerLabel;
     
-    @FXML private TextField openaiKeyField, deepseekKeyField, geminiKeyField, claudeKeyField, starcoderKeyField, repetitionCountField, threadCountField, csvOutputPathField;
+    @FXML private TextField openaiKeyField, deepseekKeyField, geminiKeyField, claudeKeyField, csvOutputPathField;
     
     @FXML private Button saveBtn, cancelBtn, outputDirBtn;
     
@@ -23,19 +23,12 @@ public class ConfigController extends TitledInitializableWindow {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         headerLabel.setText(getTitle());
-        
+        enableHelp();
         openaiKeyField.setText(config.get("openai.key"));
         deepseekKeyField.setText(config.get("deepseek.key"));
         geminiKeyField.setText(config.get("gemini.key"));
         claudeKeyField.setText(config.get("claude.key"));
-        starcoderKeyField.setText(config.get("starcoder.key"));
-        
-        repetitionCountField.setText(config.get("generation.repetition.count"));
-        threadCountField.setText(config.get("generation.thread.count"));
         csvOutputPathField.setText(config.get("csv.output.path"));
-        
-        UIUtil.initIntegerField(repetitionCountField);
-        UIUtil.initIntegerField(threadCountField);
         
         saveBtn.setOnAction(e -> saveBtnClick());
         cancelBtn.setOnAction(e -> closeWindow());
@@ -52,10 +45,6 @@ public class ConfigController extends TitledInitializableWindow {
         config.set("deepseek.key", deepseekKeyField.getText());
         config.set("gemini.key", geminiKeyField.getText());
         config.set("claude.key", claudeKeyField.getText());
-        config.set("starcoder.key", starcoderKeyField.getText());
-        
-        config.set("generation.repetition.count", repetitionCountField.getText());
-        config.set("generation.thread.count", threadCountField.getText());
         
         config.set("csv.output.path", csvOutputPathField.getText());
         

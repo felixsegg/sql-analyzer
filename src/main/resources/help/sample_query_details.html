@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Query Details Help</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<b>Sample Query Details Help</b><br><br>
+This window allows you to create and edit sample SQL queries for use in LLM evaluation and prompt generation.
+<ul>
+    <li>
+        <b>Name:</b><br>
+        Enter a concise and descriptive name for the sample query.
+    </li>
+    <li>
+        <b>Description:</b><br>
+        Optionally add further context or notes about the query and its purpose.
+    </li>
+    <li>
+        <b>Complexity:</b><br>
+        Select the query’s complexity level. Possible values:
+        <ul>
+            <li><b>Low</b>: Simple query, few joins, no subqueries or aggregations.</li>
+            <li><b>Mid</b>: Multiple joins, simple aggregations, simple subqueries.</li>
+            <li><b>High</b>: Multiple joins, complex subqueries, advanced filter logic, or aggregations over several tables.</li>
+        </ul>
+    </li>
+    <li>
+        <b>Prompt Context:</b><br>
+        Define a text template used to generate prompts for LLMs.
+        This must include the placeholder <code>§§§</code>, which will be replaced by the specific question or task.
+        The placeholder must appear exactly once.
+    </li>
+    <li>
+        <b>SQL:</b><br>
+        Enter the reference SQL statement for this sample query.<br>
+        The statement must start with <code>SELECT</code>.
+    </li>
+</ul>
+</body>
+</html>

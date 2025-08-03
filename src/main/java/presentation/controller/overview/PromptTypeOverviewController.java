@@ -6,8 +6,17 @@ import logic.service.PromptTypeService;
 import presentation.util.WindowManager;
 import presentation.uielements.window.OverviewWindow;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class PromptTypeOverviewController extends OverviewWindow<PromptType> {
     private final BDOService<PromptType> service = PromptTypeService.getInstance();
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
+        enableHelp();
+    }
     
     @Override
     protected void addItem() {

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluation Help</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<b>Evaluation Help</b><br><br>
+This window allows you to evaluate generated SQL queries using different comparison strategies and export the results as a CSV file.
+<ul>
+    <li>
+        <b>Settings (⚙):</b><br>
+        Click the settings button to configure evaluation parameters:<br>
+        - <b>Comparator:</b> Select the method used to compare generated queries.<br>
+        &nbsp;&nbsp;&bull; <b>Syntactic:</b> Compares queries based on structure and content using static analysis.<br>
+        &nbsp;&nbsp;&bull; <b>LLM:</b> Uses a large language model to assess semantic similarity. Additional parameters (LLM, temperature) are available when this option is selected.<br>
+        - <b>Thread pool size:</b> Number of comparisons processed in parallel.<br>
+        &nbsp;&nbsp;&bull; A higher value speeds up evaluation but increases the risk of hitting rate limits with LLM-based comparators.<br>
+        &nbsp;&nbsp;&bull; A lower value avoids rate limits but results in longer evaluation times.<br>
+        - <b>Max repetitions:</b> Number of attempts if an evaluation fails or returns no valid score.<br>
+        - <b>Query selection:</b> Choose which generated queries should be evaluated.
+    </li>
+    <li>
+        <b>Start:</b><br>
+        Starts the evaluation process. Progress is displayed in real time.
+    </li>
+    <li>
+        <b>Cancel:</b><br>
+        Stops the ongoing evaluation process.
+    </li>
+    <li>
+        <b>Save:</b><br>
+        Exports the evaluation results as a CSV file to the configured output directory.
+    </li>
+</ul>
+If you use an LLM as comparator, be aware that high parallelism (large thread pool) may quickly hit API rate limits and cause failures. If you select a small pool, evaluation will take longer, but you reduce the risk of rejected or throttled requests.
+</body>
+</html>

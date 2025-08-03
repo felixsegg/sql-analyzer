@@ -26,6 +26,7 @@ public class GeneratedQueryDetailsController extends DetailsWindow<GeneratedQuer
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+        enableHelp();
         
         initializePromptCB();
         initializeLLMCB();

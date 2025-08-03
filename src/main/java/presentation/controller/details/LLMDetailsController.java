@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import logic.bdo.LLM;
-import logic.llmapi.impl.LlmApi;
+import logic.promptable.util.PromptableApi;
 import logic.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
     @FXML
     private TextField nameTF, modelTF;
     @FXML
-    private ComboBox<LlmApi> apiCB;
+    private ComboBox<PromptableApi> apiCB;
     @FXML
     private Label minTempLabel, maxTempLabel;
     @FXML
@@ -34,7 +34,7 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-        
+        enableHelp();
         initializeApiCB();
         UIUtil.initBoundedSliders(minTempSlider, maxTempSlider, minTempLabel, maxTempLabel);
     }
@@ -42,7 +42,7 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
     
     
     private void initializeApiCB() {
-        apiCB.getItems().addAll(LlmApi.values());
+        apiCB.getItems().addAll(PromptableApi.values());
     }
     
     @Override

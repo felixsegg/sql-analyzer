@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 
 public class HomeController extends TitledInitializableWindow {
     @FXML
-    private Button sampleQueryBtn, llmOverviewBtn, promptTypeOverviewBtn, promptOverviewBtn, generatedQueriesBtn, generateQueriesBtn, evaluateBtn, configBtn;
+    private Button sampleQueryBtn, llmOverviewBtn, promptTypeOverviewBtn, promptOverviewBtn, generatedQueriesBtn, generateQueriesBtn, evaluateBtn, configBtn, helpControl;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -23,6 +23,8 @@ public class HomeController extends TitledInitializableWindow {
         generateQueriesBtn.setOnAction(e -> generateQueriesBtnClick());
         evaluateBtn.setOnAction(e -> evaluateBtnClick());
         configBtn.setOnAction(e -> configBtnClick());
+        
+        enableHelp();
     }
     
     @Override

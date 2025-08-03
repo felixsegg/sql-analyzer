@@ -10,6 +10,7 @@
     </padding>
     <HBox>
         <Label fx:id="headerLabel" />
+        <Label fx:id="helpControl" alignment="CENTER" minWidth="15.0" style="-fx-background-color: lightblue;" text="?" />
         <Region minWidth="10.0" HBox.hgrow="ALWAYS" />
         <Button fx:id="settingsBtn" text="⚙" />
     </HBox>

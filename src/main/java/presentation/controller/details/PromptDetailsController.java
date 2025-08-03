@@ -30,6 +30,7 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+        enableHelp();
         
         initializeSampleQueryCB();
         initializePromptTypeCB();

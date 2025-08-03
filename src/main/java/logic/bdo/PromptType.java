@@ -52,7 +52,4 @@ public class PromptType extends BusinessDomainObject {
     public void setDescription(String description) {
         this.description.set(description);
     }
-    
-    
-    
 }
