@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import presentation.uielements.node.DualProgressBar;
+import presentation.util.UIUtil;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,7 +49,11 @@ public abstract class WorkerWindow extends TitledInitializableWindow {
         showSettingsPopup();
     }
     
-    protected void startBtnClick() {
+    private void startBtnClick() {
+        if (!startValid()) {
+            UIUtil.signalBorder(settingsBtn);
+            return;
+        }
         content.setDisable(false);
         Thread worker = createWorkerThread();
         workerProperty.set(worker);
@@ -84,6 +89,8 @@ public abstract class WorkerWindow extends TitledInitializableWindow {
         });
         content.getChildren().clear();
     }
+    
+    protected abstract boolean startValid();
     
     protected abstract void saveBtnClick();
     

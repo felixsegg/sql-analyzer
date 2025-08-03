@@ -69,8 +69,10 @@ public class GenerationThread extends WorkerThread {
             // TODO: Fix timeout bug.
             
             signalDone.run();
-        } catch (InterruptedException | TimeoutException e) {
-            log.error("Exception occurred while awaiting thread pool termination.", e);
+        } catch (TimeoutException e) {
+            log.error("Timeout while awaiting thread pool termination.", e);
+        } catch (InterruptedException e) {
+            log.info("Interrupted while awaiting thread pool termination, probably canceled manually by user.");
         }
     }
     

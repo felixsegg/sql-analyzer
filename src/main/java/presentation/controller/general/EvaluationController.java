@@ -110,6 +110,14 @@ public class EvaluationController extends WorkerWindow {
         stage.showAndWait();
     }
     
+    @Override
+    protected boolean startValid() {
+        return comparator != null
+                && !generatedQueriesSelection.isEmpty()
+                && threadPoolSize > 0
+                && maxReps > 0;
+    }
+    
     private class SettingsController extends TitledInitializableWindow {
         @FXML
         private ComboBox<ComparatorType> comparatorCB;

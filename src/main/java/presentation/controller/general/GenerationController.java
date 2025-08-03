@@ -105,6 +105,14 @@ public class GenerationController extends WorkerWindow {
         stage.showAndWait();
     }
     
+    @Override
+    protected boolean startValid() {
+        return poolSize > 0
+                && reps > 0
+                && !llmSelection.isEmpty()
+                && !promptSelection.isEmpty();
+    }
+    
     private class SettingsController extends TitledInitializableWindow {
         @FXML
         private TextField poolSizeTF, repsTF;
