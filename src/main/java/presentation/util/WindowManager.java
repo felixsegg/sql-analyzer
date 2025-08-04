@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
@@ -80,11 +81,11 @@ public class WindowManager {
         
         Stage stage;
         Stage foundStage = getStageOfType(windowType);
+        TitledInitializableWindow controller = controllerFactory.createController(windowType);
         
         if (foundStage == null) {
             stage = new Stage();
             
-            TitledInitializableWindow controller = controllerFactory.createController(windowType);
             loadFxmlInto(stage, windowType.getFxmlName(), controller);
             controller.setWindowType(windowType);
             stage.setOnCloseRequest(e -> {
@@ -106,6 +107,7 @@ public class WindowManager {
         } else stage = foundStage;
         
         stage.show();
+        setStageMinWidthHeight(stage, controller);
     }
     
     /**
@@ -142,6 +144,7 @@ public class WindowManager {
         
         stage.setOnCloseRequest(e -> stageTypeMap.remove(stage));
         stage.show();
+        setStageMinWidthHeight(stage, controller);
     }
     
     public static void showHelpWindowFor(TitledInitializableWindow callingController) {
@@ -180,7 +183,7 @@ public class WindowManager {
             ChangeListener<Worker.State> listener = (obs, oldState, newState) -> {
                 if (newState == Worker.State.SUCCEEDED)
                     stack.getChildren().setAll(webView);
-                else if (newState == Worker.State.FAILED || newState == Worker.State.CANCELLED){
+                else if (newState == Worker.State.FAILED || newState == Worker.State.CANCELLED) {
                     Label failedLabel = new Label("Loading help failed.");
                     stack.getChildren().setAll(failedLabel);
                     log.warn("Loading of html failed. Worker state of WebView: {}.", newState.name());
@@ -200,7 +203,6 @@ public class WindowManager {
     
     /**
      * Opens the specified popup window, therefore rendering the owner inactive for the mean time.
-     *
      */
     public static void openPopup(WindowType windowType, TitledInitializableWindow controller, Stage owner) {
         if (windowType.getWindowTypeType() == WindowType.WindowTypeType.POPUP)
@@ -219,5 +221,10 @@ public class WindowManager {
         stage.showAndWait();
     }
     
-
+    private static void setStageMinWidthHeight(Stage stage, TitledInitializableWindow controller) {
+        double widthDelta = stage.getWidth() - stage.getScene().getWidth();
+        double heightDelta = stage.getHeight() - stage.getScene().getHeight();
+        stage.setMinWidth(controller.getRoot().minWidth(Region.USE_PREF_SIZE) + widthDelta);
+        stage.setMinHeight(controller.getRoot().minHeight(Region.USE_PREF_SIZE) + heightDelta);
+    }
 }

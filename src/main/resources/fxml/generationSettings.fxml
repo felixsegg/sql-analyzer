@@ -11,7 +11,7 @@
     </padding>
     <Label fx:id="headerLabel">
         <font>
-            <Font size="16.0" />
+            <Font size="18.0" />
         </font>
     </Label>
     <Separator />

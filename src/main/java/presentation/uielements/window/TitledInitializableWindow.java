@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.slf4j.Logger;
@@ -16,7 +17,7 @@ import presentation.util.WindowType;
 public abstract class TitledInitializableWindow implements Initializable {
     private static final Logger log = LoggerFactory.getLogger(TitledInitializableWindow.class);
     @FXML
-    protected Parent root;
+    protected Region root;
     @FXML
     private Control helpControl;
     
@@ -54,5 +55,9 @@ public abstract class TitledInitializableWindow implements Initializable {
     
     public WindowType getWindowType() {
         return windowType;
+    }
+    
+    public Region getRoot() {
+        return root;
     }
 }

@@ -40,6 +40,16 @@
                         </font>
                     </Label>
                 </VBox>
+            <VBox layoutX="170.0" layoutY="10.0">
+               <children>
+                  <CheckBox fx:id="dummiesCheckBox" minHeight="25.6" mnemonicParsing="false" text="Dummies" />
+                  <Label text="Show dummies">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
             </HBox>
             <VBox>
                 <TextField fx:id="modelTF" maxWidth="Infinity" />
@@ -81,6 +91,7 @@
                     </Label>
                 </VBox>
             </HBox>
+         <Region VBox.vgrow="ALWAYS" />
         </VBox>
     </center>
     <bottom>
