@@ -2,15 +2,18 @@ package logic.util.thread;
 
 import logic.bdo.GeneratedQuery;
 import logic.util.eval.StatementComparator;
+import logic.util.eval.impl.LLMComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 public class EvaluationThread extends WorkerThread {
     private static final Logger log = LoggerFactory.getLogger(EvaluationThread.class);
@@ -18,6 +21,7 @@ public class EvaluationThread extends WorkerThread {
     private static final AtomicInteger counter = new AtomicInteger(1);
     
     private final Runnable startedProgress, finishedProgress;
+    private final Consumer<Instant> reportRetryIn;
     
     private final Set<GeneratedQuery> gqs;
     private final StatementComparator comparator;
@@ -28,15 +32,17 @@ public class EvaluationThread extends WorkerThread {
                             int repCountIfFailure,
                             Set<GeneratedQuery> gqs,
                             StatementComparator comparator,
+                            Runnable signalDone,
                             Runnable startedProgress,
                             Runnable finishedProgress,
-                            Runnable signalDone) {
+                            Consumer<Instant> reportRetryIn) {
         super("Evaluation-Worker-" + counter.getAndIncrement(), poolSize, signalDone);
         this.repCountIfFailure = repCountIfFailure;
         this.comparator = comparator;
         this.gqs = gqs;
         this.startedProgress = startedProgress;
         this.finishedProgress = finishedProgress;
+        this.reportRetryIn = reportRetryIn;
     }
     
     private void subworkerJob(StatementComparator comparator, GeneratedQuery gq) {
@@ -60,7 +66,9 @@ public class EvaluationThread extends WorkerThread {
     @Override
     public void run() {
         ExecutorService subworkerThreadPool = Executors.newFixedThreadPool(poolSize);
-        
+        if (comparator instanceof LLMComparator llmComparator) {
+            llmComparator.setRateLimitReporter(reportRetryIn);
+        }
         try {
             scores = Collections.synchronizedMap(new HashMap<>());
             

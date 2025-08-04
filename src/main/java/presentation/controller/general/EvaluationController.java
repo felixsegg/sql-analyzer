@@ -2,7 +2,9 @@ package presentation.controller.general;
 
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -33,6 +35,7 @@ import presentation.util.WindowManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -79,12 +82,15 @@ public class EvaluationController extends WorkerWindow {
     protected Thread createWorkerThread() {
         AtomicInteger started = new AtomicInteger(0);
         AtomicInteger finished = new AtomicInteger(0);
-        int total = generatedQueriesSelection.size();
+        Object rateLimitTargetLock = new Object();
         
         DoubleProperty startedProperty = new SimpleDoubleProperty(0.0);
         DoubleProperty finishedProperty = new SimpleDoubleProperty(0.0);
+        ObjectProperty<Instant> rateLimitTargetProperty = new SimpleObjectProperty<>();
         
-        addDualProgressBar("Progress", startedProperty, finishedProperty);
+        addDualProgressBar("Progress", startedProperty, finishedProperty, rateLimitTargetProperty);
+        
+        int total = generatedQueriesSelection.size();
         
         return new EvaluationThread(
                 threadPoolSize,
@@ -92,8 +98,14 @@ public class EvaluationController extends WorkerWindow {
                 generatedQueriesSelection,
                 comparator,
                 this::signalDone,
-                () -> Platform.runLater(() -> startedProperty.set((double) started.getAndIncrement() / total)),
-                () -> Platform.runLater(() -> finishedProperty.set((double) finished.getAndIncrement() / total))
+                () -> Platform.runLater(() -> startedProperty.set((double) started.incrementAndGet() / total)),
+                () -> Platform.runLater(() -> finishedProperty.set((double) finished.incrementAndGet() / total)),
+                rlt -> Platform.runLater(() -> {
+                    synchronized (rateLimitTargetLock) {
+                        if (rateLimitTargetProperty.get() == null || rateLimitTargetProperty.get().isBefore(rlt))
+                            rateLimitTargetProperty.set(rlt);
+                    }
+                })
         );
         
     }

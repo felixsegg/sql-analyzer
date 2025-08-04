@@ -9,6 +9,7 @@ import logic.promptable.util.PromptAuthorizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class GenerationThread extends WorkerThread {
@@ -27,6 +29,7 @@ public class GenerationThread extends WorkerThread {
     private final Collection<LLM> llms;
     private final Collection<Prompt> prompts;
     private final Consumer<LLM> startedProgress, finishedProgress;
+    private final BiConsumer<LLM, Instant> rateLimitReporter;
     
     private final PromptAuthorizer authorizer = PromptAuthorizer.getInstance();
     
@@ -34,7 +37,7 @@ public class GenerationThread extends WorkerThread {
     private static final AtomicInteger counter = new AtomicInteger(1);
     private Set<GeneratedQuery> gqs;
     
-    public GenerationThread(int poolSize, int repetitionCount, Collection<LLM> llms, Collection<Prompt> prompts, Consumer<LLM> startedProgress, Consumer<LLM> finishedProgress, Runnable signalDone) {
+    public GenerationThread(int poolSize, int repetitionCount, Collection<LLM> llms, Collection<Prompt> prompts, Runnable signalDone, Consumer<LLM> startedProgress, Consumer<LLM> finishedProgress, BiConsumer<LLM, Instant> rateLimitReporter) {
         super("Generation-Worker-" + counter.getAndIncrement(), poolSize, signalDone);
         
         this.repetitionCount = repetitionCount;
@@ -42,6 +45,7 @@ public class GenerationThread extends WorkerThread {
         this.prompts = prompts;
         this.startedProgress = startedProgress;
         this.finishedProgress = finishedProgress;
+        this.rateLimitReporter = rateLimitReporter;
     }
     
     @Override
@@ -101,6 +105,7 @@ public class GenerationThread extends WorkerThread {
                     gqs.add(new GeneratedQuery(sql, llm, prompt));
                     break;
                 } catch (RateLimitException e) {
+                rateLimitReporter.accept(llm, e.getRetryInstant());
                     authorizer.registerInstant(llm, e.getRetryInstant());
                 }
         } catch (LLMException e) {

@@ -2,7 +2,9 @@ package presentation.controller.general;
 
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -26,8 +28,10 @@ import presentation.util.WindowManager;
 import presentation.util.WindowType;
 
 import java.net.URL;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 public class GenerationController extends WorkerWindow {
     private static final Logger log = LoggerFactory.getLogger(GenerationController.class);
@@ -66,20 +70,29 @@ public class GenerationController extends WorkerWindow {
     protected Thread createWorkerThread() {
         Map<LLM, Runnable> startedProgressMap = new HashMap<>();
         Map<LLM, Runnable> finishedProgressMap = new HashMap<>();
+        Map<LLM, Consumer<Instant>> rateLimitInstantMap = new HashMap<>();
         
         for (LLM llm : llmSelection) {
             // Create a Progress Listener for each LLM
             AtomicInteger started = new AtomicInteger(0);
             AtomicInteger finished = new AtomicInteger(0);
-            double total = promptSelection.size()*reps;
+            Object rateLimitLock = new Object();
             
             DoubleProperty startedProperty = new SimpleDoubleProperty(0.0);
             DoubleProperty finishedProperty = new SimpleDoubleProperty(0.0);
+            ObjectProperty<Instant> rateLimitInstantProperty = new SimpleObjectProperty<>();
             
-            addDualProgressBar(llm.getDisplayedName(), startedProperty, finishedProperty);
+            addDualProgressBar(llm.getDisplayedName(), startedProperty, finishedProperty, rateLimitInstantProperty);
             
+            double total = promptSelection.size()*reps;
             startedProgressMap.put(llm, () -> startedProperty.set(started.incrementAndGet() / total));
             finishedProgressMap.put(llm, () -> finishedProperty.set(finished.incrementAndGet() / total));
+            rateLimitInstantMap.put(llm, i -> {
+                synchronized (rateLimitLock) {
+                    if (rateLimitInstantProperty.get() == null || rateLimitInstantProperty.get().isBefore(i))
+                        rateLimitInstantProperty.set(i);
+                }
+            });
         }
         
         return new GenerationThread(
@@ -87,9 +100,10 @@ public class GenerationController extends WorkerWindow {
                 reps,
                 llmSelection,
                 promptSelection,
+                this::signalDone,
                 llm -> Platform.runLater(startedProgressMap.get(llm)),
                 llm -> Platform.runLater(finishedProgressMap.get(llm)),
-                this::signalDone
+                (llm, i) -> Platform.runLater(() -> rateLimitInstantMap.get(llm).accept(i))
         );
     }
     

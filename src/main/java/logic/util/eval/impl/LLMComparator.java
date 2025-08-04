@@ -9,11 +9,15 @@ import logic.util.eval.StatementComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
+import java.util.function.Consumer;
+
 public class LLMComparator implements StatementComparator {
     private static final Logger log = LoggerFactory.getLogger(LLMComparator.class);
     
     private final LLM llm;
     private final double temperature;
+    private Consumer<Instant> rateLimitReporter;
     
     @SuppressWarnings("FieldCanBeLocal")
     private final String PROMPT_TEXT = """
@@ -59,6 +63,7 @@ public class LLMComparator implements StatementComparator {
                 authorizer.waitUntilAuthorized(llm);
                 return llm.getPromptable().prompt(prompt, llm.getModel(), temperature);
             } catch (RateLimitException e) {
+                rateLimitReporter.accept(e.getRetryInstant());
                 authorizer.registerInstant(llm, e.getRetryInstant());
             }
         } catch (LLMException e) {
@@ -77,5 +82,9 @@ public class LLMComparator implements StatementComparator {
     
     public double getTemperature() {
         return temperature;
+    }
+    
+    public void setRateLimitReporter(Consumer<Instant> rateLimitReporter) {
+        this.rateLimitReporter = rateLimitReporter;
     }
 }
