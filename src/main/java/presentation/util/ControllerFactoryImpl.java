@@ -3,7 +3,6 @@ package presentation.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import presentation.controller.details.*;
-import presentation.controller.general.ConfigController;
 import presentation.controller.general.EvaluationController;
 import presentation.controller.general.GenerationController;
 import presentation.controller.general.HomeController;
@@ -27,7 +26,6 @@ public class ControllerFactoryImpl implements ControllerFactory {
             case HOME -> new HomeController();
             case EVALUATION -> new EvaluationController();
             case GENERATION -> new GenerationController();
-            case CONFIG -> new ConfigController();
             
             case SAMPLE_QUERY_OVERVIEW -> new SampleQueryOverviewController();
             case LLM_OVERVIEW -> new LLMOverviewController();

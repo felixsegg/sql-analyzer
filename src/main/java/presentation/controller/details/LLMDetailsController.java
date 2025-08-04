@@ -22,13 +22,15 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
     @FXML
     private TextField nameTF, modelTF;
     @FXML
+    private PasswordField apiKeyTF;
+    @FXML
     private ComboBox<PromptableApi> apiCB;
     @FXML
     private Label minTempLabel, maxTempLabel;
     @FXML
     private Slider minTempSlider, maxTempSlider;
     @FXML
-            private CheckBox dummiesCheckBox;
+    private CheckBox dummiesCheckBox;
     
     BDOService<LLM> service = LLMService.getInstance();
     
@@ -76,6 +78,7 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
         nameTF.setText(getObject().getName());
         apiCB.setValue(getObject().getLlmApi());
         modelTF.setText(getObject().getModel());
+        apiKeyTF.setText(getObject().getApiKey());
         minTempSlider.setValue(getObject().getMinTemperature());
         maxTempSlider.setValue(getObject().getMaxTemperature());
     }
@@ -84,8 +87,9 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
     protected java.util.List<String> saveChecks() {
         java.util.List<String> messages = new ArrayList<>();
         if (nameTF.getText().isBlank()) messages.add("Name must not be empty!");
-        if (apiCB.getSelectionModel().getSelectedItem() == null) messages.add("API selection must not be empty!");
-        if (modelTF.getText().isBlank()) messages.add("Model must not be empty!");
+        if (apiCB.getValue() == null) messages.add("API selection must not be empty!");
+        if (apiCB.getValue() != null && !apiCB.getValue().isDummy() && modelTF.getText().isBlank()) messages.add("Model must not be empty!");
+        if (apiCB.getValue() != null && !apiCB.getValue().isDummy() && apiKeyTF.getText().isBlank()) messages.add("API key must not be empty!");
         if (minTempSlider.getValue() < 0 || minTempSlider.getValue() > 1) messages.add("Min temperature must not be below zero or above one!");
         if (maxTempSlider.getValue() < 0 || maxTempSlider.getValue() > 1) messages.add("Max temperature must not be below zero or above one!");
         if (minTempSlider.getValue() > maxTempSlider.getValue()) messages.add("Min temperature may not be higher than max temperature!");
@@ -98,6 +102,7 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
         getObject().setName(nameTF.getText());
         getObject().setLlmApi(apiCB.getValue());
         getObject().setModel(modelTF.getText());
+        getObject().setApiKey(apiKeyTF.getText());
         getObject().setMinTemperature(minTempSlider.getValue());
         getObject().setMaxTemperature(maxTempSlider.getValue());
     }

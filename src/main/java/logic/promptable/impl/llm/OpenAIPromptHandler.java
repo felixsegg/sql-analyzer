@@ -8,7 +8,6 @@ import java.util.List;
 import com.google.gson.JsonObject;
 import logic.promptable.exception.LLMException;
 import logic.promptable.exception.RateLimitException;
-import logic.service.ConfigService;
 
 public class OpenAIPromptHandler extends AbstractLLMHandler {
     
@@ -17,7 +16,7 @@ public class OpenAIPromptHandler extends AbstractLLMHandler {
     }
     
     @Override
-    public String prompt(String input, String model, double temperature) throws LLMException {
+    public String prompt(String input, String model, String apiKey, double temperature) throws LLMException {
         try {
             String endpoint = "https://api.openai.com/v1/chat/completions";
             
@@ -32,7 +31,7 @@ public class OpenAIPromptHandler extends AbstractLLMHandler {
             
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(endpoint))
-                    .header("Authorization", "Bearer " + getApiKey())
+                    .header("Authorization", "Bearer " + apiKey)
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(requestBody)))
                     .build();
@@ -77,9 +76,5 @@ public class OpenAIPromptHandler extends AbstractLLMHandler {
             }
         }
         return -1;
-    }
-    
-    private String getApiKey() {
-        return ConfigService.getInstance().get("openai.key");
     }
 }

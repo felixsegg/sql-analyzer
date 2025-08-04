@@ -5,7 +5,7 @@ import logic.promptable.Promptable;
 
 public class NumericalDummy implements Promptable {
     @Override
-    public String prompt(String input, String model, double temperature) throws LLMException {
+    public String prompt(String input, String model, String apiKey, double temperature) throws LLMException {
         try {
             long randomMillisToSleep = 1000 + (long) (Math.random() * 4000); // between 1 and 5 secs
             Thread.sleep(randomMillisToSleep);

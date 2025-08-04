@@ -19,8 +19,6 @@ import logic.service.LLMService;
 import logic.service.PromptService;
 import logic.util.thread.GenerationThread;
 import logic.service.GeneratedQueryService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import presentation.uielements.window.TitledInitializableWindow;
 import presentation.uielements.window.WorkerWindow;
 import presentation.util.UIUtil;
@@ -34,9 +32,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 public class GenerationController extends WorkerWindow {
-    private static final Logger log = LoggerFactory.getLogger(GenerationController.class);
-    
     // Settings
+    private final SettingsController settingsController = new SettingsController();
+    
     private int poolSize = 10;
     private int reps = 5;
     private final Set<LLM> llmSelection = new HashSet<>();
@@ -49,6 +47,7 @@ public class GenerationController extends WorkerWindow {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+        settingsController.loadPrevious();
         enableHelp();
     }
     
@@ -84,7 +83,7 @@ public class GenerationController extends WorkerWindow {
             
             addDualProgressBar(llm.getDisplayedName(), startedProperty, finishedProperty, rateLimitInstantProperty);
             
-            double total = promptSelection.size()*reps;
+            double total = promptSelection.size() * reps;
             startedProgressMap.put(llm, () -> startedProperty.set(started.incrementAndGet() / total));
             finishedProgressMap.put(llm, () -> finishedProperty.set(finished.incrementAndGet() / total));
             rateLimitInstantMap.put(llm, i -> {
@@ -110,9 +109,8 @@ public class GenerationController extends WorkerWindow {
     @Override
     protected void showSettingsPopup() {
         Stage stage = new Stage();
-        TitledInitializableWindow controller = new SettingsController();
         
-        WindowManager.loadFxmlInto(stage, "generationSettings", controller);
+        WindowManager.loadFxmlInto(stage, "generationSettings", settingsController);
         
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(getStage());
@@ -159,8 +157,11 @@ public class GenerationController extends WorkerWindow {
             
             okBtn.setOnAction(e -> okBtnClick());
             cancelBtn.setOnAction(e -> cancelBtnClick());
-            
-            
+        }
+        
+        private void loadPrevious() {
+            poolSize = config.getInt("gen.threads", 10);
+            reps = config.getInt("gen.reps", 5);
         }
         
         private void initializeTextFields() {

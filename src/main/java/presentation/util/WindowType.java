@@ -7,7 +7,6 @@ import java.net.URL;
 
 public enum WindowType {
     HOME(WindowTypeType.DEFAULT, "home", "general"),
-    CONFIG(WindowTypeType.DEFAULT, "config", "config"),
     EVALUATION(WindowTypeType.DEFAULT, "workerWindow", "evaluation"),
     GENERATION(WindowTypeType.DEFAULT, "workerWindow", "generation"),
     

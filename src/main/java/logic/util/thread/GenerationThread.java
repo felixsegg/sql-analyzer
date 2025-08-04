@@ -89,16 +89,14 @@ public class GenerationThread extends WorkerThread {
         if (totalReps > 1) temperature = minTemp + (maxTemp - minTemp) * ((double) iteration / (totalReps - 1));
         else temperature = (minTemp + maxTemp) / 2; // Using avg to prevent division by 0
         
-        String model = llm.getModel();
-        
         startedProgress.accept(llm);
         
         try {
             while(true) try {
                     authorizer.waitUntilAuthorized(llm);
-                    String fullPrompt = getFullPrompt(prompt);
-                    String sql = llm.getPromptable().prompt(fullPrompt, model, temperature);
+                    String sql = llm.getPromptable().prompt(getFullPrompt(prompt), llm.getModel(), llm.getApiKey(), temperature);
                     
+                    // Remove possible Markdown characters
                     if (sql.startsWith("```sql")) sql = sql.substring(6);
                     if (sql.endsWith("```")) sql = sql.substring(0, sql.length() - 3);
                     

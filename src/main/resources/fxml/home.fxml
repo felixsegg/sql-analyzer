@@ -21,10 +21,5 @@
         <Button fx:id="evaluateBtn" mnemonicParsing="false" text="Evaluate" />
     </HBox>
     <Separator prefWidth="200.0" />
-   <HBox alignment="CENTER" spacing="10.0">
-      <children>
-          <Button fx:id="configBtn" mnemonicParsing="false" text="Config" />
-         <Button fx:id="helpControl" mnemonicParsing="false" text="Help" />
-      </children>
-   </HBox>
+   <Button fx:id="helpControl" mnemonicParsing="false" text="Help" />
 </VBox>

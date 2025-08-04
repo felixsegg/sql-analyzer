@@ -51,14 +51,28 @@
                </children>
             </VBox>
             </HBox>
-            <VBox>
-                <TextField fx:id="modelTF" maxWidth="Infinity" />
-                <Label text="Model">
-                    <font>
-                        <Font size="10.0" />
-                    </font>
-                </Label>
-            </VBox>
+         <HBox spacing="10.0">
+            <children>
+                  <VBox HBox.hgrow="ALWAYS">
+                      <TextField fx:id="modelTF" maxWidth="Infinity" />
+                      <Label text="Model">
+                          <font>
+                              <Font size="10.0" />
+                          </font>
+                      </Label>
+                  </VBox>
+               <VBox layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+                  <children>
+                     <PasswordField fx:id="apiKeyTF" />
+                     <Label text="Api key">
+                        <font>
+                           <Font size="10.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
             <HBox spacing="10.0">
                 <VBox HBox.hgrow="ALWAYS">
                     <HBox>

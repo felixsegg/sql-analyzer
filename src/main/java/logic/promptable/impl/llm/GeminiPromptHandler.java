@@ -16,9 +16,9 @@ public class GeminiPromptHandler extends AbstractLLMHandler {
     }
     
     @Override
-    public String prompt(String input, String model, double temperature) throws LLMException {
+    public String prompt(String input, String model, String apiKey, double temperature) throws LLMException {
         try {
-            String endpoint = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + getApiKey();
+            String endpoint = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + apiKey;
             
             JsonObject part = new JsonObject();
             part.addProperty("text", input);
@@ -95,9 +95,5 @@ public class GeminiPromptHandler extends AbstractLLMHandler {
             }
         }
         return -1;
-    }
-    
-    private String getApiKey() {
-        return ConfigService.getInstance().get("gemini.key");
     }
 }

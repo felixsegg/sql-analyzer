@@ -26,6 +26,7 @@ public class LLMMapper extends AbstractBusinessDomainMapper<LLM, LLMDTO> {
                     dto.getName(),
                     PromptableApi.valueOf(dto.getApi()),
                     dto.getModel(),
+                    dto.getApiKey(),
                     dto.getMinTemperature(),
                     dto.getMaxTemperature(),
                     dto.getVersion()
@@ -45,6 +46,7 @@ public class LLMMapper extends AbstractBusinessDomainMapper<LLM, LLMDTO> {
                     bdo.getName(),
                     bdo.getLlmApi().name(),
                     bdo.getModel(),
+                    bdo.getApiKey(),
                     bdo.getMinTemperature(),
                     bdo.getMaxTemperature()
             ));

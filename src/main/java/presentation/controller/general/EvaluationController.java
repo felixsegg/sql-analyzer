@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -33,6 +34,7 @@ import presentation.uielements.window.WorkerWindow;
 import presentation.util.UIUtil;
 import presentation.util.WindowManager;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
@@ -48,15 +50,21 @@ public class EvaluationController extends WorkerWindow {
     private static final ConfigService config = ConfigService.getInstance();
     
     // Settings
-    private StatementComparator comparator = null;
+    private final SettingsController settingsController = new SettingsController();
+    
+    private ComparatorType comparatorType = null; // TODO enum instead
+    private LLM comparatorLlm = null;
+    private double comparatorTemp = 0;
     private final Set<GeneratedQuery> generatedQueriesSelection = new HashSet<>();
-    int threadPoolSize = 1;
-    int maxReps = 3;
+    private int threadPoolSize = 1;
+    private int maxReps = 3;
+    private String csvOutputPath = null;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         enableHelp();
+        settingsController.loadPrevious();
     }
     
     @Override
@@ -66,9 +74,12 @@ public class EvaluationController extends WorkerWindow {
     
     @Override
     protected void saveBtnClick() {
+        if (csvOutputPath == null) {
+            UIUtil.showToast(getStage(), "Set output path in settings first!", 2000);
+        }
         Map<GeneratedQuery, Double> evalResult = ((EvaluationThread) workerProperty.get()).getResult();
         try {
-            CsvExporter.exportScoresCsv(evalResult, config.get("csv.output.path"));
+            CsvExporter.exportScoresCsv(evalResult, csvOutputPath);
         } catch (IOException e) {
             log.error("Saving to csv failed.", e);
             UIUtil.showToast(getStage(), "Saving to csv failed.", 2000);
@@ -89,6 +100,11 @@ public class EvaluationController extends WorkerWindow {
         ObjectProperty<Instant> rateLimitTargetProperty = new SimpleObjectProperty<>();
         
         addDualProgressBar("Progress", startedProperty, finishedProperty, rateLimitTargetProperty);
+        
+        StatementComparator comparator = switch (comparatorType) {
+            case SYNTACTIC -> SyntacticComparator.getInstance();
+            case LLM -> new LLMComparator(comparatorLlm, comparatorTemp);
+        };
         
         int total = generatedQueriesSelection.size();
         
@@ -113,9 +129,8 @@ public class EvaluationController extends WorkerWindow {
     @Override
     protected void showSettingsPopup() {
         Stage stage = new Stage();
-        TitledInitializableWindow controller = new SettingsController();
         
-        WindowManager.loadFxmlInto(stage, "evaluationSettings", controller);
+        WindowManager.loadFxmlInto(stage, "evaluationSettings", settingsController);
         
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(getStage());
@@ -124,7 +139,8 @@ public class EvaluationController extends WorkerWindow {
     
     @Override
     protected boolean startValid() {
-        return comparator != null
+        return (comparatorType == ComparatorType.LLM && comparatorLlm != null && comparatorTemp >=0
+                || comparatorType != null && comparatorType != ComparatorType.LLM)
                 && !generatedQueriesSelection.isEmpty()
                 && threadPoolSize > 0
                 && maxReps > 0;
@@ -140,13 +156,13 @@ public class EvaluationController extends WorkerWindow {
         @FXML
         private Slider tempSlider;
         @FXML
-        private TextField poolSizeTF, maxRepsTF;
+        private TextField poolSizeTF, maxRepsTF, csvOutputPathField;
         @FXML
         private CheckBox selectAllCB;
         @FXML
         private VBox gqSelectionVBox;
         @FXML
-        private Button cancelBtn, okBtn;
+        private Button outputDirBtn, cancelBtn, okBtn;
         @FXML
         private Label headerLabel, tempLabel;
         
@@ -170,8 +186,20 @@ public class EvaluationController extends WorkerWindow {
             
             initializeGQSelection();
             
+            outputDirBtn.setOnAction(e -> outputDirBtnClick());
             okBtn.setOnAction(e -> okBtnClick());
             cancelBtn.setOnAction(e -> cancelBtnClick());
+        }
+        
+        private void loadPrevious() {
+            try {
+                comparatorType = ComparatorType.valueOf(config.get("eval.comparator"));
+            } catch (IllegalArgumentException | NullPointerException e) {
+                comparatorType = null;
+            }
+            threadPoolSize = config.getInt("eval.threads", 1);
+            maxReps = config.getInt("eval.reps", 3);
+            csvOutputPath = config.get("eval.output.path");
         }
         
         private void initializeComparatorCB() {
@@ -180,10 +208,7 @@ public class EvaluationController extends WorkerWindow {
                     (obs, oldV, newV)
                             -> llmSettingsHBox.setDisable(newV == null || !newV.equals(ComparatorType.LLM))
             );
-            if (comparator instanceof SyntacticComparator)
-                comparatorCB.getSelectionModel().select(ComparatorType.SYNTACTIC);
-            else if (comparator instanceof LLMComparator)
-                comparatorCB.getSelectionModel().select(ComparatorType.LLM);
+            comparatorCB.getSelectionModel().select(comparatorType);
         }
         
         private void initializeLLMCB() {
@@ -199,17 +224,17 @@ public class EvaluationController extends WorkerWindow {
                     return null;
                 }
             });
-            if (comparator instanceof LLMComparator llmComparator) {
-                llmCB.getSelectionModel().select(llmComparator.getLlm());
-                tempSlider.setValue(llmComparator.getTemperature());
-            }
+            llmCB.getSelectionModel().select(comparatorLlm);
+            tempSlider.setValue(comparatorTemp);
+            
         }
         
         private void initializeTextFields() {
             UIUtil.initIntegerField(poolSizeTF);
             UIUtil.initIntegerField(maxRepsTF);
-            poolSizeTF.setText("" + threadPoolSize);
-            maxRepsTF.setText("" + maxReps);
+            poolSizeTF.setText(String.valueOf(threadPoolSize));
+            maxRepsTF.setText(String.valueOf(maxReps));
+            csvOutputPathField.setText(csvOutputPath);
         }
         
         private void initializeGQSelection() {
@@ -232,17 +257,23 @@ public class EvaluationController extends WorkerWindow {
             return true;
         }
         
+        private void outputDirBtnClick() {
+            DirectoryChooser chooser = new DirectoryChooser();
+            chooser.setTitle("Choose csv output directory");
+            File selectedDir = chooser.showDialog(getStage());
+            if (selectedDir != null) csvOutputPathField.setText(selectedDir.getAbsolutePath());
+        }
+        
         private void okBtnClick() {
             if (!checkInputs())
                 return;
             
-            if (comparatorCB.getValue().equals(ComparatorType.SYNTACTIC))
-                comparator = SyntacticComparator.getInstance();
-            else if (comparatorCB.getValue().equals(ComparatorType.LLM))
-                comparator = new LLMComparator(llmCB.getValue(), tempSlider.getValue());
-            
+            comparatorType = comparatorCB.getValue();
+            comparatorLlm = llmCB.getValue();
+            comparatorTemp = tempSlider.getValue();
             threadPoolSize = Integer.parseInt(poolSizeTF.getText());
             maxReps = Integer.parseInt(maxRepsTF.getText());
+            csvOutputPath = csvOutputPathField.getText();
             
             generatedQueriesSelection.clear();
             gqCBs.forEach(cb -> {
@@ -270,6 +301,10 @@ public class EvaluationController extends WorkerWindow {
                 return false;
             }
             if (maxRepsTF.getText() == null || maxRepsTF.getText().isBlank()) {
+                UIUtil.signalBorder(maxRepsTF);
+                return false;
+            }
+            if (csvOutputPathField.getText() == null || csvOutputPathField.getText().isBlank()) {
                 UIUtil.signalBorder(maxRepsTF);
                 return false;
             }

@@ -6,15 +6,17 @@ public class LLMDTO implements Persistable {
     private String name;
     private String api;
     private String model;
+    private String apiKey;
     private double minTemperature;
     private double maxTemperature;
     
-    public LLMDTO(int id, long version, String name, String api, String model, double minTemperature, double maxTemperature) {
+    public LLMDTO(int id, long version, String name, String api, String model, String apiKey, double minTemperature, double maxTemperature) {
         this.id = id;
         this.version = version;
         this.name = name;
         this.api = api;
         this.model = model;
+        this.apiKey = apiKey;
         this.minTemperature = minTemperature;
         this.maxTemperature = maxTemperature;
     }
@@ -59,6 +61,14 @@ public class LLMDTO implements Persistable {
     
     public void setModel(String model) {
         this.model = model;
+    }
+    
+    public String getApiKey() {
+        return apiKey;
+    }
+    
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
     
     public double getMinTemperature() {

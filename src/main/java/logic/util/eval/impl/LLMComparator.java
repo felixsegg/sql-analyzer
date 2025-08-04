@@ -61,7 +61,7 @@ public class LLMComparator implements StatementComparator {
         try {
             while (true) try {
                 authorizer.waitUntilAuthorized(llm);
-                return llm.getPromptable().prompt(prompt, llm.getModel(), temperature);
+                return llm.getPromptable().prompt(prompt, llm.getModel(), llm.getApiKey(), temperature);
             } catch (RateLimitException e) {
                 rateLimitReporter.accept(e.getRetryInstant());
                 authorizer.registerInstant(llm, e.getRetryInstant());

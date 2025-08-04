@@ -17,7 +17,7 @@ public class DeepSeekPromptHandler extends AbstractLLMHandler {
     }
     
     @Override
-    public String prompt(String input, String model, double temperature) throws LLMException {
+    public String prompt(String input, String model, String apiKey, double temperature) throws LLMException {
         try {
             String endpoint = "https://api.deepseek.com/chat/completions";
             
@@ -34,7 +34,7 @@ public class DeepSeekPromptHandler extends AbstractLLMHandler {
             requestBody.addProperty("stream", false);
             
             
-            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(endpoint)).header("Authorization", "Bearer " + getApiKey()).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(gson.toJson(requestBody))).build();
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(endpoint)).header("Authorization", "Bearer " + apiKey).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(gson.toJson(requestBody))).build();
             
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 429)
@@ -66,9 +66,5 @@ public class DeepSeekPromptHandler extends AbstractLLMHandler {
         catch (Exception e) {
             throw new LLMException("Exception while calling OpenAI", e);
         }
-    }
-    
-    private String getApiKey() {
-        return ConfigService.getInstance().get("deepseek.key");
     }
 }

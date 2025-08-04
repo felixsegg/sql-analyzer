@@ -9,6 +9,7 @@ public class LLM extends BusinessDomainObject {
     private final StringProperty name = new SimpleStringProperty();
     private final ObjectProperty<PromptableApi> llmApi = new SimpleObjectProperty<>();
     private final StringProperty model = new SimpleStringProperty();
+    private final StringProperty apiKey = new SimpleStringProperty();
     private final DoubleProperty minTemperature = new SimpleDoubleProperty();
     private final DoubleProperty maxTemperature = new SimpleDoubleProperty();
     
@@ -17,19 +18,20 @@ public class LLM extends BusinessDomainObject {
     private Promptable promptable; // lazy loaded, generated for PromptableApi
     
     public LLM() {
-        this("", null, "", 0, 1, null);
+        this("", null, "", "", 0, 1, null);
     }
     
-    public LLM(String name, PromptableApi promptableApi, String model, double minTemperature, double maxTemperature) {
-        this(name, promptableApi, model, minTemperature, maxTemperature, null);
+    public LLM(String name, PromptableApi promptableApi, String model, String apiKey, double minTemperature, double maxTemperature) {
+        this(name, promptableApi, model, apiKey, minTemperature, maxTemperature, null);
     }
     
-    public LLM(String name, PromptableApi promptableApi, String model, double minTemperature, double maxTemperature, Long version) {
+    public LLM(String name, PromptableApi promptableApi, String model, String apiKey, double minTemperature, double maxTemperature, Long version) {
         super(version);
         
         this.name.set(name);
         this.llmApi.set(promptableApi);
         this.model.set(model);
+        this.apiKey.set(apiKey);
         this.minTemperature.set(minTemperature);
         this.maxTemperature.set(maxTemperature);
         
@@ -106,5 +108,17 @@ public class LLM extends BusinessDomainObject {
     
     public StringProperty modelProperty() {
         return model;
+    }
+    
+    public void setApiKey(String model) {
+        this.apiKey.set(model);
+    }
+    
+    public String getApiKey() {
+        return apiKey.get();
+    }
+    
+    public StringProperty apiKeyProperty() {
+        return apiKey;
     }
 }

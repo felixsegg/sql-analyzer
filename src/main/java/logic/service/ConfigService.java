@@ -67,11 +67,13 @@ public class ConfigService {
     }
     
     private void setDefaults() {
-        props.setProperty("openai.key", "");
-        props.setProperty("deepseek.key", "");
-        props.setProperty("gemini.key", "");
-        props.setProperty("claude.key", "");
-        props.setProperty("csv.output.path", CONFIG_PATH.getParent().resolve("output").toAbsolutePath().toString());
+        props.setProperty("eval.comparator", "");
+        props.setProperty("eval.output.path", CONFIG_PATH.getParent().resolve("output").toAbsolutePath().toString());
+        props.setProperty("eval.threads", "1");
+        props.setProperty("eval.reps", "3");
+        
+        props.setProperty("gen.threads", "10");
+        props.setProperty("gen.reps", "5");
     }
     
     public void save() {

@@ -17,7 +17,7 @@ public class ClaudePromptHandler extends AbstractLLMHandler {
     }
     
     @Override
-    public String prompt(String input, String model, double temperature) throws LLMException {
+    public String prompt(String input, String model, String apiKey, double temperature) throws LLMException {
         try {
             String endpoint = "https://api.anthropic.com/v1/messages";
             
@@ -35,7 +35,7 @@ public class ClaudePromptHandler extends AbstractLLMHandler {
             
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(endpoint))
-                    .header("x-api-key", getApiKey())
+                    .header("x-api-key", apiKey)
                     .header("anthropic-version", "2023-06-01")
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(requestBody)))
@@ -92,9 +92,5 @@ public class ClaudePromptHandler extends AbstractLLMHandler {
             }
         }
         return -1;
-    }
-    
-    private String getApiKey() {
-        return ConfigService.getInstance().get("claude.key");
     }
 }

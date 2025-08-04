@@ -47,7 +47,7 @@
    </HBox>
    <HBox spacing="10.0" VBox.vgrow="NEVER">
       <VBox HBox.hgrow="ALWAYS">
-         <TextField fx:id="poolSizeTF" prefWidth="100.0" />
+         <TextField fx:id="poolSizeTF" prefWidth="100.0" VBox.vgrow="NEVER" />
          <Label text="Thread pool size">
             <font>
                <Font size="10.0" />
@@ -55,12 +55,19 @@
          </Label>
       </VBox>
       <VBox layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
-         <TextField fx:id="maxRepsTF" prefWidth="100.0" />
-         <Label text="Max reps in case of failure">
+         <TextField fx:id="maxRepsTF" prefWidth="100.0" VBox.vgrow="NEVER" />
+         <Label text="Failure max reps">
             <font>
                <Font size="10.0" />
             </font>
          </Label>
+      </VBox>
+      <VBox spacing="5">
+         <HBox spacing="5">
+            <TextField fx:id="csvOutputPathField" disable="true" editable="false" maxWidth="Infinity" HBox.hgrow="ALWAYS" />
+            <Button fx:id="outputDirBtn" text="..." />
+         </HBox>
+         <Label text="CSV Output Path" />
       </VBox>
    </HBox>
    <Separator layoutX="20.0" layoutY="56.0" />
