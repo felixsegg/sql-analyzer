@@ -1,10 +1,7 @@
 package presentation.controller.details;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import logic.bdo.LLM;
 import logic.promptable.util.PromptableApi;
 import logic.service.*;
@@ -15,6 +12,8 @@ import presentation.util.UIUtil;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LLMDetailsController extends DetailsWindow<LLM> {
@@ -28,6 +27,8 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
     private Label minTempLabel, maxTempLabel;
     @FXML
     private Slider minTempSlider, maxTempSlider;
+    @FXML
+            private CheckBox dummiesCheckBox;
     
     BDOService<LLM> service = LLMService.getInstance();
     
@@ -42,7 +43,22 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
     
     
     private void initializeApiCB() {
-        apiCB.getItems().addAll(PromptableApi.values());
+        List<PromptableApi> regulars = Arrays.stream(PromptableApi.values()).filter(p -> !p.isDummy()).toList();
+        List<PromptableApi> dummies = Arrays.stream(PromptableApi.values()).filter(PromptableApi::isDummy).toList();
+        
+        dummiesCheckBox.selectedProperty().addListener((obs, oldV, newV) -> {
+            if (newV)
+                apiCB.getItems().addAll(dummies);
+            else {
+                PromptableApi selection = apiCB.getValue();
+                apiCB.getItems().removeAll(dummies);
+                if (selection != null && selection.isDummy())
+                    apiCB.setValue(null);
+                UIUtil.resetComboBox(apiCB);
+            }
+        });
+        dummiesCheckBox.setSelected(false);
+        apiCB.getItems().setAll(regulars);
     }
     
     @Override

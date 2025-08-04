@@ -2,6 +2,8 @@ package presentation.util;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
@@ -100,4 +102,11 @@ public class UIUtil {
         });
     }
     
+    public static <T> void resetComboBox(ComboBox<T> comboBox) {
+        T selection = comboBox.getValue();
+        ObservableList<T> currentItems = comboBox.getItems();
+        comboBox.setItems(FXCollections.observableArrayList());
+        comboBox.getItems().setAll(currentItems);
+        comboBox.setValue(selection);
+    }
 }

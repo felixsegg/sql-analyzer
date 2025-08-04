@@ -160,13 +160,10 @@ public class EvaluationController extends WorkerWindow {
             
             okBtn.setOnAction(e -> okBtnClick());
             cancelBtn.setOnAction(e -> cancelBtnClick());
-            
-            
         }
         
         private void initializeComparatorCB() {
             comparatorCB.getItems().setAll(ComparatorType.values());
-            // TODO this is not nicely solved, consider introducing enum ComparatorType to fix it
             comparatorCB.getSelectionModel().selectedItemProperty().addListener(
                     (obs, oldV, newV)
                             -> llmSettingsHBox.setDisable(newV == null || !newV.equals(ComparatorType.LLM))
