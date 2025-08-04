@@ -79,12 +79,11 @@ public class WindowManager {
         if (windowType.getWindowTypeType() == WindowType.WindowTypeType.DETAILS)
             throw new IllegalArgumentException("For detail windows, use the other openWindow() method instead");
         
-        Stage stage;
         Stage foundStage = getStageOfType(windowType);
-        TitledInitializableWindow controller = controllerFactory.createController(windowType);
         
         if (foundStage == null) {
-            stage = new Stage();
+            Stage stage = new Stage();
+            TitledInitializableWindow controller = controllerFactory.createController(windowType);
             
             loadFxmlInto(stage, windowType.getFxmlName(), controller);
             controller.setWindowType(windowType);
@@ -104,10 +103,9 @@ public class WindowManager {
                 }
             });
             stageTypeMap.put(stage, windowType);
-        } else stage = foundStage;
-        
-        stage.show();
-        setStageMinWidthHeight(stage, controller);
+            stage.show();
+            setStageMinWidthHeight(stage, controller);
+        } else foundStage.show();
     }
     
     /**
