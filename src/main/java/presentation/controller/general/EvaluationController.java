@@ -47,24 +47,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class EvaluationController extends WorkerWindow {
     private static final Logger log = LoggerFactory.getLogger(EvaluationController.class);
     
-    private static final ConfigService config = ConfigService.getInstance();
-    
     // Settings
-    private final SettingsController settingsController = new SettingsController();
+    private final SettingsController settings = new SettingsController();
     
-    private ComparatorType comparatorType = null; // TODO enum instead
-    private LLM comparatorLlm = null;
-    private double comparatorTemp = 0;
-    private final Set<GeneratedQuery> generatedQueriesSelection = new HashSet<>();
-    private int threadPoolSize = 1;
-    private int maxReps = 3;
-    private String csvOutputPath = null;
+
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         enableHelp();
-        settingsController.loadPrevious();
     }
     
     @Override
@@ -74,18 +65,18 @@ public class EvaluationController extends WorkerWindow {
     
     @Override
     protected void saveBtnClick() {
-        if (csvOutputPath == null) {
+        if (settings.csvOutputPath == null) {
             UIUtil.showToast(getStage(), "Set output path in settings first!", 2000);
         }
         Map<GeneratedQuery, Double> evalResult = ((EvaluationThread) workerProperty.get()).getResult();
         try {
-            CsvExporter.exportScoresCsv(evalResult, csvOutputPath);
+            CsvExporter.exportScoresCsv(evalResult, settings.csvOutputPath);
         } catch (IOException e) {
             log.error("Saving to csv failed.", e);
             UIUtil.showToast(getStage(), "Saving to csv failed.", 2000);
             return;
         }
-        UIUtil.showToast(getStage(), "Exported result as csv file to dir " + config.get("csv.output.path"), 2000);
+        UIUtil.showToast(getStage(), "Exported result as csv file to dir " + settings.csvOutputPath, 2000);
         
     }
     
@@ -101,17 +92,17 @@ public class EvaluationController extends WorkerWindow {
         
         addDualProgressBar("Progress", startedProperty, finishedProperty, rateLimitTargetProperty);
         
-        StatementComparator comparator = switch (comparatorType) {
+        StatementComparator comparator = switch (settings.comparatorType) {
             case SYNTACTIC -> SyntacticComparator.getInstance();
-            case LLM -> new LLMComparator(comparatorLlm, comparatorTemp);
+            case LLM -> new LLMComparator(settings.comparatorLlm, settings.comparatorTemp);
         };
         
-        int total = generatedQueriesSelection.size();
+        int total = settings.generatedQueriesSelection.size();
         
         return new EvaluationThread(
-                threadPoolSize,
-                maxReps,
-                generatedQueriesSelection,
+                settings.threadPoolSize,
+                settings.maxReps,
+                settings.generatedQueriesSelection,
                 comparator,
                 this::signalDone,
                 () -> Platform.runLater(() -> startedProperty.set((double) started.incrementAndGet() / total)),
@@ -130,7 +121,7 @@ public class EvaluationController extends WorkerWindow {
     protected void showSettingsPopup() {
         Stage stage = new Stage();
         
-        WindowManager.loadFxmlInto(stage, "evaluationSettings", settingsController);
+        WindowManager.loadFxmlInto(stage, "evaluationSettings", settings);
         
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(getStage());
@@ -139,14 +130,14 @@ public class EvaluationController extends WorkerWindow {
     
     @Override
     protected boolean startValid() {
-        return (comparatorType == ComparatorType.LLM && comparatorLlm != null && comparatorTemp >=0
-                || comparatorType != null && comparatorType != ComparatorType.LLM)
-                && !generatedQueriesSelection.isEmpty()
-                && threadPoolSize > 0
-                && maxReps > 0;
+        return (settings.comparatorType == ComparatorType.LLM && settings.comparatorLlm != null && settings.comparatorTemp >=0
+                || settings.comparatorType != null && settings.comparatorType != ComparatorType.LLM)
+                && !settings.generatedQueriesSelection.isEmpty()
+                && settings.threadPoolSize > 0
+                && settings.maxReps > 0;
     }
     
-    private class SettingsController extends TitledInitializableWindow {
+    private static class SettingsController extends TitledInitializableWindow {
         @FXML
         private ComboBox<ComparatorType> comparatorCB;
         @FXML
@@ -168,6 +159,18 @@ public class EvaluationController extends WorkerWindow {
         
         private final Set<CheckBox> gqCBs = new HashSet<>();
         
+        private final ConfigService config = ConfigService.getInstance();
+        
+        // Settings
+        private ComparatorType comparatorType = null;
+        private LLM comparatorLlm = null;
+        private double comparatorTemp = 0;
+        private final Set<GeneratedQuery> generatedQueriesSelection = new HashSet<>();
+        private int threadPoolSize = 1;
+        private int maxReps = 3;
+        private String csvOutputPath = null;
+        
+        
         
         @Override
         public String getTitle() {
@@ -181,17 +184,17 @@ public class EvaluationController extends WorkerWindow {
             
             initializeComparatorCB();
             initializeLLMCB();
-            
             initializeTextFields();
-            
             initializeGQSelection();
+            
+            initializeValues();
             
             outputDirBtn.setOnAction(e -> outputDirBtnClick());
             okBtn.setOnAction(e -> okBtnClick());
             cancelBtn.setOnAction(e -> cancelBtnClick());
         }
         
-        private void loadPrevious() {
+        private void initializeValues() {
             try {
                 comparatorType = ComparatorType.valueOf(config.get("eval.comparator"));
             } catch (IllegalArgumentException | NullPointerException e) {

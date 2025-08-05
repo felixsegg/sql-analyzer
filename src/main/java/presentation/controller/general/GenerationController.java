@@ -33,21 +33,16 @@ import java.util.function.Consumer;
 
 public class GenerationController extends WorkerWindow {
     // Settings
-    private final SettingsController settingsController = new SettingsController();
-    
-    private int poolSize = 10;
-    private int reps = 5;
-    private final Set<LLM> llmSelection = new HashSet<>();
-    private final Set<Prompt> promptSelection = new HashSet<>();
+    private final SettingsController settings = new SettingsController();
+
     
     
     private final GeneratedQueryService gqService = GeneratedQueryService.getInstance();
-    private final ConfigService config = ConfigService.getInstance();
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-        settingsController.loadPrevious();
+        settings.initializeValues();
         enableHelp();
     }
     
@@ -71,7 +66,7 @@ public class GenerationController extends WorkerWindow {
         Map<LLM, Runnable> finishedProgressMap = new HashMap<>();
         Map<LLM, Consumer<Instant>> rateLimitInstantMap = new HashMap<>();
         
-        for (LLM llm : llmSelection) {
+        for (LLM llm : settings.llmSelection) {
             // Create a Progress Listener for each LLM
             AtomicInteger started = new AtomicInteger(0);
             AtomicInteger finished = new AtomicInteger(0);
@@ -83,7 +78,7 @@ public class GenerationController extends WorkerWindow {
             
             addDualProgressBar(llm.getDisplayedName(), startedProperty, finishedProperty, rateLimitInstantProperty);
             
-            double total = promptSelection.size() * reps;
+            double total = settings.promptSelection.size() * settings.reps;
             startedProgressMap.put(llm, () -> startedProperty.set(started.incrementAndGet() / total));
             finishedProgressMap.put(llm, () -> finishedProperty.set(finished.incrementAndGet() / total));
             rateLimitInstantMap.put(llm, i -> {
@@ -95,10 +90,10 @@ public class GenerationController extends WorkerWindow {
         }
         
         return new GenerationThread(
-                poolSize,
-                reps,
-                llmSelection,
-                promptSelection,
+                settings.poolSize,
+                settings.reps,
+                settings.llmSelection,
+                settings.promptSelection,
                 this::signalDone,
                 llm -> Platform.runLater(startedProgressMap.get(llm)),
                 llm -> Platform.runLater(finishedProgressMap.get(llm)),
@@ -110,7 +105,7 @@ public class GenerationController extends WorkerWindow {
     protected void showSettingsPopup() {
         Stage stage = new Stage();
         
-        WindowManager.loadFxmlInto(stage, "generationSettings", settingsController);
+        WindowManager.loadFxmlInto(stage, "generationSettings", settings);
         
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(getStage());
@@ -119,13 +114,13 @@ public class GenerationController extends WorkerWindow {
     
     @Override
     protected boolean startValid() {
-        return poolSize > 0
-                && reps > 0
-                && !llmSelection.isEmpty()
-                && !promptSelection.isEmpty();
+        return settings.poolSize > 0
+                && settings.reps > 0
+                && !settings.llmSelection.isEmpty()
+                && !settings.promptSelection.isEmpty();
     }
     
-    private class SettingsController extends TitledInitializableWindow {
+    private static class SettingsController extends TitledInitializableWindow {
         @FXML
         private TextField poolSizeTF, repsTF;
         @FXML
@@ -140,6 +135,14 @@ public class GenerationController extends WorkerWindow {
         private final Set<CheckBox> promptCBs = new HashSet<>();
         private final Set<CheckBox> llmCBs = new HashSet<>();
         
+        private final ConfigService config = ConfigService.getInstance();
+        
+        // Settings
+        private int poolSize = 10;
+        private int reps = 5;
+        private final Set<LLM> llmSelection = new HashSet<>();
+        private final Set<Prompt> promptSelection = new HashSet<>();
+        
         
         @Override
         public String getTitle() {
@@ -151,15 +154,16 @@ public class GenerationController extends WorkerWindow {
             headerLabel.setText(getTitle());
             
             initializeTextFields();
-            
             initializeSelection(llmCBs, llmSelectAllCB, llmSelectionVBox, llmSelection, LLMService.getInstance().getAll());
             initializeSelection(promptCBs, promptSelectAllCB, promptSelectionVBox, promptSelection, PromptService.getInstance().getAll());
+            
+            initializeValues();
             
             okBtn.setOnAction(e -> okBtnClick());
             cancelBtn.setOnAction(e -> cancelBtnClick());
         }
         
-        private void loadPrevious() {
+        private void initializeValues() {
             poolSize = config.getInt("gen.threads", 10);
             reps = config.getInt("gen.reps", 5);
         }
