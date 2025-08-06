@@ -1,7 +1,5 @@
 package presentation.uielements.window;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -9,8 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import logic.bdo.BusinessDomainObject;
 import logic.service.BDOService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import presentation.util.BdoWindowType;
+import presentation.util.WindowManager;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -18,10 +16,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 public abstract class DetailsWindow<T extends BusinessDomainObject> extends BDOWindow<T> {
-    private static final Logger log = LoggerFactory.getLogger(DetailsWindow.class);
     @FXML
     protected BorderPane root;
     @FXML
@@ -29,16 +25,19 @@ public abstract class DetailsWindow<T extends BusinessDomainObject> extends BDOW
     @FXML
     protected Label lastEditedLabel;
     
-    private final ObjectProperty<T> object = new SimpleObjectProperty<>();
+    private final T object;
     protected OverviewWindow<?> parentWindow;
     
+    public DetailsWindow(T object) {
+        this.object = object;
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-        
-        addBinding(this::refreshLastEditedLabel);
-        addBinding(this::refresh);
+
+        refreshLastEditedLabel();
+        refresh();
         
         deleteBtn.setOnAction(e -> deleteBtnClick());
         saveBtn.setOnAction(e -> saveBtnClick());
@@ -61,24 +60,8 @@ public abstract class DetailsWindow<T extends BusinessDomainObject> extends BDOW
     @Override
     protected abstract void refresh();
     
-    public void setObject(T t) {
-        this.object.set(t);
-    }
-    
     protected T getObject() {
-        return object.get();
-    }
-    
-    public void setParentWindow(OverviewWindow<?> parentWindow) {
-        this.parentWindow = parentWindow;
-    }
-    
-    protected void addBinding(Consumer<T> consumer) {
-        object.addListener((obs, oldV, newV) -> consumer.accept(getObject()));
-    }
-    
-    protected void addBinding(Runnable runnable) {
-        object.addListener((obs, oldV, newV) -> runnable.run());
+        return object;
     }
     
     private void refreshLastEditedLabel() {
@@ -95,8 +78,7 @@ public abstract class DetailsWindow<T extends BusinessDomainObject> extends BDOW
         if (messages.isEmpty()) {
             insertValues();
             getService().saveOrUpdate(getObject());
-            if (parentWindow != null)
-                parentWindow.refresh();
+            WindowManager.refreshOverviewsFor(BdoWindowType.getForType(getObject().getClass()));
             closeWindow();
         } else generateAlert(Alert.AlertType.INFORMATION,
                 "Saving failed",

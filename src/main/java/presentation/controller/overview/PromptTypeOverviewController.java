@@ -3,14 +3,23 @@ package presentation.controller.overview;
 import logic.bdo.PromptType;
 import logic.service.BDOService;
 import logic.service.PromptTypeService;
-import presentation.util.WindowManager;
 import presentation.uielements.window.OverviewWindow;
+import presentation.util.WindowManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class PromptTypeOverviewController extends OverviewWindow<PromptType> {
     private final BDOService<PromptType> service = PromptTypeService.getInstance();
+    
+    public PromptTypeOverviewController() {
+        super(null);
+    }
+    
+    public PromptTypeOverviewController(Predicate<PromptType> filter) {
+        super(filter);
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -20,7 +29,7 @@ public class PromptTypeOverviewController extends OverviewWindow<PromptType> {
     
     @Override
     protected void addItem() {
-        WindowManager.openDetailsWindow(new PromptType(), this);
+        WindowManager.openDetails(new PromptType());
     }
     
     @Override
@@ -31,5 +40,10 @@ public class PromptTypeOverviewController extends OverviewWindow<PromptType> {
     @Override
     public String getTitle() {
         return "Prompt types";
+    }
+    
+    @Override
+    protected void showHelpWindow() {
+        WindowManager.showHelpWindow("prompt_type");
     }
 }

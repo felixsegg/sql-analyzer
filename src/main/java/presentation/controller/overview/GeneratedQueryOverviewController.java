@@ -3,14 +3,23 @@ package presentation.controller.overview;
 import logic.bdo.GeneratedQuery;
 import logic.service.BDOService;
 import logic.service.GeneratedQueryService;
-import presentation.util.WindowManager;
 import presentation.uielements.window.OverviewWindow;
+import presentation.util.WindowManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class GeneratedQueryOverviewController extends OverviewWindow<GeneratedQuery> {
     private final BDOService<GeneratedQuery> service = GeneratedQueryService.getInstance();
+    
+    public GeneratedQueryOverviewController() {
+        super(null);
+    }
+    
+    public GeneratedQueryOverviewController(Predicate<GeneratedQuery> filter) {
+        super(filter);
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -20,7 +29,7 @@ public class GeneratedQueryOverviewController extends OverviewWindow<GeneratedQu
     
     @Override
     protected void addItem() {
-        WindowManager.openDetailsWindow(new GeneratedQuery(), this);
+        WindowManager.openDetails(new GeneratedQuery());
     }
     
     @Override
@@ -31,5 +40,10 @@ public class GeneratedQueryOverviewController extends OverviewWindow<GeneratedQu
     @Override
     public String getTitle() {
         return "Generated queries";
+    }
+    
+    @Override
+    protected void showHelpWindow() {
+        WindowManager.showHelpWindow("generated_query");
     }
 }

@@ -1,5 +1,7 @@
 package presentation.uielements.window;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Callback;
@@ -7,14 +9,20 @@ import logic.bdo.BusinessDomainObject;
 import presentation.util.WindowManager;
 
 import java.net.URL;
-import java.util.Comparator;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.function.Predicate;
 
 public abstract class OverviewWindow<T extends BusinessDomainObject> extends BDOWindow<T> {
     @FXML
-    Button addBtn, deleteBtn;
+    Button addBtn, deleteBtn, resetFilterBtn;
     @FXML
     protected ListView<T> listView;
+    
+    private final ObjectProperty<Predicate<T>> filterProperty = new SimpleObjectProperty<>();
+    
+    public OverviewWindow(Predicate<T> filter) {
+        this.filterProperty.set(filter);
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -22,11 +30,14 @@ public abstract class OverviewWindow<T extends BusinessDomainObject> extends BDO
         
         setHeaderText(getTitle());
         
+        resetFilterBtn.setDisable(filterProperty.get() == null);
+        filterProperty.addListener((obs, oldV, newV) -> resetFilterBtn.setDisable(newV == null));
+        
         addBtn.setOnAction(e -> addItem());
         deleteBtn.setOnAction(e -> deleteItem());
+        resetFilterBtn.setOnAction(e -> resetFilter());
         
         initializeListView();
-        
         refresh();
     }
     
@@ -59,7 +70,7 @@ public abstract class OverviewWindow<T extends BusinessDomainObject> extends BDO
             if (event.getClickCount() == 2) {
                 T selection = listView.getSelectionModel().getSelectedItem();
                 if (selection != null)
-                    WindowManager.openDetailsWindow(selection, this);
+                    WindowManager.openDetails(selection);
             }
         });
         
@@ -70,7 +81,7 @@ public abstract class OverviewWindow<T extends BusinessDomainObject> extends BDO
                 case ENTER -> {
                     T selection = listView.getSelectionModel().getSelectedItem();
                     if (selection != null)
-                        WindowManager.openDetailsWindow(selection, this);
+                        WindowManager.openDetails(selection);
                 }
             }
         });
@@ -83,7 +94,7 @@ public abstract class OverviewWindow<T extends BusinessDomainObject> extends BDO
         openDetailsItem.setOnAction(e -> {
             T selection = listView.getSelectionModel().getSelectedItem();
             if (selection != null)
-                WindowManager.openDetailsWindow(selection, this);
+                WindowManager.openDetails(selection);
         });
         
         deleteItem.setOnAction(e -> deleteItem());
@@ -99,9 +110,9 @@ public abstract class OverviewWindow<T extends BusinessDomainObject> extends BDO
         
     }
     
-    protected void refresh() {
+    public void refresh() {
         listView.getItems().clear();
-        listView.getItems().addAll(getService().getAll());
+        listView.getItems().addAll(getService().getAll().stream().filter(filterProperty.get() == null ? bdo -> true : filterProperty.get()).toList());
         listView.getItems().sort(Comparator.comparing(BusinessDomainObject::getDisplayedName));
     }
     
@@ -117,4 +128,10 @@ public abstract class OverviewWindow<T extends BusinessDomainObject> extends BDO
     
     @FXML
     protected abstract void addItem();
+    
+    @FXML
+    private void resetFilter() {
+        filterProperty.set(null);
+        refresh();
+    }
 }

@@ -3,14 +3,23 @@ package presentation.controller.overview;
 import logic.bdo.SampleQuery;
 import logic.service.BDOService;
 import logic.service.SampleQueryService;
-import presentation.util.WindowManager;
 import presentation.uielements.window.OverviewWindow;
+import presentation.util.WindowManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class SampleQueryOverviewController extends OverviewWindow<SampleQuery> {
     private final SampleQueryService service = SampleQueryService.getInstance();
+    
+    public SampleQueryOverviewController() {
+        super(null);
+    }
+    
+    public SampleQueryOverviewController(Predicate<SampleQuery> filter) {
+        super(filter);
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -30,6 +39,11 @@ public class SampleQueryOverviewController extends OverviewWindow<SampleQuery> {
     
     @Override
     protected void addItem() {
-        WindowManager.openDetailsWindow(new SampleQuery(), this);
+        WindowManager.openDetails(new SampleQuery());
+    }
+    
+    @Override
+    protected void showHelpWindow() {
+        WindowManager.showHelpWindow("sample_query");
     }
 }

@@ -7,6 +7,7 @@ import javafx.scene.control.TextArea;
 import logic.bdo.*;
 import logic.service.*;
 import presentation.uielements.window.DetailsWindow;
+import presentation.util.WindowManager;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,6 +23,10 @@ public class GeneratedQueryDetailsController extends DetailsWindow<GeneratedQuer
     private TextArea sqlTA;
     
     GeneratedQueryService service = GeneratedQueryService.getInstance();
+    
+    public GeneratedQueryDetailsController(GeneratedQuery object) {
+        super(object);
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -110,6 +115,11 @@ public class GeneratedQueryDetailsController extends DetailsWindow<GeneratedQuer
         getObject().setSql(sqlTA.getText());
         getObject().setGenerator(llmCB.getValue());
         getObject().setPrompt(promptCB.getValue());
+    }
+    
+    @Override
+    protected void showHelpWindow() {
+        WindowManager.showHelpWindow("generated_query");
     }
 }
 

@@ -12,6 +12,7 @@
       <Label fx:id="headerLabel" style="-fx-font-size: 18px;" />
       <Label fx:id="helpControl" alignment="CENTER" minWidth="15.0" style="-fx-background-color: lightblue;" text="?" />
       <Region HBox.hgrow="ALWAYS" />
+      <Button fx:id="resetFilterBtn" mnemonicParsing="false" text="Reset filter" />
       <Button fx:id="refreshBtn" mnemonicParsing="false" text="Refresh" />
    </HBox>
    <Separator prefWidth="200.0" />
@@ -19,5 +20,8 @@
       <Button fx:id="deleteBtn" disable="true" mnemonicParsing="false" text="Delete" />
       <Button fx:id="addBtn" mnemonicParsing="false" text="Add new..." />
    </HBox>
+   <TitledPane text="Filter">
+      <HBox fx:id="filterNodeContainer" spacing="10.0" />
+   </TitledPane>
    <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
 </VBox>

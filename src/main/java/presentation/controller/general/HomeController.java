@@ -3,8 +3,7 @@ package presentation.controller.general;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import presentation.uielements.window.TitledInitializableWindow;
-import presentation.util.WindowManager;
-import presentation.util.WindowType;
+import presentation.util.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,30 +31,35 @@ public class HomeController extends TitledInitializableWindow {
     }
     
     public void sampleQueryBtnClick() {
-        WindowManager.openWindow(WindowType.SAMPLE_QUERY_OVERVIEW);
+        WindowManager.openOverview(BdoWindowType.SAMPLE_QUERY, null);
     }
     
     public void llmOverviewBtnClick() {
-        WindowManager.openWindow(WindowType.LLM_OVERVIEW);
+        WindowManager.openOverview(BdoWindowType.LLM, null);
     }
     
     public void promptTypeOverviewBtnClick() {
-        WindowManager.openWindow(WindowType.PROMPT_TYPE_OVERVIEW);
+        WindowManager.openOverview(BdoWindowType.PROMPT_TYPE, null);
     }
     
     public void promptOverviewBtnClick() {
-        WindowManager.openWindow(WindowType.PROMPT_OVERVIEW);
+        WindowManager.openOverview(BdoWindowType.PROMPT, null);
     }
     
     public void generatedQueriesBtnClick() {
-        WindowManager.openWindow(WindowType.GENERATED_QUERY_OVERVIEW);
+        WindowManager.openOverview(BdoWindowType.GENERATED_QUERY, null);
     }
     
     private void evaluateBtnClick() {
-        WindowManager.openWindow(WindowType.EVALUATION);
+        WindowManager.openWindow(GeneralWindowType.EVAL);
     }
     
     private void generateQueriesBtnClick() {
-        WindowManager.openWindow(WindowType.GENERATION);
+        WindowManager.openWindow(GeneralWindowType.GEN);
+    }
+    
+    @Override
+    protected void showHelpWindow() {
+        WindowManager.showHelpWindow("general");
     }
 }

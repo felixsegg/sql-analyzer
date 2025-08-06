@@ -1,43 +1,109 @@
 package presentation.util;
 
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.web.WebView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import logic.bdo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import presentation.uielements.window.*;
+import presentation.controller.general.HomeController;
+import presentation.uielements.window.DetailsWindow;
+import presentation.uielements.window.HelpWindow;
+import presentation.uielements.window.OverviewWindow;
+import presentation.uielements.window.TitledInitializableWindow;
 
 import java.net.URL;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class WindowManager {
     private static final Logger log = LoggerFactory.getLogger(WindowManager.class);
     
-    private static final ControllerFactory controllerFactory = ControllerFactoryImpl.getInstance();
     private static final Image icon;
+    private static Stage homeStage;
+    
+    private static final Map<BdoWindowType, Set<OverviewWindow<?>>> overviewMap = new HashMap<>();
     
     static {
         icon = ResourceLoader.loadIcon("icon.png");
         if (icon == null) log.error("Could not load icon.");
     }
     
-    private static final Map<Stage, WindowType> stageTypeMap = new HashMap<>();
+    public static void start(Stage primaryStage) {
+        if (homeStage != null)
+            throw new IllegalStateException("Window manager already initialized! start() may only be called once after starting up the application.");
+        homeStage = primaryStage;
+        HomeController controller = new HomeController();
+        loadFxmlInto(homeStage, "home", controller);
+        homeStage.setOnCloseRequest(e -> {
+            // Never fully close it
+            e.consume();
+            homeStage.hide();
+            // If it gets closed as last one, exit
+            if (getVisibleStages().isEmpty())
+                System.exit(0);
+        });
+        homeStage.show();
+        setStageMinWidthHeight(homeStage, controller);
+    }
     
-    public static void loadFxmlInto(Stage stage, String fxmlName, TitledInitializableWindow controller) {
-        stage.setTitle("SQL analyzer - " + controller.getTitle());
+    public static void openWindow(GeneralWindowType windowType) {
+        String fxmlName = windowType.getFxmlName();
+        TitledInitializableWindow controller = ControllerFactory.createGeneralController(windowType);
+        initializeAndShow(controller, fxmlName, true);
+    }
+    
+    public static void openOverview(BdoWindowType bdoWindowType, Predicate<? extends BusinessDomainObject> filter) {
+        String fxmlName = "overview";
+        OverviewWindow<?> controller = ControllerFactory.createOverviewController(bdoWindowType, filter);
         
+        // Add to map to refresh it via refreshOverviewsFor()...
+        if (!overviewMap.containsKey(bdoWindowType))
+            overviewMap.put(bdoWindowType, new HashSet<>());
+        Set<OverviewWindow<?>> controllerSet = overviewMap.get(bdoWindowType);
+        controllerSet.add(controller);
+        // ...and remove it again to save on memory.
+        initializeAndShow(controller, fxmlName, true).setOnHiding(e -> controllerSet.remove(controller));
+    }
+    
+    public static void openDetails(BusinessDomainObject bdo) {
+        String fxmlName = BdoWindowType.getForType(bdo.getClass()).getFxmlName();
+        DetailsWindow<?> controller = ControllerFactory.createDetailsController(bdo);
+        initializeAndShow(controller, fxmlName, true);
+    }
+    
+    public static void showHelpWindow(String htmlFileName) {
+        String fxmlName = "help";
+        HelpWindow controller = new HelpWindow();
+        initializeAndShow(controller, fxmlName, false);
+        controller.loadHtml(ResourceLoader.getHelpHtmlUrl(htmlFileName).toExternalForm());
+    }
+    
+    public static void refreshOverviewsFor(BdoWindowType windowType) {
+        Set<OverviewWindow<?>> overviews = overviewMap.get(windowType);
+        if (overviews != null) overviews.forEach(OverviewWindow::refresh);
+    }
+    
+    private static Stage initializeAndShow(TitledInitializableWindow controller, String fxmlName, boolean resizable) {
+        Stage stage = new Stage();
+        stage.setUserData(controller);
+        loadFxmlInto(stage, fxmlName, controller);
+        stage.setOnHidden(e -> {
+            if (getVisibleStages().isEmpty())
+                homeStage.show();
+        });
+        setStageMinWidthHeight(stage, controller);
+        stage.setResizable(resizable);
+        stage.show();
+        return stage;
+    }
+    
+    private static void loadFxmlInto(Stage stage, String fxmlName, TitledInitializableWindow controller) {
+        stage.setTitle("SQL analyzer - " + controller.getTitle());
         try {
             URL fxmlUrl = ResourceLoader.getFxmlUrl(fxmlName);
             FXMLLoader loader = new FXMLLoader(fxmlUrl);
@@ -50,179 +116,21 @@ public class WindowManager {
         }
     }
     
-    private static boolean allStagesHiddenOrClosed() {
-        for (Stage s : stageTypeMap.keySet())
-            if (s != null && s.isShowing()) return false;
-        
-        return true;
-    }
-    
-    /**
-     * Finds the first registered Stage of the given type and returns it.
-     *
-     * @param windowType the window type
-     * @return one stage of the given type
-     */
-    private static Stage getStageOfType(WindowType windowType) {
-        for (Stage stage : stageTypeMap.keySet()) {
-            if (stageTypeMap.get(stage) == windowType)
-                return stage;
-        }
-        
-        return null;
-    }
-    
-    /**
-     * Opens the specified window
-     */
-    public static void openWindow(WindowType windowType) {
-        if (windowType.getWindowTypeType() == WindowType.WindowTypeType.DETAILS)
-            throw new IllegalArgumentException("For detail windows, use the other openWindow() method instead");
-        
-        Stage foundStage = getStageOfType(windowType);
-        
-        if (foundStage == null) {
-            Stage stage = new Stage();
-            TitledInitializableWindow controller = controllerFactory.createController(windowType);
-            
-            loadFxmlInto(stage, windowType.getFxmlName(), controller);
-            controller.setWindowType(windowType);
-            stage.setOnCloseRequest(e -> {
-                e.consume();
-                stage.hide();
-                
-                if (allStagesHiddenOrClosed()) {
-                    Stage homeStage = getStageOfType(WindowType.HOME);
-                    if (homeStage == null) {
-                        log.error("FATAL: Somehow home stage not found. Exiting");
-                        System.exit(-1);
-                    }
-                    
-                    if (stage == getStageOfType(WindowType.HOME)) System.exit(0);
-                    else homeStage.show();
-                }
-            });
-            stageTypeMap.put(stage, windowType);
-            stage.show();
-            setStageMinWidthHeight(stage, controller);
-        } else foundStage.show();
-    }
-    
-    /**
-     * Opens the specified window
-     */
-    @SuppressWarnings("unchecked")
-    public static void openDetailsWindow(BusinessDomainObject bdo, OverviewWindow<?> callingController) {
-        WindowType windowType;
-        
-        if (bdo instanceof GeneratedQuery)
-            windowType = WindowType.GENERATED_QUERY_DETAILS;
-        else if (bdo instanceof LLM)
-            windowType = WindowType.LLM_DETAILS;
-        else if (bdo instanceof Prompt)
-            windowType = WindowType.PROMPT_DETAILS;
-        else if (bdo instanceof PromptType)
-            windowType = WindowType.PROMPT_TYPE_DETAILS;
-        else if (bdo instanceof SampleQuery)
-            windowType = WindowType.SAMPLE_QUERY_DETAILS;
-        else
-            throw new IllegalArgumentException("Class " + bdo.getClass().getSimpleName() + " not supported for detail windows.");
-        
-        Stage stage = new Stage();
-        
-        DetailsWindow<BusinessDomainObject> controller
-                = (DetailsWindow<BusinessDomainObject>) controllerFactory.createController(windowType);
-        
-        loadFxmlInto(stage, windowType.getFxmlName(), controller);
-        
-        controller.setObject(bdo);
-        controller.setParentWindow(callingController);
-        controller.setWindowType(windowType);
-        stageTypeMap.put(stage, windowType);
-        
-        stage.setOnCloseRequest(e -> stageTypeMap.remove(stage));
-        stage.show();
-        setStageMinWidthHeight(stage, controller);
-    }
-    
-    public static void showHelpWindowFor(TitledInitializableWindow callingController) {
-        WindowType windowType = callingController.getWindowType();
-        String htmlUrl = windowType.getHelpHtmlUrl();
-        if (htmlUrl == null) {
-            log.warn("WindowType {} either has no help html set or failed to load the resource!", windowType.name());
-            return;
-        }
-        
-        Stage owner = callingController.getStage();
-        Stage stage = new Stage();
-        stage.setTitle("Help - " + callingController.getTitle());
-        if (icon != null)
-            stage.getIcons().add(icon);
-        stage.initOwner(owner);
-        stage.setResizable(false);
-        
-        ProgressIndicator spinner = new ProgressIndicator();
-        spinner.setMaxSize(50, 50);
-        
-        StackPane stack = new StackPane(spinner);
-        
-        if (owner != null) {
-            stage.setX(owner.getX() + (owner.getWidth() - stage.getWidth()) / 2);
-            stage.setY(owner.getY() + (owner.getHeight() - stage.getHeight()) / 2);
-        }
-        
-        Scene scene = new Scene(stack, 500, 400);
-        stage.setScene(scene);
-        stage.show();
-        
-        Platform.runLater(() -> {
-            WebView webView = new WebView();
-            webView.getEngine().load(htmlUrl);
-            ChangeListener<Worker.State> listener = (obs, oldState, newState) -> {
-                if (newState == Worker.State.SUCCEEDED)
-                    stack.getChildren().setAll(webView);
-                else if (newState == Worker.State.FAILED || newState == Worker.State.CANCELLED) {
-                    Label failedLabel = new Label("Loading help failed.");
-                    stack.getChildren().setAll(failedLabel);
-                    log.warn("Loading of html failed. Worker state of WebView: {}.", newState.name());
-                }
-            };
-            webView.getEngine().getLoadWorker().stateProperty().addListener(listener);
-        });
-    }
-    
-    /**
-     * Opens the specified window and closes the other one
-     */
-    public static void openWindowInstead(WindowType windowType, Stage windowToClose) {
-        openWindow(windowType);
-        windowToClose.close();
-    }
-    
-    /**
-     * Opens the specified popup window, therefore rendering the owner inactive for the mean time.
-     */
-    public static void openPopup(WindowType windowType, TitledInitializableWindow controller, Stage owner) {
-        if (windowType.getWindowTypeType() == WindowType.WindowTypeType.POPUP)
-            throw new IllegalArgumentException("For non popup windows, use other openWindow() methods");
-        
-        Stage stage = new Stage();
-        loadFxmlInto(stage, windowType.getFxmlName(), controller);
-        controller.setWindowType(windowType);
-        
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(owner);
-        
-        stageTypeMap.put(stage, windowType);
-        stage.setOnCloseRequest(e -> stageTypeMap.remove(stage));
-        
-        stage.showAndWait();
-    }
-    
     private static void setStageMinWidthHeight(Stage stage, TitledInitializableWindow controller) {
         double widthDelta = stage.getWidth() - stage.getScene().getWidth();
         double heightDelta = stage.getHeight() - stage.getScene().getHeight();
         stage.setMinWidth(controller.getRoot().minWidth(Region.USE_PREF_SIZE) + widthDelta);
         stage.setMinHeight(controller.getRoot().minHeight(Region.USE_PREF_SIZE) + heightDelta);
     }
+    
+    private static Set<Stage> getVisibleStages() {
+        Set<Stage> stages = new HashSet<>();
+        for (Window window : Window.getWindows())
+            if (window instanceof Stage stage && stage.isShowing() && !(stage.getUserData() instanceof HelpWindow))
+                stages.add(stage);
+        
+        return stages;
+    }
+    
+    
 }

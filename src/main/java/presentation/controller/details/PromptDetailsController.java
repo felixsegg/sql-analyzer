@@ -11,6 +11,7 @@ import logic.service.PromptService;
 import logic.service.PromptTypeService;
 import logic.service.SampleQueryService;
 import presentation.uielements.window.DetailsWindow;
+import presentation.util.WindowManager;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,6 +27,10 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
     private TextArea promptTA;
     
     PromptService service = PromptService.getInstance();
+    
+    public PromptDetailsController(Prompt object) {
+        super(object);
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -86,6 +91,11 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
     @Override
     public String getTitle() {
         return "Prompt";
+    }
+    
+    @Override
+    protected void showHelpWindow() {
+        WindowManager.showHelpWindow("prompt_details");
     }
     
     @Override

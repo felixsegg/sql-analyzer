@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import logic.bdo.SampleQuery;
 import logic.service.SampleQueryService;
 import presentation.uielements.window.DetailsWindow;
+import presentation.util.WindowManager;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,6 +25,10 @@ public class SampleQueryDetailsController extends DetailsWindow<SampleQuery> {
     
     SampleQueryService service = SampleQueryService.getInstance();
     
+    public SampleQueryDetailsController(SampleQuery object) {
+        super(object);
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
@@ -40,6 +45,11 @@ public class SampleQueryDetailsController extends DetailsWindow<SampleQuery> {
     @Override
     public String getTitle() {
         return "Sample query";
+    }
+    
+    @Override
+    protected void showHelpWindow() {
+        WindowManager.showHelpWindow("sample_query");
     }
     
     @Override

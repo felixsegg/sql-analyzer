@@ -5,10 +5,9 @@ import javafx.scene.control.*;
 import logic.bdo.LLM;
 import logic.promptable.util.PromptableApi;
 import logic.service.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import presentation.uielements.window.DetailsWindow;
 import presentation.util.UIUtil;
+import presentation.util.WindowManager;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,8 +16,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class LLMDetailsController extends DetailsWindow<LLM> {
-    private static final Logger log = LoggerFactory.getLogger(LLMDetailsController.class);
-    
     @FXML
     private TextField nameTF, modelTF;
     @FXML
@@ -33,6 +30,10 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
     private CheckBox dummiesCheckBox;
     
     BDOService<LLM> service = LLMService.getInstance();
+    
+    public LLMDetailsController(LLM object) {
+        super(object);
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -71,6 +72,11 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
     @Override
     public String getTitle() {
         return "Large language model";
+    }
+    
+    @Override
+    protected void showHelpWindow() {
+        WindowManager.showHelpWindow("llm_details");
     }
     
     @Override
