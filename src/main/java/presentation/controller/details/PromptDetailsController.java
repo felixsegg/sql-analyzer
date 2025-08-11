@@ -46,7 +46,7 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
             @Override
             protected void updateItem(SampleQuery item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getDisplayedName());
+                setText(empty || item == null ? null : item.toString());
             }
         });
         
@@ -54,7 +54,7 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
             @Override
             protected void updateItem(SampleQuery item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getDisplayedName());
+                setText(empty || item == null ? null : item.toString());
             }
         });
         
@@ -67,7 +67,7 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
             @Override
             protected void updateItem(PromptType item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getDisplayedName());
+                setText(empty || item == null ? null : item.toString());
             }
         });
         
@@ -75,7 +75,7 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
             @Override
             protected void updateItem(PromptType item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getDisplayedName());
+                setText(empty || item == null ? null : item.toString());
             }
         });
         

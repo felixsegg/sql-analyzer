@@ -7,8 +7,6 @@ import java.time.Instant;
 public abstract class BusinessDomainObject {
     private long version;
     
-    public abstract String getDisplayedName();
-    
     public BusinessDomainObject(Long version) {
         setVersion(version);
     }

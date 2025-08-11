@@ -25,7 +25,7 @@ public class PromptType extends BusinessDomainObject {
     }
     
     @Override
-    public String getDisplayedName() {
+    public String toString() {
         return getName();
     }
     

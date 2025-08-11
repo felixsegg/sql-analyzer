@@ -52,7 +52,7 @@ public class LLMService implements BDOService<LLM> {
         
         for (GeneratedQuery gq : GeneratedQueryService.getInstance().getAll())
             if (gq.getGenerator() == object)
-                messages.add("The prompt '" + gq.getDisplayedName() + "' his this llm set as its generator.");
+                messages.add("The prompt '" + gq.toString() + "' his this llm set as its generator.");
         
         return messages;
     }

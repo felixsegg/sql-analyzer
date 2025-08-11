@@ -29,12 +29,8 @@ public class GeneratedQuery extends BusinessDomainObject implements SQLQueryWrap
     }
     
     @Override
-    public String getDisplayedName() {
-        String full = generator.get().getName() + " - " + prompt.get().getType().getName() + " - " + prompt.get().getSampleQuery().getDisplayedName() + " (" + sql.get().replace("\n", " ");
-        if (full.length() > 100)
-            return full.substring(0, 97) + "...)";
-        else
-            return full + ")";
+    public String toString() {
+        return generator.get().getName() + " - " + prompt.get().getType().getName() + " - " + prompt.get().getSampleQuery().getName();
     }
     
     @Override

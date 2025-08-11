@@ -52,7 +52,7 @@ public class SampleQueryService implements BDOService<SampleQuery> {
         
         for (Prompt prompt : PromptService.getInstance().getAll())
             if (prompt.getSampleQuery() == object)
-                messages.add("The prompt '" + prompt.getDisplayedName() + "' holds a reference to the sample query.");
+                messages.add("The prompt '" + prompt.toString() + "' holds a reference to the sample query.");
         
         return messages;
     }

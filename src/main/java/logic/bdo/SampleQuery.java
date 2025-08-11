@@ -38,7 +38,7 @@ public class SampleQuery extends BusinessDomainObject implements SQLQueryWrapper
     }
     
     @Override
-    public String getDisplayedName() {
+    public String toString() {
         return getName();
     }
     

@@ -52,7 +52,7 @@ public class PromptService implements BDOService<Prompt> {
         
         for (GeneratedQuery gq : GeneratedQueryService.getInstance().getAll())
             if (gq.getPrompt() == object)
-                messages.add("The generated query '" + gq.getDisplayedName() + "' holds a reference to the prompt.");
+                messages.add("The generated query '" + gq.toString() + "' holds a reference to the prompt.");
         
         return messages;
     }

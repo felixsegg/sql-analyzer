@@ -59,7 +59,7 @@ public class GenerationController extends WorkerWindow {
             DoubleProperty finishedProperty = new SimpleDoubleProperty(0.0);
             ObjectProperty<Instant> rateLimitInstantProperty = new SimpleObjectProperty<>();
             
-            addDualProgressBar(llm.getDisplayedName(), startedProperty, finishedProperty, rateLimitInstantProperty);
+            addDualProgressBar(llm.toString(), startedProperty, finishedProperty, rateLimitInstantProperty);
             
             double total = settings.getPromptSelection().size() * settings.getReps();
             startedProgressMap.put(llm, () -> startedProperty.set(started.incrementAndGet() / total));

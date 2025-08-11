@@ -70,7 +70,7 @@ public class GenerationSettingsController extends TitledInitializableWindow {
     private <R extends BusinessDomainObject> void initializeSelection(Collection<CheckBox> cbs, CheckBox selectAllCB, VBox selectionVBox, Set<R> selected, Set<R> all) {
         cbs.clear();
         for (R r : all) {
-            CheckBox cb = new CheckBox(r.getDisplayedName());
+            CheckBox cb = new CheckBox(r.toString());
             cb.setSelected(selected.contains(r));
             cb.setUserData(r);
             cb.setOnAction(e -> selectAllCB.setSelected(areAllCBsSelected(cbs)));

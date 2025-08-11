@@ -92,7 +92,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         llmCB.setConverter(new StringConverter<>() {
             @Override
             public String toString(LLM object) {
-                return object.getDisplayedName();
+                return object.toString();
             }
             
             @Override
@@ -116,7 +116,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
     private void initializeGQSelection() {
         gqCBs.clear();
         for (GeneratedQuery gq : GeneratedQueryService.getInstance().getAll()) {
-            CheckBox cb = new CheckBox(gq.getDisplayedName());
+            CheckBox cb = new CheckBox(gq.toString());
             cb.setSelected(settingsObject.getGeneratedQueriesSelection().contains(gq));
             cb.setUserData(gq);
             cb.setOnAction(e -> selectAllCB.setSelected(areAllGQsSelected()));

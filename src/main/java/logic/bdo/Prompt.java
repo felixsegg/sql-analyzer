@@ -29,7 +29,7 @@ public class Prompt extends BusinessDomainObject {
     }
     
     @Override
-    public String getDisplayedName() {
+    public String toString() {
         String sqName = getSampleQuery() == null ? "null" : getSampleQuery().getName();
         String typeName = getType() == null ? "null" : getType().getName();
         

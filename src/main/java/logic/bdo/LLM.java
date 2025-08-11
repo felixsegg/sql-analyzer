@@ -39,7 +39,7 @@ public class LLM extends BusinessDomainObject {
     }
     
     @Override
-    public String getDisplayedName() {
+    public String toString() {
         return getName() + " (" + model.get() + ")";
     }
     

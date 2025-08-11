@@ -78,7 +78,7 @@ public abstract class BDOWindow<T extends BusinessDomainObject> extends TitledIn
         else {
             Alert alert = generateAlert(Alert.AlertType.CONFIRMATION, "Confirm Deletion",
                     "Are you sure you want to delete this?",
-                    "This action cannot be undone.\nAffected: " + object.getDisplayedName()
+                    "This action cannot be undone.\nAffected: " + object.toString()
             );
             
             Optional<ButtonType> result = alert.showAndWait();

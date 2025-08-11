@@ -42,7 +42,7 @@ public class GeneratedQueryDetailsController extends DetailsWindow<GeneratedQuer
             @Override
             protected void updateItem(Prompt item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getDisplayedName());
+                setText(empty || item == null ? null : item.toString());
             }
         });
         
@@ -50,12 +50,12 @@ public class GeneratedQueryDetailsController extends DetailsWindow<GeneratedQuer
             @Override
             protected void updateItem(Prompt item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getDisplayedName());
+                setText(empty || item == null ? null : item.toString());
             }
         });
         
         promptCB.getItems().addAll(PromptService.getInstance().getAll());
-        promptCB.getItems().sort(Comparator.comparing(Prompt::getDisplayedName));
+        promptCB.getItems().sort(Comparator.comparing(Prompt::toString));
     }
     
     private void initializeLLMCB() {
@@ -63,7 +63,7 @@ public class GeneratedQueryDetailsController extends DetailsWindow<GeneratedQuer
             @Override
             protected void updateItem(LLM item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getDisplayedName());
+                setText(empty || item == null ? null : item.toString());
             }
         });
         
@@ -71,12 +71,12 @@ public class GeneratedQueryDetailsController extends DetailsWindow<GeneratedQuer
             @Override
             protected void updateItem(LLM item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getDisplayedName());
+                setText(empty || item == null ? null : item.toString());
             }
         });
         
         llmCB.getItems().addAll(LLMService.getInstance().getAll());
-        llmCB.getItems().sort(Comparator.comparing(LLM::getDisplayedName));
+        llmCB.getItems().sort(Comparator.comparing(LLM::toString));
     }
     
     

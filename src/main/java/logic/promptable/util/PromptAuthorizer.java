@@ -36,7 +36,7 @@ public class PromptAuthorizer {
                     Thread.sleep(millisToWait);
             } catch (InterruptedException e) {
                 long leftoverMillis = (currentRetryInstant.toEpochMilli() - Instant.now().toEpochMilli());
-                log.warn("Got interrupted while waiting for authorization to prompt llm {}. Should have waited {} milliseconds in total, Got interrupted {} milliseconds early.", llm.getDisplayedName(), millisToWait, leftoverMillis);
+                log.warn("Got interrupted while waiting for authorization to prompt llm {}. Should have waited {} milliseconds in total, Got interrupted {} milliseconds early.", llm.toString(), millisToWait, leftoverMillis);
                 break;
             }
             currentRetryInstant = rateLimitMap.get(llm);

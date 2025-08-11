@@ -52,7 +52,7 @@ public class PromptTypeService implements BDOService<PromptType> {
         
         for (Prompt prompt : PromptService.getInstance().getAll())
             if (prompt.getType() == object)
-                messages.add("The prompt '" + prompt.getDisplayedName() + "' holds a reference to the prompt type.");
+                messages.add("The prompt '" + prompt.toString() + "' holds a reference to the prompt type.");
         
         return messages;
     }
