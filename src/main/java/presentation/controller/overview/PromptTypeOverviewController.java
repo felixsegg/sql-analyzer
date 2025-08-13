@@ -24,7 +24,12 @@ public class PromptTypeOverviewController extends OverviewWindow<PromptType> {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+        initializeFilters();
         enableHelp();
+    }
+    
+    private void initializeFilters() {
+        addStringFilter(PromptType::getName, "Name");
     }
     
     @Override

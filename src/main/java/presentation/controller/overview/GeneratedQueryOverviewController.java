@@ -24,7 +24,15 @@ public class GeneratedQueryOverviewController extends OverviewWindow<GeneratedQu
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+        initializeFilters();
         enableHelp();
+    }
+    
+    private void initializeFilters() {
+        addObjectFilter(GeneratedQuery::getGenerator, "Generating LLM");
+        addObjectFilter(gq -> gq.getPrompt().getSampleQuery(), "Original sample query");
+        addObjectFilter(gq -> gq.getPrompt().getType(), "Original prompt type");
+        addStringFilter(GeneratedQuery::getSql, "SQL text");
     }
     
     @Override

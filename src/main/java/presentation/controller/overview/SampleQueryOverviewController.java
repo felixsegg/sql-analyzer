@@ -24,7 +24,14 @@ public class SampleQueryOverviewController extends OverviewWindow<SampleQuery> {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+        initializeFilters();
         enableHelp();
+    }
+    
+    private void initializeFilters() {
+        addObjectFilter(SampleQuery::getComplexity, "Complexity");
+        addStringFilter(SampleQuery::getSql, "SQL");
+        addStringFilter(SampleQuery::getName, "Name");
     }
     
     @Override

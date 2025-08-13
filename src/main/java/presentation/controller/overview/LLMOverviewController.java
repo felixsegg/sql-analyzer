@@ -24,7 +24,13 @@ public class LLMOverviewController extends OverviewWindow<LLM> {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+        initializeFilters();
         enableHelp();
+    }
+    
+    private void initializeFilters() {
+        addObjectFilter(LLM::getLlmApi, "API");
+        addStringFilter(LLM::getName, "Name");
     }
     
     @Override
