@@ -133,7 +133,6 @@ public abstract class OverviewWindow<BDO extends BusinessDomainObject> extends B
         
         contextMenu.getItems().addAll(openDetailsItem, deleteItem);
         listView.setContextMenu(contextMenu);
-        
     }
     
     public void refresh() {
@@ -191,8 +190,7 @@ public abstract class OverviewWindow<BDO extends BusinessDomainObject> extends B
     }
     
     private <T> Map<T, Integer> getAllTsWithCardinality(Function<BDO, T> func) {
-        return getService().getAll().stream().collect(Collectors.groupingBy(func, Collectors.summingInt(bdo -> 1)));
-        
+        return getService().getAll().stream().filter(bdo -> func.apply(bdo) != null).collect(Collectors.groupingBy(func, Collectors.summingInt(bdo -> 1)));
     }
     
     @FXML

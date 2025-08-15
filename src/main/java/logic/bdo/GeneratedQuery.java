@@ -30,7 +30,12 @@ public class GeneratedQuery extends BusinessDomainObject implements SQLQueryWrap
     
     @Override
     public String toString() {
-        return generator.get().getName() + " - " + prompt.get().getType().getName() + " - " + prompt.get().getSampleQuery().getName();
+        Prompt p = prompt.get();
+        String llmName = generator.get() == null ? "null" : generator.get().getName();
+        String promptTypeName = p == null || p.getType() == null ? "null" : prompt.get().getType().getName();
+        String sqName = p == null || p.getSampleQuery() == null ? "null" : prompt.get().getSampleQuery().getName();
+        
+        return llmName + " - " + promptTypeName + " - " + sqName;
     }
     
     @Override
