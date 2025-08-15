@@ -33,7 +33,7 @@ public abstract class TitledInitializableWindow implements Initializable {
     
     
     protected void showHelpWindow() {
-        // Subclasses can overwrite this if they need a help window and have the help control set
+        // Subclasses can overwrite this if they need a help window and have set the help control
     }
     
     protected void closeWindow() {

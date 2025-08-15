@@ -1,10 +1,9 @@
 package presentation.uielements.window;
 
 import javafx.fxml.FXML;
-import javafx.geometry.NodeOrientation;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
@@ -23,6 +22,8 @@ public abstract class OverviewWindow<BDO extends BusinessDomainObject> extends B
     private HBox filterNodeContainer;
     @FXML
     protected ListView<BDO> listView;
+    @FXML
+    private TitledPane filterTitledPane;
     
     private Predicate<BDO> externalFilter;
     private final Set<Predicate<BDO>> internalFilters = new HashSet<>();
@@ -50,15 +51,17 @@ public abstract class OverviewWindow<BDO extends BusinessDomainObject> extends B
         if (externalFilter == null)
             return;
         
+        Button removeBtn = new Button("Remove external filter");
         Label label = new Label("Externally set filter");
-        Button xBtn = new Button("×");
-
-        HBox hBox = new HBox(label, xBtn);
-        hBox.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        filterNodeContainer.getChildren().add(hBox);
+        label.setFont(new Font(10.0));
         
-        xBtn.setOnAction(e -> {
-            filterNodeContainer.getChildren().remove(hBox);
+        VBox vBox = new VBox(removeBtn, label);
+        
+        filterNodeContainer.getChildren().add(vBox);
+        filterTitledPane.setExpanded(true); // Initially expanded to show filter
+        
+        removeBtn.setOnAction(e -> {
+            filterNodeContainer.getChildren().remove(vBox);
             externalFilter = null;
             refresh();
         });
@@ -144,12 +147,13 @@ public abstract class OverviewWindow<BDO extends BusinessDomainObject> extends B
             listView.getSelectionModel().select(prevSelection);
     }
     
-    private void addFilter(Predicate<BDO> filterLiteral, Node filterNode, String filterName) {
+    private void addFilter(Predicate<BDO> filterLiteral, Control filterControl, String filterName) {
         internalFilters.add(filterLiteral);
         Label label = new Label(filterName);
         label.setFont(new Font(10.0));
-        VBox vBox = new VBox(filterNode, label);
-        vBox.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        VBox vBox = new VBox(filterControl, label);
+        HBox.setHgrow(vBox, Priority.ALWAYS);
+        filterControl.prefWidthProperty().bind(vBox.widthProperty());
         filterNodeContainer.getChildren().add(vBox);
     }
     

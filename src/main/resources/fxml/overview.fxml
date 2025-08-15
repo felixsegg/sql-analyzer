@@ -19,8 +19,8 @@
       <Button fx:id="deleteBtn" disable="true" mnemonicParsing="false" text="Delete" />
       <Button fx:id="addBtn" mnemonicParsing="false" text="Add new..." />
    </HBox>
-   <TitledPane text="Filter">
-      <HBox fx:id="filterNodeContainer" nodeOrientation="RIGHT_TO_LEFT" spacing="10.0" />
+   <TitledPane fx:id="filterTitledPane" expanded="false" text="Filter">
+      <HBox fx:id="filterNodeContainer" spacing="10.0" />
    </TitledPane>
    <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
 </VBox>
