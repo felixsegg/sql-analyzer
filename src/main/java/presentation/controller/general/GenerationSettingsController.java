@@ -95,6 +95,7 @@ public class GenerationSettingsController extends TitledInitializableWindow {
         settings.setLlmSelection(llmCBs.stream().filter(CheckBox::isSelected).map(cb -> (LLM) cb.getUserData()).toList());
         settings.setPromptSelection(promptCBs.stream().filter(CheckBox::isSelected).map(cb -> (Prompt) cb.getUserData()).toList());
         
+        closeWindow();
     }
     
     private boolean checkInputs() {
