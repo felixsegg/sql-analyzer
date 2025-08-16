@@ -25,7 +25,7 @@ public class GeneratedQueryOverviewController extends OverviewWindow<GeneratedQu
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         initializeFilters();
-        enableHelp();
+        enableHelp("overview");
     }
     
     private void initializeFilters() {
@@ -50,8 +50,4 @@ public class GeneratedQueryOverviewController extends OverviewWindow<GeneratedQu
         return "Generated queries";
     }
     
-    @Override
-    protected void showHelpWindow() {
-        WindowManager.showHelpWindow("generated_query");
-    }
 }

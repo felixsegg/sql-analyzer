@@ -37,7 +37,7 @@ public class EvaluationController extends WorkerWindow {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-        enableHelp();
+        enableHelp("evaluation");
     }
     
     @Override
@@ -113,11 +113,6 @@ public class EvaluationController extends WorkerWindow {
                 && !settings.getGeneratedQueriesSelection().isEmpty()
                 && settings.getThreadPoolSize() > 0
                 && settings.getMaxReps() > 0;
-    }
-    
-    @Override
-    protected void showHelpWindow() {
-        WindowManager.showHelpWindow("evaluation");
     }
     
 }

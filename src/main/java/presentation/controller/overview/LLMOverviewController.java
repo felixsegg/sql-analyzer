@@ -25,7 +25,7 @@ public class LLMOverviewController extends OverviewWindow<LLM> {
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         initializeFilters();
-        enableHelp();
+        enableHelp("overview");
     }
     
     private void initializeFilters() {
@@ -48,8 +48,4 @@ public class LLMOverviewController extends OverviewWindow<LLM> {
         return "Large language models";
     }
     
-    @Override
-    protected void showHelpWindow() {
-        WindowManager.showHelpWindow("llm");
-    }
 }

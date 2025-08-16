@@ -7,7 +7,6 @@ import logic.bdo.PromptType;
 import logic.service.BDOService;
 import logic.service.PromptTypeService;
 import presentation.uielements.window.DetailsWindow;
-import presentation.util.WindowManager;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class PromptTypeDetailsController extends DetailsWindow<PromptType> {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-        enableHelp();
+        enableHelp("prompt_type");
     }
     
     @Override
@@ -40,11 +39,6 @@ public class PromptTypeDetailsController extends DetailsWindow<PromptType> {
     @Override
     public String getTitle() {
         return "Prompt type";
-    }
-    
-    @Override
-    protected void showHelpWindow() {
-        WindowManager.showHelpWindow("prompt_type");
     }
     
     @Override

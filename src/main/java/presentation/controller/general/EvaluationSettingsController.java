@@ -14,7 +14,6 @@ import logic.service.LLMService;
 import logic.util.eval.impl.ComparatorType;
 import presentation.uielements.window.TitledInitializableWindow;
 import presentation.util.UIUtil;
-import presentation.util.WindowManager;
 
 import java.io.File;
 import java.net.URL;
@@ -52,11 +51,6 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
     @Override
     public String getTitle() {
         return "Evaluation Settings";
-    }
-    
-    @Override
-    protected void showHelpWindow() {
-        WindowManager.showHelpWindow("evaluation_settings");
     }
     
     @Override

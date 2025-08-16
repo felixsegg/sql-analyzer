@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import presentation.util.WindowManager;
 
 public abstract class TitledInitializableWindow implements Initializable {
     private static final Logger log = LoggerFactory.getLogger(TitledInitializableWindow.class);
@@ -20,20 +21,15 @@ public abstract class TitledInitializableWindow implements Initializable {
     
     public abstract String getTitle();
     
-    protected void enableHelp() {
-        if (helpControl == null) {
+    protected void enableHelp(String htmlFileName) {
+        if (helpControl == null)
             throw new IllegalStateException("helpLabel is not set! Please set it in the fxml or manually.");
-        }
+        
         helpControl.setTooltip(new Tooltip("Show help"));
         if (helpControl instanceof Button b)
-            b.setOnAction(e -> showHelpWindow());
+            b.setOnAction(e -> WindowManager.showHelpWindow(htmlFileName));
         else
-            helpControl.setOnMouseClicked(e -> showHelpWindow());
-    }
-    
-    
-    protected void showHelpWindow() {
-        // Subclasses can overwrite this if they need a help window and have set the help control
+            helpControl.setOnMouseClicked(e -> WindowManager.showHelpWindow(htmlFileName));
     }
     
     protected void closeWindow() {

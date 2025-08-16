@@ -26,7 +26,7 @@ public class GenerationController extends WorkerWindow {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-        enableHelp();
+        enableHelp("generation");
     }
     
     @Override
@@ -95,11 +95,6 @@ public class GenerationController extends WorkerWindow {
                 && settings.getReps() > 0
                 && !settings.getLlmSelection().isEmpty()
                 && !settings.getPromptSelection().isEmpty();
-    }
-    
-    @Override
-    protected void showHelpWindow() {
-        WindowManager.showHelpWindow("generation");
     }
     
 }

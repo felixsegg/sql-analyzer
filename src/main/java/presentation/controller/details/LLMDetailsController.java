@@ -7,7 +7,6 @@ import logic.promptable.util.PromptableApi;
 import logic.service.*;
 import presentation.uielements.window.DetailsWindow;
 import presentation.util.UIUtil;
-import presentation.util.WindowManager;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-        enableHelp();
+        enableHelp("llm");
         initializeApiCB();
         UIUtil.initBoundedSliders(minTempSlider, maxTempSlider, minTempLabel, maxTempLabel);
     }
@@ -72,11 +71,6 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
     @Override
     public String getTitle() {
         return "Large language model";
-    }
-    
-    @Override
-    protected void showHelpWindow() {
-        WindowManager.showHelpWindow("llm_details");
     }
     
     @Override

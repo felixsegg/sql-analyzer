@@ -25,7 +25,7 @@ public class PromptOverviewController extends OverviewWindow<Prompt> {
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         initializeFilters();
-        enableHelp();
+        enableHelp("overview");
     }
     
     private void initializeFilters() {
@@ -49,8 +49,4 @@ public class PromptOverviewController extends OverviewWindow<Prompt> {
         return "Prompts";
     }
     
-    @Override
-    protected void showHelpWindow() {
-        WindowManager.showHelpWindow("prompt");
-    }
 }

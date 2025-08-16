@@ -25,7 +25,7 @@ public class SampleQueryOverviewController extends OverviewWindow<SampleQuery> {
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         initializeFilters();
-        enableHelp();
+        enableHelp("overview");
     }
     
     private void initializeFilters() {
@@ -49,8 +49,4 @@ public class SampleQueryOverviewController extends OverviewWindow<SampleQuery> {
         WindowManager.openDetails(new SampleQuery());
     }
     
-    @Override
-    protected void showHelpWindow() {
-        WindowManager.showHelpWindow("sample_query");
-    }
 }

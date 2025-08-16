@@ -22,7 +22,7 @@ public class HomeController extends TitledInitializableWindow {
         generateQueriesBtn.setOnAction(e -> generateQueriesBtnClick());
         evaluateBtn.setOnAction(e -> evaluateBtnClick());
         
-        enableHelp();
+        enableHelp("general");
     }
     
     @Override
@@ -58,8 +58,4 @@ public class HomeController extends TitledInitializableWindow {
         WindowManager.openWindow(GeneralWindowType.GEN);
     }
     
-    @Override
-    protected void showHelpWindow() {
-        WindowManager.showHelpWindow("general");
-    }
 }

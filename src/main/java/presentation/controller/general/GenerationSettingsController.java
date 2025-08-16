@@ -14,7 +14,6 @@ import logic.service.LLMService;
 import logic.service.PromptService;
 import presentation.uielements.window.TitledInitializableWindow;
 import presentation.util.UIUtil;
-import presentation.util.WindowManager;
 
 import java.net.URL;
 import java.util.Collection;
@@ -113,11 +112,6 @@ public class GenerationSettingsController extends TitledInitializableWindow {
     
     private void cancelBtnClick() {
         closeWindow();
-    }
-    
-    @Override
-    protected void showHelpWindow() {
-        WindowManager.showHelpWindow("generation_settings");
     }
     
     public static class SettingsObject {

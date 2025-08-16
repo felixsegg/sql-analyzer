@@ -96,9 +96,9 @@ public class WindowManager {
             if (getVisibleStages().isEmpty())
                 homeStage.show();
         });
-        setStageMinWidthHeight(stage, controller);
         stage.setResizable(resizable);
         stage.show();
+        setStageMinWidthHeight(stage, controller);
         return stage;
     }
     
