@@ -115,11 +115,12 @@ public class GenerationSettingsController extends TitledInitializableWindow {
     }
     
     public static class SettingsObject {
-        ConfigService config = ConfigService.getInstance();
         private int poolSize;
         private int reps;
         private final Set<LLM> llmSelection = new HashSet<>();
         private final Set<Prompt> promptSelection = new HashSet<>();
+        
+        private final ConfigService config = ConfigService.getInstance();
         
         private SettingsObject() {
             poolSize = config.getInt("gen.threads", 10);
@@ -132,6 +133,7 @@ public class GenerationSettingsController extends TitledInitializableWindow {
         
         private void setPoolSize(int poolSize) {
             this.poolSize = poolSize;
+            config.set("gen.threads", String.valueOf(poolSize));
         }
         
         public int getReps() {
@@ -140,6 +142,7 @@ public class GenerationSettingsController extends TitledInitializableWindow {
         
         private void setReps(int reps) {
             this.reps = reps;
+            config.set("gen.reps", String.valueOf(reps));
         }
         
         public Set<LLM> getLlmSelection() {

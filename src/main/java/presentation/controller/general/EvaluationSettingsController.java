@@ -44,8 +44,6 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
     
     private final Set<CheckBox> gqCBs = new HashSet<>();
     
-    private static final ConfigService config = ConfigService.getInstance();
-    
     private static final SettingsObject settingsObject = new SettingsObject();
     
     @Override
@@ -144,7 +142,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         settingsObject.setMaxReps(Integer.parseInt(maxRepsTF.getText()));
         settingsObject.setCsvOutputPath(csvOutputPathField.getText());
         settingsObject.setGeneratedQueriesSelection(gqCBs.stream().filter(CheckBox::isSelected).map(cb -> (GeneratedQuery) cb.getUserData()).toList());
-
+        
         closeWindow();
     }
     
@@ -191,6 +189,8 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         private int maxReps;
         private String csvOutputPath;
         
+        private final ConfigService config = ConfigService.getInstance();
+        
         private SettingsObject() {
             try {
                 comparatorType = ComparatorType.valueOf(config.get("eval.comparator"));
@@ -211,6 +211,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         
         private void setComparatorType(ComparatorType comparatorType) {
             this.comparatorType = comparatorType;
+            config.set("eval.comparator", comparatorType.name());
         }
         
         public LLM getComparatorLlm() {
@@ -244,6 +245,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         
         private void setThreadPoolSize(int threadPoolSize) {
             this.threadPoolSize = threadPoolSize;
+            config.set("eval.threads", String.valueOf(threadPoolSize));
         }
         
         public int getMaxReps() {
@@ -252,6 +254,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         
         private void setMaxReps(int maxReps) {
             this.maxReps = maxReps;
+            config.set("eval.reps", String.valueOf(maxReps));
         }
         
         public String getCsvOutputPath() {
@@ -260,6 +263,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         
         private void setCsvOutputPath(String csvOutputPath) {
             this.csvOutputPath = csvOutputPath;
+            config.set("eval.output.path", csvOutputPath);
         }
     }
 }
