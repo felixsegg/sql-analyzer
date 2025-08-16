@@ -1,5 +1,6 @@
 package logic.service;
 
+import logic.bdo.BusinessDomainObject;
 import logic.bdo.GeneratedQuery;
 import logic.bdo.Prompt;
 import logic.domainmapper.BusinessDomainMapper;
@@ -47,13 +48,13 @@ public class PromptService implements BDOService<Prompt> {
     }
     
     @Override
-    public java.util.List<String> deleteChecks(Prompt object) {
-        List<String> messages = new ArrayList<>();
+    public List<BusinessDomainObject> getDependants(Prompt object) {
+        List<BusinessDomainObject> dependants = new ArrayList<>();
         
         for (GeneratedQuery gq : GeneratedQueryService.getInstance().getAll())
             if (gq.getPrompt() == object)
-                messages.add("The generated query '" + gq.toString() + "' holds a reference to the prompt.");
+                dependants.add(gq);
         
-        return messages;
+        return dependants;
     }
 }

@@ -1,5 +1,6 @@
 package logic.service;
 
+import logic.bdo.BusinessDomainObject;
 import logic.bdo.Prompt;
 import logic.bdo.SampleQuery;
 import logic.domainmapper.BusinessDomainMapper;
@@ -47,13 +48,13 @@ public class SampleQueryService implements BDOService<SampleQuery> {
     }
     
     @Override
-    public List<String> deleteChecks(SampleQuery object) {
-        List<String> messages = new ArrayList<>();
+    public List<BusinessDomainObject> getDependants(SampleQuery object) {
+        List<BusinessDomainObject> dependants = new ArrayList<>();
         
         for (Prompt prompt : PromptService.getInstance().getAll())
             if (prompt.getSampleQuery() == object)
-                messages.add("The prompt '" + prompt.toString() + "' holds a reference to the sample query.");
+                dependants.add(prompt);
         
-        return messages;
+        return dependants;
     }
 }

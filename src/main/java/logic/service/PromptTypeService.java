@@ -1,5 +1,6 @@
 package logic.service;
 
+import logic.bdo.BusinessDomainObject;
 import logic.bdo.Prompt;
 import logic.bdo.PromptType;
 import logic.domainmapper.BusinessDomainMapper;
@@ -47,13 +48,13 @@ public class PromptTypeService implements BDOService<PromptType> {
     }
     
     @Override
-    public List<String> deleteChecks(PromptType object) {
-        List<String> messages = new ArrayList<>();
+    public List<BusinessDomainObject> getDependants(PromptType object) {
+        List<BusinessDomainObject> dependants = new ArrayList<>();
         
         for (Prompt prompt : PromptService.getInstance().getAll())
             if (prompt.getType() == object)
-                messages.add("The prompt '" + prompt.toString() + "' holds a reference to the prompt type.");
+                dependants.add(prompt);
         
-        return messages;
+        return dependants;
     }
 }

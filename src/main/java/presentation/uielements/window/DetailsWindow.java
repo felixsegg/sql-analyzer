@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import logic.bdo.BusinessDomainObject;
 import logic.service.BDOService;
 import presentation.util.BdoWindowType;
+import presentation.util.UIUtil;
 import presentation.util.WindowManager;
 
 import java.net.URL;
@@ -80,7 +81,7 @@ public abstract class DetailsWindow<T extends BusinessDomainObject> extends BDOW
             getService().saveOrUpdate(getObject());
             WindowManager.refreshOverviewsFor(BdoWindowType.getForType(getObject().getClass()));
             closeWindow();
-        } else generateAlert(Alert.AlertType.INFORMATION,
+        } else UIUtil.generateAlert(Alert.AlertType.INFORMATION,
                 "Saving failed",
                 "Saving this object is currently not possible.",
                 "Reasons:\n" + String.join("\n", messages)).show();

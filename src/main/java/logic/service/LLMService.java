@@ -1,5 +1,6 @@
 package logic.service;
 
+import logic.bdo.BusinessDomainObject;
 import logic.bdo.GeneratedQuery;
 import logic.bdo.LLM;
 import logic.domainmapper.BusinessDomainMapper;
@@ -47,13 +48,13 @@ public class LLMService implements BDOService<LLM> {
     }
     
     @Override
-    public java.util.List<String> deleteChecks(LLM object) {
-        List<String> messages = new ArrayList<>();
+    public List<BusinessDomainObject> getDependants(LLM object) {
+        List<BusinessDomainObject> dependants = new ArrayList<>();
         
         for (GeneratedQuery gq : GeneratedQueryService.getInstance().getAll())
             if (gq.getGenerator() == object)
-                messages.add("The prompt '" + gq.toString() + "' his this llm set as its generator.");
+                dependants.add(gq);
         
-        return messages;
+        return dependants;
     }
 }

@@ -38,7 +38,7 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
                 syncCache();
                 return dto;
             } catch (PersistenceException e) {
-                log.warn("Single value loading of id '{}' from the file system for class {} failed!", id, getDtoClass().getSimpleName(), e);
+                log.warn("Single value loading of id '{}' from the file system for class {} failed! {}", id, getDtoClass().getSimpleName(), e.getMessage());
                 return null;
             }
         }
@@ -70,7 +70,7 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
         try {
             dtos.addAll(PersistenceHelper.loadAll(getDtoClass()));
         } catch (PersistenceException e) {
-            log.warn("Batch loading from the file system for class {} failed!", getDtoClass().getSimpleName(), e);
+            log.warn("Batch loading from the file system for class {} failed! {}", getDtoClass().getSimpleName(), e.getMessage());
         }
         
         cache.clear();

@@ -109,4 +109,11 @@ public class UIUtil {
         comboBox.getItems().setAll(currentItems);
         comboBox.setValue(selection);
     }
+    
+    public static Alert generateAlert(Alert.AlertType type, String title, String header, String content, ButtonType... buttons) {
+        Alert alert = new Alert(type, content, buttons);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        return alert;
+    }
 }

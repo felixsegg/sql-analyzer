@@ -1,5 +1,6 @@
 package presentation.uielements.window;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -9,17 +10,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import logic.bdo.BusinessDomainObject;
 import logic.service.BDOService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import presentation.util.BdoWindowType;
+import presentation.util.UIUtil;
+import presentation.util.WindowManager;
 
 import java.net.URL;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public abstract class BDOWindow<T extends BusinessDomainObject> extends TitledInitializableWindow {
-    private static final Logger log = LoggerFactory.getLogger(BDOWindow.class);
-    
     @FXML
     protected Label headerLabel;
     @FXML
@@ -53,14 +51,6 @@ public abstract class BDOWindow<T extends BusinessDomainObject> extends TitledIn
         headerStringProperty.set(headerText);
     }
     
-    protected static Alert generateAlert(Alert.AlertType type, String title, String header, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        return alert;
-    }
-    
     
     /**
      * Shows the alerts to the user. Doesn't actually delete the object itself, but returns if it's safe to delete
@@ -68,15 +58,22 @@ public abstract class BDOWindow<T extends BusinessDomainObject> extends TitledIn
      * @return          if we can proceed with the deletion
      */
     protected boolean requestDeletion(T object) {
-        List<String> messages = getService().deleteChecks(object);
+        List<BusinessDomainObject> dependants = getService().getDependants(object);
         
-        if (!messages.isEmpty())
-            generateAlert(Alert.AlertType.INFORMATION,
+        if (!dependants.isEmpty()) {
+            Alert alert = UIUtil.generateAlert(Alert.AlertType.ERROR,
                     "Deletion failed",
                     "The deletion of this object is currently not possible.",
-                    "Reasons:\n" + String.join("\n", messages)).show();
+                    "There are " + dependants.size() + " objects referencing this.\nDo you want to view them in their overview windows?",
+                    ButtonType.YES, ButtonType.NO);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.YES)
+                showDependantsOverview(dependants);
+            return false;
+        }
         else {
-            Alert alert = generateAlert(Alert.AlertType.CONFIRMATION, "Confirm Deletion",
+            Alert alert = UIUtil.generateAlert(Alert.AlertType.CONFIRMATION,
+                    "Confirm Deletion",
                     "Are you sure you want to delete this?",
                     "This action cannot be undone.\nAffected: " + object.toString()
             );
@@ -84,6 +81,19 @@ public abstract class BDOWindow<T extends BusinessDomainObject> extends TitledIn
             Optional<ButtonType> result = alert.showAndWait();
             return result.isPresent() && result.get() == ButtonType.OK;
         }
-        return false;
+    }
+    
+    private void showDependantsOverview(Collection<BusinessDomainObject> bdos) {
+        Map<Class<? extends BusinessDomainObject>, Set<BusinessDomainObject>> bdoTypeMap = new HashMap<>();
+        for (BusinessDomainObject bdo : bdos) {
+            if (!bdoTypeMap.containsKey(bdo.getClass()))
+                bdoTypeMap.put(bdo.getClass(), new HashSet<>());
+            bdoTypeMap.get(bdo.getClass()).add(bdo);
+        }
+        for (Class<?> c : bdoTypeMap.keySet())
+            Platform.runLater(
+                    () -> WindowManager.openOverview(BdoWindowType.getForType(c), bdo -> bdoTypeMap.get(c).contains(bdo))
+            );
+        
     }
 }

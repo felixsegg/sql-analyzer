@@ -9,7 +9,7 @@ public interface BDOService<B extends BusinessDomainObject> {
     Set<B> getAll();
     void delete(B bdo);
     void saveOrUpdate(B bdo);
-    default List<String> deleteChecks(B bdo) {
+    default List<BusinessDomainObject> getDependants(B bdo) {
         return List.of();
     }
 }
