@@ -14,12 +14,47 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
+/**
+ * File–system based JSON persistence utility for DTOs implementing {@link persistence.dto.Persistable}.
+ * <p>
+ * Stores each object as a single <code>.json</code> file under a class-named directory
+ * (<code>&lt;basePath&gt;/&lt;SimpleClassName&gt;/&lt;id&gt;.json</code>). Provides CRUD-style helpers:
+ * {@code persist}, {@code load}, {@code loadAll}, and {@code delete}. Serialization uses Gson (pretty printed).
+ * A small normalization step ensures top-level {@code String} fields of Java {@code record}s are non-null.
+ * </p>
+ *
+ * <p><strong>Versioning:</strong> {@link #persist} compares the on-disk {@code version()} with the candidate.
+ * Older or equal versions are not overwritten; newer candidates replace the file. Attempting to save an older
+ * version results in a {@link persistence.exception.PersistenceException}.</p>
+ *
+ * <p><strong>Threading/Concurrency:</strong> This is a static, process-local helper. It is not a full
+ * concurrency control mechanism; coordinate concurrent writes at a higher level if multiple threads/processes
+ * may persist the same object.</p>
+ *
+ * @apiNote Call {@link #initializeBasePath(java.nio.file.Path)} exactly once before any other method.
+ * The base path is immutable afterward. Directory names are derived from {@code clazz.getSimpleName()}.
+ * @implNote JSON normalization only affects top-level {@code String} components on {@code record} types.
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 public class PersistenceHelper {
     private static final Logger log = LoggerFactory.getLogger(PersistenceHelper.class);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     
     private static Path savesBasePath = null;
     
+    /**
+     * Initializes the root directory for persistence operations.
+     * <p>
+     * Must be called exactly once before any other method of this helper is used.
+     * Subsequent calls will throw an {@link IllegalStateException}.
+     * </p>
+     *
+     * @param basePath the directory under which all persisted objects will be stored;
+     *                 subdirectories are created per class name
+     * @throws IllegalStateException if the persistence base path has already been initialized
+     */
     public static void initializeBasePath(Path basePath) {
         if (savesBasePath != null)
             throw new IllegalStateException("PersistenceHelper already initialized.");
@@ -27,6 +62,24 @@ public class PersistenceHelper {
         savesBasePath = basePath;
     }
     
+    /**
+     * Persists a {@link persistence.dto.Persistable} object to the file system.
+     * <p>
+     * Each object is stored as a JSON file named by its {@code id()} in a directory
+     * specific to its class. If a file with the same ID already exists, the stored
+     * {@code version()} is compared against the candidate:
+     * <ul>
+     *   <li>If the new version is greater, the file is overwritten.</li>
+     *   <li>If the versions are equal, nothing is changed.</li>
+     *   <li>If the existing version is greater, a {@link persistence.exception.PersistenceException} is thrown.</li>
+     * </ul>
+     * </p>
+     *
+     * @param p the persistable object to save
+     * @throws persistence.exception.PersistenceException if file access fails,
+     *         if the existing JSON cannot be parsed as the expected type,
+     *         or if a newer version already exists on disk
+     */
     public static void persist(Persistable p) throws PersistenceException {
         String fileName = String.valueOf(p.id());
         Path dir = getDirPathFor(p.getClass());
@@ -57,6 +110,21 @@ public class PersistenceHelper {
         }
     }
     
+    /**
+     * Loads a persisted object by class and identifier.
+     * <p>
+     * Reads the JSON file named {@code &lt;id&gt;.json} from the directory corresponding
+     * to the given class, deserializes it with Gson, and normalizes top-level string
+     * fields for record types.
+     * </p>
+     *
+     * @param <T>   the type of the object to load
+     * @param clazz the class of the object, used to resolve the directory and target type
+     * @param id    the identifier of the object (file name without extension)
+     * @return the deserialized object of type {@code T}
+     * @throws persistence.exception.PersistenceException if the file is missing, unreadable,
+     *         contains invalid JSON, or does not match the expected type
+     */
     public static <T extends Persistable> T load(Class<T> clazz, long id) throws PersistenceException {
         String fileName = String.valueOf(id);
         Path dir = getDirPathFor(clazz);
@@ -74,6 +142,19 @@ public class PersistenceHelper {
         }
     }
     
+    /**
+     * Loads all persisted objects of the given class.
+     * <p>
+     * Scans the directory associated with {@code clazz} for <code>.json</code> files,
+     * deserializes each into an instance of {@code T}, and returns them as a set.
+     * Invalid or unreadable files are skipped with a logged warning.
+     * </p>
+     *
+     * @param <T>   the type of objects to load
+     * @param clazz the class whose persisted instances should be loaded
+     * @return a set of deserialized objects of type {@code T}; may be empty if no files exist
+     * @throws persistence.exception.PersistenceException if the directory listing fails
+     */
     public static <T extends Persistable> Set<T> loadAll(Class<T> clazz) throws PersistenceException {
         Path dir = getDirPathFor(clazz);
         
@@ -101,6 +182,17 @@ public class PersistenceHelper {
         return dtos;
     }
     
+    /**
+     * Deletes the persisted file of the given object.
+     * <p>
+     * Resolves the JSON file path from the object's class and {@code id()}, then attempts
+     * to delete it from disk.
+     * </p>
+     *
+     * @param p the persistable object whose file should be removed
+     * @throws persistence.exception.PersistenceException if the file does not exist
+     *         or an I/O error occurs during deletion
+     */
     public static void delete(Persistable p) throws PersistenceException {
         String fileName = String.valueOf(p.id());
         Path dir = getDirPathFor(p.getClass());
@@ -114,7 +206,23 @@ public class PersistenceHelper {
         }
     }
     
-    public static <T> String normalizeTopLevelStrings(String json, Class<T> recordClass) {
+    /**
+     * Normalizes JSON for Java {@code record} types by ensuring all top-level
+     * {@code String} components are non-null.
+     * <p>
+     * If the provided class is a record, each top-level field of type
+     * {@code String} that is missing or {@code null} in the JSON object will be
+     * replaced with an empty string. This prevents deserialization failures when
+     * the record requires non-null string values.
+     * </p>
+     *
+     * @param <T>         the target type
+     * @param json        the JSON string to normalize; may be {@code null}
+     * @param recordClass the class of the record type
+     * @return the normalized JSON string, or the original input if the class is
+     *         not a record or the JSON is not an object
+     */
+    private static <T> String normalizeTopLevelStrings(String json, Class<T> recordClass) {
         if (json == null || !recordClass.isRecord()) return json;
         JsonElement root = JsonParser.parseString(json);
         if (!root.isJsonObject()) return json;
@@ -129,12 +237,36 @@ public class PersistenceHelper {
         return root.toString();
     }
     
+    /**
+     * Writes a JSON string to a file in the specified directory.
+     * <p>
+     * Ensures that the parent directory exists before writing. The file name is
+     * suffixed with <code>.json</code>.
+     * </p>
+     *
+     * @param dir      the target directory
+     * @param fileName the base file name without extension
+     * @param json     the JSON content to write
+     * @throws IOException if the directory cannot be created or the file cannot be written
+     */
     private static void writeJson(Path dir, String fileName, String json) throws IOException {
         Path path = dir.resolve(fileName + ".json");
         Files.createDirectories(path.getParent());
         Files.writeString(path, json, StandardCharsets.UTF_8);
     }
     
+    /**
+     * Reads the content of a JSON file from the specified directory.
+     * <p>
+     * Returns the file content as a UTF-8 string if the file exists, otherwise
+     * returns {@code null}.
+     * </p>
+     *
+     * @param dir      the directory containing the file
+     * @param fileName the base file name without extension
+     * @return the JSON content as a string, or {@code null} if the file does not exist
+     * @throws IOException if the file cannot be read
+     */
     private static String readJson(Path dir, String fileName) throws IOException {
         Path path = dir.resolve(fileName + ".json");
         if (Files.exists(path)) {
@@ -144,11 +276,29 @@ public class PersistenceHelper {
         }
     }
     
+    /**
+     * Deletes a JSON file in the specified directory if it exists.
+     *
+     * @param dir      the directory containing the file
+     * @param fileName the base file name without extension
+     * @throws IOException if an I/O error occurs during deletion
+     */
     private static void deleteJson(Path dir, String fileName) throws IOException {
         Path path = dir.resolve(fileName + ".json");
         Files.deleteIfExists(path);
     }
     
+    /**
+     * Lists all JSON files in the specified directory.
+     * <p>
+     * Ensures the directory exists, then returns the base names (without the
+     * <code>.json</code> extension) of all JSON files found.
+     * </p>
+     *
+     * @param dir the directory to scan
+     * @return an array of file names without extension; may be empty if no JSON files exist
+     * @throws IOException if the directory cannot be created or listed
+     */
     private static String[] getAllJsonFileNamesInDir(Path dir) throws IOException {
         mkdir(dir);
         
@@ -160,11 +310,31 @@ public class PersistenceHelper {
         }
     }
     
+    /**
+     * Ensures that the given directory exists.
+     * <p>
+     * If the directory does not exist, it and any missing parent directories are created.
+     * </p>
+     *
+     * @param dir the directory to check or create
+     * @throws IOException if the directory cannot be created
+     */
     private static void mkdir(Path dir) throws IOException {
         if (Files.notExists(dir))
             Files.createDirectories(dir);
     }
     
+    /**
+     * Resolves the directory path for a given class.
+     * <p>
+     * The path is derived from the initialized base path combined with the class's
+     * simple name. Requires that {@link #initializeBasePath(Path)} has been called.
+     * </p>
+     *
+     * @param clazz the class whose directory should be resolved
+     * @return the directory path for the class
+     * @throws IllegalStateException if the base path has not been initialized
+     */
     private static Path getDirPathFor(Class<?> clazz) {
         if (savesBasePath == null)
             throw new IllegalStateException("PersistenceHelper has not been initialized. Call initializeBasePath(Path basePath) first.");

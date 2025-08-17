@@ -3,6 +3,17 @@ package persistence.dao.DAOImpl;
 import persistence.dao.DTODAO;
 import persistence.dto.SampleQueryDTO;
 
+/**
+ * DAO implementation for {@link persistence.dto.SampleQueryDTO}.
+ * <p>
+ * Provides CRUD operations for sample query DTOs by extending
+ * {@link persistence.dao.DTODAO}. This class is a singleton; use
+ * {@link #getInstance()} to obtain the instance.
+ * </p>
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 public class SampleQueryDAOImpl extends DTODAO<SampleQueryDTO> {
     private static SampleQueryDAOImpl instance = null;
     
@@ -14,6 +25,11 @@ public class SampleQueryDAOImpl extends DTODAO<SampleQueryDTO> {
         return instance;
     }
     
+    /**
+     * Specifies the DTO type managed by this DAO.
+     *
+     * @return {@code SampleQueryDTO.class}
+     */
     @Override
     protected Class<SampleQueryDTO> getDtoClass() {
         return SampleQueryDTO.class;

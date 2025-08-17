@@ -8,21 +8,65 @@ import persistence.exception.PersistenceException;
 
 import java.util.*;
 
+/**
+ * Base DAO implementation for {@link persistence.dto.Persistable} DTOs backed by the file system.
+ * <p>
+ * Provides a simple in-memory cache (id → DTO) synchronized from disk via
+ * {@link persistence.PersistenceHelper}. Subclasses specify the DTO type by
+ * implementing {@link #getDtoClass()}.
+ * </p>
+ *
+ * <p><strong>Notes:</strong> Cache synchronization is eager on construction and on
+ * selected operations; this class is not thread-safe.</p>
+ *
+ * @param <T> the DTO type
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 public abstract class DTODAO<T extends Persistable> implements DAO<T> {
     private static final Logger log = LoggerFactory.getLogger(DTODAO.class);
+    
+    /**
+     * In-memory cache mapping DTO identifiers to their instances.
+     * <p>
+     * Keeps recently loaded or persisted objects to reduce file system access.
+     * </p>
+     */
     protected final Map<Integer, T> cache = new HashMap<>();
     
-    protected abstract Class<T> getDtoClass();
-    
+    /**
+     * Constructs a new DAO and initializes the in-memory cache
+     * by synchronizing with the persistence layer.
+     */
     protected DTODAO() {
         syncCache();
     }
     
+    /**
+     * Returns all cached entities.
+     * <p>
+     * The result is a snapshot copy of the current cache contents.
+     * </p>
+     *
+     * @return a set of all entities; may be empty if none are cached
+     */
     @Override
     public Set<T> getAll() {
         return new HashSet<>(cache.values());
     }
     
+    /**
+     * Retrieves an entity by its identifier.
+     * <p>
+     * First checks the in-memory cache; if not present, attempts to load
+     * the entity from the persistence layer and refreshes the cache.
+     * Returns {@code null} if the id is {@code -1}, not found, or loading fails.
+     * </p>
+     *
+     * @param id the identifier of the entity
+     * @return the entity with the given id, or {@code null} if not found or load failed
+     */
     @Override
     public T getByID(int id) {
         if (id == -1)
@@ -41,6 +85,15 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
         }
     }
     
+    /**
+     * Deletes the given entity from the persistence layer and removes it from the cache.
+     * <p>
+     * Logs a warning if deletion fails.
+     * </p>
+     *
+     * @param dto the entity to delete, must not be {@code null}
+     * @throws NullPointerException if {@code dto} is {@code null}
+     */
     @Override
     public void delete(T dto) {
         Objects.requireNonNull(dto);
@@ -52,6 +105,15 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
         }
     }
     
+    /**
+     * Persists or updates the given entity and refreshes the cache entry.
+     * <p>
+     * Logs a warning if the operation fails.
+     * </p>
+     *
+     * @param dto the entity to save or update, must not be {@code null}
+     * @throws NullPointerException if {@code dto} is {@code null}
+     */
     @Override
     public void saveOrUpdate(T dto) {
         Objects.requireNonNull(dto);
@@ -63,6 +125,13 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
         }
     }
     
+    /**
+     * Synchronizes the in-memory cache with the persistence layer.
+     * <p>
+     * Loads all entities of the managed type and replaces the current cache
+     * contents. Logs a warning if batch loading fails.
+     * </p>
+     */
     private void syncCache() {
         Set<T> dtos = new HashSet<>();
         
@@ -76,6 +145,15 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
         dtos.forEach(dto -> cache.put(dto.id(), dto));
     }
     
+    /**
+     * Generates a free identifier not currently used in the cache.
+     * <p>
+     * Uses random numbers in the positive {@code int} range until an unused id is found.
+     * This implementation is simple but not guaranteed to be efficient.
+     * </p>
+     *
+     * @return a free identifier
+     */
     public int getFreeId() {
         // Not the best implementation but it works for this small project
         while(true) {
@@ -84,4 +162,11 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
                 return random;
         }
     }
+    
+    /**
+     * Returns the DTO class managed by this DAO.
+     *
+     * @return the class object of the managed DTO type
+     */
+    protected abstract Class<T> getDtoClass();
 }
