@@ -1,14 +1,13 @@
 package persistence;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.dto.Persistable;
 import persistence.exception.PersistenceException;
 
 import java.io.IOException;
+import java.lang.reflect.RecordComponent;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.HashSet;
@@ -41,7 +40,7 @@ public class PersistenceHelper {
                 return;
             }
             
-            Persistable previousObject = gson.fromJson(previousJson, p.getClass());
+            Persistable previousObject = gson.fromJson(normalizeTopLevelStrings(previousJson, p.getClass()), p.getClass());
             
             switch (Long.compare(previousObject.version(), p.version())) {
                 case -1:
@@ -67,7 +66,7 @@ public class PersistenceHelper {
             if (json == null)
                 throw new PersistenceException("Object with id '" + id + "' of class " + clazz.getSimpleName() + " not found in the file system.");
             
-            return gson.fromJson(json, clazz);
+            return gson.fromJson(normalizeTopLevelStrings(json, clazz), clazz);
         } catch (IOException e) {
             throw new PersistenceException("Something went wrong while accessing the file system.", e);
         } catch (JsonSyntaxException e) {
@@ -90,7 +89,7 @@ public class PersistenceHelper {
         for (String fileName : fileNames) {
             try {
                 String json = readJson(dir, fileName);
-                T dto = gson.fromJson(json, clazz);
+                T dto = gson.fromJson(normalizeTopLevelStrings(json, clazz), clazz);
                 dtos.add(dto);
             } catch (IOException e) {
                 log.warn("Couldn't load file '{}' while batch loading for class {}.", fileName, clazz.getSimpleName(), e);
@@ -113,6 +112,21 @@ public class PersistenceHelper {
         } catch (IOException e) {
             throw new PersistenceException("Deletion of object with id " + p.id() + " of class " + p.getClass().getSimpleName() + " failed.", e);
         }
+    }
+    
+    public static <T> String normalizeTopLevelStrings(String json, Class<T> recordClass) {
+        if (json == null || !recordClass.isRecord()) return json;
+        JsonElement root = JsonParser.parseString(json);
+        if (!root.isJsonObject()) return json;
+        
+        JsonObject o = root.getAsJsonObject();
+        for (RecordComponent c : recordClass.getRecordComponents()) {
+            if (c.getType() == String.class) {
+                String k = c.getName();
+                if (!o.has(k) || o.get(k).isJsonNull()) o.addProperty(k, "");
+            }
+        }
+        return root.toString();
     }
     
     private static void writeJson(Path dir, String fileName, String json) throws IOException {
