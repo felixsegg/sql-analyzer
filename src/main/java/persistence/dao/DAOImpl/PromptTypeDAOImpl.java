@@ -7,12 +7,10 @@ public class PromptTypeDAOImpl extends DTODAO<PromptTypeDTO> {
     private static PromptTypeDAOImpl instance = null;
     
     private PromptTypeDAOImpl() {
-        
     }
     
     public static PromptTypeDAOImpl getInstance() {
-        if (instance == null)
-            instance = new PromptTypeDAOImpl();
+        if (instance == null) instance = new PromptTypeDAOImpl();
         return instance;
     }
     

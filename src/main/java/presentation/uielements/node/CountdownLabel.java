@@ -11,6 +11,7 @@ import javafx.util.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+@SuppressWarnings("unused") // for later use
 public class CountdownLabel extends Label {
     private Instant target;
     private Timeline timeline;

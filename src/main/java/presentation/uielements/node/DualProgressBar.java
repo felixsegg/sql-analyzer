@@ -8,6 +8,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
+// for later use
+@SuppressWarnings({"unused", "FieldCanBeLocal"}) // for later use and better readability
 public class DualProgressBar extends VBox {
     
     private final DoubleProperty startedProgress = new SimpleDoubleProperty(0);

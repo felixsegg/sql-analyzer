@@ -5,6 +5,9 @@ import logic.promptable.Promptable;
 import logic.promptable.util.PromptableApi;
 import logic.promptable.util.PromptableFactory;
 
+import java.util.Objects;
+
+@SuppressWarnings("unused") // for later use
 public class LLM extends BusinessDomainObject {
     private final StringProperty name = new SimpleStringProperty();
     private final ObjectProperty<PromptableApi> llmApi = new SimpleObjectProperty<>();
@@ -28,10 +31,10 @@ public class LLM extends BusinessDomainObject {
     public LLM(String name, PromptableApi promptableApi, String model, String apiKey, double minTemperature, double maxTemperature, Long version) {
         super(version);
         
-        this.name.set(name);
-        this.llmApi.set(promptableApi);
-        this.model.set(model);
-        this.apiKey.set(apiKey);
+        this.name.set(Objects.requireNonNull(name));
+        this.llmApi.set(Objects.requireNonNull(promptableApi));
+        this.model.set(Objects.requireNonNull(model));
+        this.apiKey.set(Objects.requireNonNull(apiKey));
         this.minTemperature.set(minTemperature);
         this.maxTemperature.set(maxTemperature);
         
@@ -58,11 +61,11 @@ public class LLM extends BusinessDomainObject {
     }
     
     public void setName(String name) {
-        this.name.set(name);
+        this.name.set(Objects.requireNonNull(name));
     }
     
     public void setLlmApi(PromptableApi promptableApi) {
-        this.llmApi.set(promptableApi);
+        this.llmApi.set(Objects.requireNonNull(promptableApi));
         this.promptable = null;
     }
     
@@ -99,7 +102,7 @@ public class LLM extends BusinessDomainObject {
     }
     
     public void setModel(String model) {
-        this.model.set(model);
+        this.model.set(Objects.requireNonNull(model));
     }
     
     public String getModel() {
@@ -111,7 +114,7 @@ public class LLM extends BusinessDomainObject {
     }
     
     public void setApiKey(String model) {
-        this.apiKey.set(model);
+        this.apiKey.set(Objects.requireNonNull(model));
     }
     
     public String getApiKey() {

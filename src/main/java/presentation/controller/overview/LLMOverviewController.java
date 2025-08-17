@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 public class LLMOverviewController extends OverviewWindow<LLM> {
     private final BDOService<LLM> service = LLMService.getInstance();
     
+    @SuppressWarnings("unused") // for later use
     public LLMOverviewController() {
         super(null);
     }

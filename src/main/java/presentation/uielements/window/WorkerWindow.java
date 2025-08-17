@@ -5,10 +5,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -26,8 +24,6 @@ public abstract class WorkerWindow extends TitledInitializableWindow {
     private Label headerLabel;
     @FXML
     private VBox content;
-    @FXML
-    private ScrollPane scrollPane;
     @FXML
     private Button settingsBtn, cancelBtn, saveBtn, startBtn;
     

@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PromptAuthorizer {
@@ -24,6 +25,8 @@ public class PromptAuthorizer {
     
     @SuppressWarnings("BusyWait") // Expected behavior
     public void waitUntilAuthorized(LLM llm) {
+        Objects.requireNonNull(llm);
+        
         Instant retryInstant = rateLimitMap.get(llm);
         if (retryInstant == null)
             return;
@@ -36,7 +39,7 @@ public class PromptAuthorizer {
                     Thread.sleep(millisToWait);
             } catch (InterruptedException e) {
                 long leftoverMillis = (currentRetryInstant.toEpochMilli() - Instant.now().toEpochMilli());
-                log.warn("Got interrupted while waiting for authorization to prompt llm {}. Should have waited {} milliseconds in total, Got interrupted {} milliseconds early.", llm.toString(), millisToWait, leftoverMillis);
+                log.warn("Got interrupted while waiting for authorization to prompt llm {}. Should have waited {} milliseconds in total, Got interrupted {} milliseconds early.", llm, millisToWait, leftoverMillis);
                 break;
             }
             currentRetryInstant = rateLimitMap.get(llm);
@@ -44,6 +47,9 @@ public class PromptAuthorizer {
     }
     
     public synchronized void registerInstant(LLM llm, Instant waitUntil) {
+        Objects.requireNonNull(llm);
+        Objects.requireNonNull(waitUntil);
+        
         Instant existing = rateLimitMap.get(llm);
         if (existing == null || existing.isBefore(waitUntil))
             rateLimitMap.put(llm, waitUntil);

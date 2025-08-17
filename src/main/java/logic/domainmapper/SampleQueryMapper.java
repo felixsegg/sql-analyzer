@@ -7,7 +7,6 @@ public class SampleQueryMapper extends AbstractBusinessDomainMapper<SampleQuery,
     private static SampleQueryMapper instance = null;
     
     private SampleQueryMapper() {
-    
     }
     
     public static SampleQueryMapper getInstance() {

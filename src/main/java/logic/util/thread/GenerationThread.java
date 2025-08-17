@@ -107,7 +107,7 @@ public class GenerationThread extends WorkerThread {
                     authorizer.registerInstant(llm, e.getRetryInstant());
                 }
         } catch (LLMException e) {
-            String errorMsg = "ERROR: LLM Exception for llm '" + llm.toString() + "' and Prompt '" + prompt.toString() + "' in iteration #" + iteration + 1 + " of " + repetitionCount + ":\n\t" + e.getMessage();
+            String errorMsg = "ERROR: LLM Exception for llm '" + llm + "' and Prompt '" + prompt.toString() + "' in iteration #" + iteration + 1 + " of " + repetitionCount + ":\n\t" + e.getMessage();
             log.error(errorMsg, e);
         }
         finishedProgress.accept(llm);

@@ -17,7 +17,7 @@ public abstract class BusinessDomainObject {
      *
      * @param properties the properties for which a change listener will be introduced.
      */
-    protected void registerProperties(Property<?> ... properties) {
+    protected void registerProperties(Property<?>... properties) {
         for (Property<?> property : properties)
             property.addListener((obs, oldV, newV) -> refreshVersion());
     }

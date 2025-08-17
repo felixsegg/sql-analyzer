@@ -80,7 +80,10 @@ public class WindowManager {
         String fxmlName = "help";
         HelpWindow controller = new HelpWindow();
         initializeAndShow(controller, fxmlName, false);
-        controller.loadHtml(ResourceLoader.getHelpHtmlUrl(htmlFileName).toExternalForm());
+        URL helpHtmlUrl = ResourceLoader.getHelpHtmlUrl(htmlFileName);
+        if (helpHtmlUrl != null)
+            controller.loadHtml(helpHtmlUrl.toExternalForm());
+        else log.error("Could not load html file with name {}!", htmlFileName);
     }
     
     public static void refreshOverviewsFor(BdoWindowType windowType) {

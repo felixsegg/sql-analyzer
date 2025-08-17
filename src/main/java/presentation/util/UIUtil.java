@@ -13,13 +13,11 @@ import javafx.scene.control.Label;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.Objects;
 
 
 public class UIUtil {
-    private static final Logger log = LoggerFactory.getLogger(UIUtil.class);
-    
     private UIUtil() {
     }
     
@@ -50,6 +48,10 @@ public class UIUtil {
     }
     
     public static void initSlider(Slider slider, Label label, double value) {
+        Objects.requireNonNull(slider);
+        Objects.requireNonNull(label);
+        if (value < 0 || value > 1) throw new IllegalArgumentException("value must be between 0 and 1!");
+        
         slider.setValue(value);
         slider.setMin(0.0);
         slider.setMax(1.0);
@@ -60,6 +62,12 @@ public class UIUtil {
     }
     
     public static void initBoundedSliders(Slider minSlider, Slider maxSlider, Label minLabel, Label maxLabel) {
+        Objects.requireNonNull(minSlider);
+        Objects.requireNonNull(maxSlider);
+        Objects.requireNonNull(minLabel);
+        Objects.requireNonNull(maxLabel);
+        
+        
         initSlider(minSlider, minLabel, 0.7);
         initSlider(maxSlider, maxLabel, 0.8);
         
@@ -77,6 +85,7 @@ public class UIUtil {
     }
     
     public static void signalBorder(Node node) {
+        Objects.requireNonNull(node);
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.millis(100), e -> node.setStyle("-fx-border-color: red; -fx-border-width: 3px;")),
                 new KeyFrame(Duration.millis(200), e -> node.setStyle("-fx-border-color: transparent; -fx-border-width: 3px;")),
@@ -95,6 +104,7 @@ public class UIUtil {
     }
     
     public static void initIntegerField(TextField field) {
+        Objects.requireNonNull(field);
         field.textProperty().addListener((obs, oldVal, newVal) -> {
             if (!newVal.matches("\\d*")) {
                 field.setText(newVal.replaceAll("\\D", ""));
@@ -103,6 +113,7 @@ public class UIUtil {
     }
     
     public static <T> void resetComboBox(ComboBox<T> comboBox) {
+        Objects.requireNonNull(comboBox);
         T selection = comboBox.getValue();
         ObservableList<T> currentItems = comboBox.getItems();
         comboBox.setItems(FXCollections.observableArrayList());

@@ -1,7 +1,6 @@
 package persistence.dto;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import java.util.Objects;
 
 public class SampleQueryDTO implements Persistable {
     private int id;
@@ -15,11 +14,11 @@ public class SampleQueryDTO implements Persistable {
     public SampleQueryDTO(int id, long version, String name, String description, String sql, String promptContext, String complexity) {
         this.id = id;
         this.version = version;
-        this.name = name;
-        this.description = description;
-        this.sql = sql;
-        this.promptContext = promptContext;
-        this.complexity = complexity;
+        this.name = Objects.requireNonNull(name);
+        this.description = Objects.requireNonNull(description);
+        this.sql = Objects.requireNonNull(sql);
+        this.promptContext = Objects.requireNonNull(promptContext);
+        this.complexity = Objects.requireNonNull(complexity);
     }
     
     @Override
@@ -45,7 +44,7 @@ public class SampleQueryDTO implements Persistable {
     }
     
     public void setName(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
     
     public String getDescription() {
@@ -53,7 +52,7 @@ public class SampleQueryDTO implements Persistable {
     }
     
     public void setDescription(String description) {
-        this.description = description;
+        this.description = Objects.requireNonNull(description);
     }
     
     public String getSql() {
@@ -61,7 +60,7 @@ public class SampleQueryDTO implements Persistable {
     }
     
     public void setSql(String sql) {
-        this.sql = sql;
+        this.sql = Objects.requireNonNull(sql);
     }
     
     public String getPromptContext() {
@@ -69,7 +68,7 @@ public class SampleQueryDTO implements Persistable {
     }
     
     public void setPromptContext(String promptContext) {
-        this.promptContext = promptContext;
+        this.promptContext = Objects.requireNonNull(promptContext);
     }
     
     public String getComplexity() {
@@ -77,6 +76,6 @@ public class SampleQueryDTO implements Persistable {
     }
     
     public void setComplexity(String complexity) {
-        this.complexity = complexity;
+        this.complexity = Objects.requireNonNull(complexity);
     }
 }

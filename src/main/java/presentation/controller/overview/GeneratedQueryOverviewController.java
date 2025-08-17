@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 public class GeneratedQueryOverviewController extends OverviewWindow<GeneratedQuery> {
     private final BDOService<GeneratedQuery> service = GeneratedQueryService.getInstance();
     
+    @SuppressWarnings("unused") // for later use
     public GeneratedQueryOverviewController() {
         super(null);
     }

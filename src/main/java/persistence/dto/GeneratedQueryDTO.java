@@ -1,5 +1,7 @@
 package persistence.dto;
 
+import java.util.Objects;
+
 public class GeneratedQueryDTO implements Persistable {
     private int id;
     private long version;
@@ -10,7 +12,7 @@ public class GeneratedQueryDTO implements Persistable {
     public GeneratedQueryDTO(int id, long version, String sql, int generatorId, int promptId) {
         this.id = id;
         this.version = version;
-        this.sql = sql;
+        this.sql = Objects.requireNonNull(sql);
         this.generatorId = generatorId;
         this.promptId = promptId;
     }
@@ -38,7 +40,7 @@ public class GeneratedQueryDTO implements Persistable {
     }
     
     public void setSql(String sql) {
-        this.sql = sql;
+        this.sql = Objects.requireNonNull(sql);
     }
     
     public int getGeneratorId() {

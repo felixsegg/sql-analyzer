@@ -12,7 +12,6 @@ public class PromptMapper extends AbstractBusinessDomainMapper<Prompt, PromptDTO
     private final PromptTypeMapper promptTypeMapper = PromptTypeMapper.getInstance();
     
     private PromptMapper() {
-    
     }
     
     public static PromptMapper getInstance() {

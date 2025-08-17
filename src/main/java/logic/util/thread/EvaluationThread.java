@@ -75,9 +75,7 @@ public class EvaluationThread extends WorkerThread {
             log.info("Starting thread pool for subworkers in evaluation with pool size of {}.", poolSize);
             
             for (GeneratedQuery gq : gqs)
-                subworkerThreadPool.submit(() -> {
-                    subworkerJob(comparator, gq);
-                });
+                subworkerThreadPool.submit(() -> subworkerJob(comparator, gq));
             
             subworkerThreadPool.shutdown();
             if (!subworkerThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS)) throw new TimeoutException();

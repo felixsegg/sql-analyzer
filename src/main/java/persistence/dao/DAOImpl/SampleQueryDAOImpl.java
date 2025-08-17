@@ -7,12 +7,10 @@ public class SampleQueryDAOImpl extends DTODAO<SampleQueryDTO> {
     private static SampleQueryDAOImpl instance = null;
     
     private SampleQueryDAOImpl() {
-    
     }
     
     public static SampleQueryDAOImpl getInstance() {
-        if (instance == null)
-            instance = new SampleQueryDAOImpl();
+        if (instance == null) instance = new SampleQueryDAOImpl();
         return instance;
     }
     

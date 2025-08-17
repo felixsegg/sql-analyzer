@@ -8,7 +8,6 @@ public class LLMMapper extends AbstractBusinessDomainMapper<LLM, LLMDTO> {
     private static LLMMapper instance = null;
     
     private LLMMapper() {
-        
     }
     
     public static LLMMapper getInstance() {

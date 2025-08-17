@@ -7,7 +7,6 @@ public class PromptTypeMapper extends AbstractBusinessDomainMapper<PromptType, P
     private static PromptTypeMapper instance = null;
     
     private PromptTypeMapper() {
-        
     }
     
     public static PromptTypeMapper getInstance() {

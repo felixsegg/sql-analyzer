@@ -12,7 +12,6 @@ public class GeneratedQueryMapper extends AbstractBusinessDomainMapper<Generated
     private final PromptMapper promptMapper = PromptMapper.getInstance();
     
     private GeneratedQueryMapper() {
-        
     }
     
     public static GeneratedQueryMapper getInstance() {

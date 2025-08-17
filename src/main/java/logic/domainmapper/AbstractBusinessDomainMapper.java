@@ -6,6 +6,7 @@ import persistence.dto.Persistable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public abstract class AbstractBusinessDomainMapper<B extends BusinessDomainObject, P extends Persistable> implements BusinessDomainMapper<B, P> {
@@ -16,6 +17,8 @@ public abstract class AbstractBusinessDomainMapper<B extends BusinessDomainObjec
     };
     
     protected void putIntoMaps(B bdo, P dto) {
+        Objects.requireNonNull(bdo);
+        Objects.requireNonNull(dto);
         cacheMapBDOtoDTO.put(bdo, dto);
         cacheMapDTOtoBDO.put(dto, bdo);
     }
@@ -25,6 +28,6 @@ public abstract class AbstractBusinessDomainMapper<B extends BusinessDomainObjec
     }
     
     public void initialize(Supplier<Integer> idSupplier) {
-        this.idSupplier = idSupplier;
+        this.idSupplier = Objects.requireNonNull(idSupplier);
     }
 }

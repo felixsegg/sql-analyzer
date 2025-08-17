@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 public class SampleQueryOverviewController extends OverviewWindow<SampleQuery> {
     private final SampleQueryService service = SampleQueryService.getInstance();
     
+    @SuppressWarnings("unused") // for later use
     public SampleQueryOverviewController() {
         super(null);
     }

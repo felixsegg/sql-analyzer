@@ -6,10 +6,7 @@ import persistence.PersistenceHelper;
 import persistence.dto.Persistable;
 import persistence.exception.PersistenceException;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public abstract class DTODAO<T extends Persistable> implements DAO<T> {
     private static final Logger log = LoggerFactory.getLogger(DTODAO.class);
@@ -46,6 +43,7 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
     
     @Override
     public void delete(T dto) {
+        Objects.requireNonNull(dto);
         try {
             PersistenceHelper.delete(dto);
             cache.remove(dto.getId());
@@ -56,6 +54,7 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
     
     @Override
     public void saveOrUpdate(T dto) {
+        Objects.requireNonNull(dto);
         try {
             PersistenceHelper.persist(dto);
             cache.put(dto.getId(), dto);

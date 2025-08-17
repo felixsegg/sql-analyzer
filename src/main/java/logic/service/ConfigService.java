@@ -1,5 +1,8 @@
 package logic.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.Properties;
@@ -7,6 +10,7 @@ import java.util.Properties;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class ConfigService {
+    private static final Logger log = LoggerFactory.getLogger(ConfigService.class);
     
     private static ConfigService instance;
     
@@ -20,7 +24,7 @@ public class ConfigService {
         try {
             load();
         } catch (IOException e) {
-            throw new RuntimeException("Could not load config", e);
+            log.error("Could not load config", e);
         }
     }
     
@@ -92,28 +96,12 @@ public class ConfigService {
         props.setProperty(key, value);
     }
     
-    public boolean getBoolean(String key) {
-        return Boolean.parseBoolean(get(key));
-    }
-    
     public int getInt(String key, int fallback) {
         try {
             return Integer.parseInt(get(key));
         } catch (Exception e) {
             return fallback;
         }
-    }
-    
-    public double getDouble(String key, double fallback) {
-        try {
-            return Double.parseDouble(get(key));
-        } catch (Exception e) {
-            return fallback;
-        }
-    }
-    
-    public Path getConfigFilePath() {
-        return CONFIG_PATH;
     }
     
     public Path getSavesBasePath() {

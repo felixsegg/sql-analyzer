@@ -5,11 +5,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.Objects;
+
+@SuppressWarnings("unused") // for later use
 public class SampleQuery extends BusinessDomainObject implements SQLQueryWrapper {
     public enum Complexity {
-        LOW,
-        MID,
-        HIGH
+        LOW, MID, HIGH
     }
     
     private final StringProperty name = new SimpleStringProperty();
@@ -28,11 +29,11 @@ public class SampleQuery extends BusinessDomainObject implements SQLQueryWrapper
     
     public SampleQuery(String name, String description, String sql, String promptContext, Complexity complexity, Long version) {
         super(version);
-        this.name.set(name);
-        this.description.set(description);
-        this.sql.set(sql);
-        this.promptContext.set(promptContext);
-        this.complexity.set(complexity);
+        this.name.set(Objects.requireNonNull(name));
+        this.description.set(Objects.requireNonNull(description));
+        this.sql.set(Objects.requireNonNull(sql));
+        this.promptContext.set(Objects.requireNonNull(promptContext));
+        this.complexity.set(Objects.requireNonNull(complexity));
         
         registerProperties(this.name, this.description, this.sql, this.promptContext, this.complexity);
     }
@@ -84,22 +85,22 @@ public class SampleQuery extends BusinessDomainObject implements SQLQueryWrapper
     }
     
     public void setName(String name) {
-        this.name.set(name);
+        this.name.set(Objects.requireNonNull(name));
     }
     
     public void setDescription(String description) {
-        this.description.set(description);
+        this.description.set(Objects.requireNonNull(description));
     }
     
     public void setSql(String sql) {
-        this.sql.set(sql);
+        this.sql.set(Objects.requireNonNull(sql));
     }
     
     public void setPromptContext(String promptContext) {
-        this.promptContext.set(promptContext);
+        this.promptContext.set(Objects.requireNonNull(promptContext));
     }
     
     public void setComplexity(Complexity complexity) {
-        this.complexity.set(complexity);
+        this.complexity.set(Objects.requireNonNull(complexity));
     }
 }

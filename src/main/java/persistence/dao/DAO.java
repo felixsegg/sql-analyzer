@@ -5,8 +5,8 @@ import persistence.dto.Persistable;
 import java.util.Set;
 
 public interface DAO<T extends Persistable> {
-    public Set<T> getAll();
-    public T getByID(int id);
-    public void delete(T dto);
-    public void saveOrUpdate(T dto);
+    Set<T> getAll();
+    T getByID(int id);
+    void delete(T dto);
+    void saveOrUpdate(T dto);
 }

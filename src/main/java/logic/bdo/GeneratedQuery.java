@@ -5,6 +5,9 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.Objects;
+
+@SuppressWarnings("unused") // for later use
 public class GeneratedQuery extends BusinessDomainObject implements SQLQueryWrapper {
     private final StringProperty sql = new SimpleStringProperty();
     private final ObjectProperty<LLM> generator = new SimpleObjectProperty<>();
@@ -21,7 +24,7 @@ public class GeneratedQuery extends BusinessDomainObject implements SQLQueryWrap
     public GeneratedQuery(String sql, LLM generator, Prompt prompt, Long version) {
         super(version);
         
-        this.sql.set(sql);
+        this.sql.set(Objects.requireNonNull(sql));
         this.generator.set(generator);
         this.prompt.set(prompt);
         
@@ -64,7 +67,7 @@ public class GeneratedQuery extends BusinessDomainObject implements SQLQueryWrap
     }
     
     public void setSql(String sql) {
-        this.sql.set(sql);
+        this.sql.set(Objects.requireNonNull(sql));
     }
     
     public void setGenerator(LLM generator) {

@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 public class PromptOverviewController extends OverviewWindow<Prompt> {
     private final BDOService<Prompt> service = PromptService.getInstance();
     
+    @SuppressWarnings("unused") // for later use
     public PromptOverviewController() {
         super(null);
     }

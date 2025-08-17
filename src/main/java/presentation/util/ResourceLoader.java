@@ -6,12 +6,14 @@ import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Objects;
 
 public class ResourceLoader {
     
     private static final Logger log = LoggerFactory.getLogger(ResourceLoader.class);
     
     public static Image loadIcon(String fileName) {
+        Objects.requireNonNull(fileName);
         InputStream iconInputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("icon/" + fileName);
         if (iconInputStream != null)
             return new Image(iconInputStream);
@@ -19,7 +21,7 @@ public class ResourceLoader {
     }
     
     public static URL getHelpHtmlUrl(String fileName) {
-        if (fileName == null) return null;
+        Objects.requireNonNull(fileName);
         
         String path = "help/" + fileName + (fileName.endsWith(".html") ? "" : ".html");
         URL url = Thread.currentThread().getContextClassLoader().getResource(path);
@@ -30,6 +32,8 @@ public class ResourceLoader {
     }
     
     public static URL getFxmlUrl(String fileName) {
+        Objects.requireNonNull(fileName);
+        
         String path = "fxml/" + fileName + (fileName.endsWith(".fxml") ? "" : ".fxml");
         return Thread.currentThread().getContextClassLoader().getResource(path);
     }

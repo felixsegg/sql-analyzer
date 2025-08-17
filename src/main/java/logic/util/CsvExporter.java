@@ -35,6 +35,7 @@ public class CsvExporter {
                 writer.write(line);
                 writer.newLine();
             }
+            log.info("Exported output.csv successfully to {}", outputFile.toAbsolutePath());
         }
     }
 }

@@ -3,6 +3,9 @@ package logic.bdo;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.Objects;
+
+@SuppressWarnings("unused") // for later use
 public class PromptType extends BusinessDomainObject {
     private final StringProperty name = new SimpleStringProperty();
     private final StringProperty description = new SimpleStringProperty();
@@ -18,8 +21,8 @@ public class PromptType extends BusinessDomainObject {
     
     public PromptType(String name, String description, Long version) {
         super(version);
-        this.name.set(name);
-        this.description.set(description);
+        this.name.set(Objects.requireNonNull(name));
+        this.description.set(Objects.requireNonNull(description));
         
         registerProperties(this.name, this.description);
     }
@@ -46,10 +49,10 @@ public class PromptType extends BusinessDomainObject {
     }
     
     public void setName(String name) {
-        this.name.set(name);
+        this.name.set(Objects.requireNonNull(name));
     }
     
     public void setDescription(String description) {
-        this.description.set(description);
+        this.description.set(Objects.requireNonNull(description));
     }
 }

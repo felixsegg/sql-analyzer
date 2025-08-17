@@ -1,5 +1,7 @@
 package persistence.dto;
 
+import java.util.Objects;
+
 public class PromptTypeDTO implements Persistable {
     private int id;
     private long version;
@@ -9,8 +11,8 @@ public class PromptTypeDTO implements Persistable {
     public PromptTypeDTO(int id, long version, String name, String description) {
         this.id = id;
         this.version = version;
-        this.name = name;
-        this.description = description;
+        this.name = Objects.requireNonNull(name);
+        this.description = Objects.requireNonNull(description);
     }
     
     @Override
@@ -36,7 +38,7 @@ public class PromptTypeDTO implements Persistable {
     }
     
     public void setName(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
     
     public String getDescription() {
@@ -44,6 +46,6 @@ public class PromptTypeDTO implements Persistable {
     }
     
     public void setDescription(String description) {
-        this.description = description;
+        this.description = Objects.requireNonNull(description);
     }
 }

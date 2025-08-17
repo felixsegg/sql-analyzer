@@ -7,12 +7,10 @@ public class GeneratedQueryDAOImpl extends DTODAO<GeneratedQueryDTO> {
     private static GeneratedQueryDAOImpl instance = null;
     
     private GeneratedQueryDAOImpl() {
-        
     }
     
     public static GeneratedQueryDAOImpl getInstance() {
-        if (instance == null)
-            instance = new GeneratedQueryDAOImpl();
+        if (instance == null) instance = new GeneratedQueryDAOImpl();
         return instance;
     }
     

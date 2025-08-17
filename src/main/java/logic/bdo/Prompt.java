@@ -5,6 +5,9 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.Objects;
+
+@SuppressWarnings("unused") // for later use
 public class Prompt extends BusinessDomainObject {
     private final StringProperty text = new SimpleStringProperty();
     private final ObjectProperty<SampleQuery> sampleQuery = new SimpleObjectProperty<>();
@@ -21,7 +24,7 @@ public class Prompt extends BusinessDomainObject {
     
     public Prompt(String text, SampleQuery sampleQuery, PromptType type, Long version) {
         super(version);
-        this.text.set(text);
+        this.text.set(Objects.requireNonNull(text));
         this.sampleQuery.set(sampleQuery);
         this.type.set(type);
         
@@ -61,7 +64,7 @@ public class Prompt extends BusinessDomainObject {
     }
     
     public void setText(String text) {
-        this.text.set(text);
+        this.text.set(Objects.requireNonNull(text));
     }
     
     public void setSampleQuery(SampleQuery sampleQuery) {

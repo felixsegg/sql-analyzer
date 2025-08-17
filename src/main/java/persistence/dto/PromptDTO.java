@@ -1,11 +1,6 @@
 package persistence.dto;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import logic.bdo.PromptType;
-import logic.bdo.SampleQuery;
+import java.util.Objects;
 
 public class PromptDTO implements Persistable {
     private int id;
@@ -17,7 +12,7 @@ public class PromptDTO implements Persistable {
     public PromptDTO(int id, long version, String text, int sampleQueryId, int typeId) {
         this.id = id;
         this.version = version;
-        this.text = text;
+        this.text = Objects.requireNonNull(text);
         this.sampleQueryId = sampleQueryId;
         this.typeId = typeId;
     }
@@ -45,7 +40,7 @@ public class PromptDTO implements Persistable {
     }
     
     public void setText(String text) {
-        this.text = text;
+        this.text = Objects.requireNonNull(text);
     }
     
     public int getSampleQueryId() {

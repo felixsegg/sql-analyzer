@@ -8,7 +8,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import logic.promptable.exception.LLMException;
 import logic.promptable.exception.RateLimitException;
-import logic.service.ConfigService;
 
 public class ClaudePromptHandler extends AbstractLLMHandler {
     

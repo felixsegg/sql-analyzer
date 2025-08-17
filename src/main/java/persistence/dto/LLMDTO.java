@@ -1,5 +1,7 @@
 package persistence.dto;
 
+import java.util.Objects;
+
 public class LLMDTO implements Persistable {
     private int id;
     private long version;
@@ -13,10 +15,10 @@ public class LLMDTO implements Persistable {
     public LLMDTO(int id, long version, String name, String api, String model, String apiKey, double minTemperature, double maxTemperature) {
         this.id = id;
         this.version = version;
-        this.name = name;
-        this.api = api;
-        this.model = model;
-        this.apiKey = apiKey;
+        this.name = Objects.requireNonNull(name);
+        this.api = Objects.requireNonNull(api);
+        this.model = Objects.requireNonNull(model);
+        this.apiKey = Objects.requireNonNull(apiKey);
         this.minTemperature = minTemperature;
         this.maxTemperature = maxTemperature;
     }
@@ -44,7 +46,7 @@ public class LLMDTO implements Persistable {
     }
     
     public void setName(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
     
     public String getApi() {
@@ -52,7 +54,7 @@ public class LLMDTO implements Persistable {
     }
     
     public void setApi(String api) {
-        this.api = api;
+        this.api = Objects.requireNonNull(api);
     }
     
     public String getModel() {
@@ -60,7 +62,7 @@ public class LLMDTO implements Persistable {
     }
     
     public void setModel(String model) {
-        this.model = model;
+        this.model = Objects.requireNonNull(model);
     }
     
     public String getApiKey() {
@@ -68,7 +70,7 @@ public class LLMDTO implements Persistable {
     }
     
     public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
+        this.apiKey = Objects.requireNonNull(apiKey);
     }
     
     public double getMinTemperature() {
