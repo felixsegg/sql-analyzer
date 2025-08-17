@@ -2,60 +2,12 @@ package persistence.dto;
 
 import java.util.Objects;
 
-public class PromptDTO implements Persistable {
-    private int id;
-    private long version;
-    private String text;
-    private int sampleQueryId;
-    private int typeId;
-    
+public record PromptDTO(int id, long version, String text, int sampleQueryId, int typeId) implements Persistable {
     public PromptDTO(int id, long version, String text, int sampleQueryId, int typeId) {
         this.id = id;
         this.version = version;
         this.text = Objects.requireNonNull(text);
         this.sampleQueryId = sampleQueryId;
-        this.typeId = typeId;
-    }
-    
-    @Override
-    public int getId() {
-        return id;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    @Override
-    public long getVersion() {
-        return version;
-    }
-    
-    public void setVersion(long version) {
-        this.version = version;
-    }
-    
-    public String getText() {
-        return text;
-    }
-    
-    public void setText(String text) {
-        this.text = Objects.requireNonNull(text);
-    }
-    
-    public int getSampleQueryId() {
-        return sampleQueryId;
-    }
-    
-    public void setSampleQueryId(int sampleQueryId) {
-        this.sampleQueryId = sampleQueryId;
-    }
-    
-    public int getTypeId() {
-        return typeId;
-    }
-    
-    public void setTypeId(int typeId) {
         this.typeId = typeId;
     }
 }

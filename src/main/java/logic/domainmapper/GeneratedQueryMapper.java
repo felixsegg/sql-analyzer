@@ -24,12 +24,12 @@ public class GeneratedQueryMapper extends AbstractBusinessDomainMapper<Generated
     public GeneratedQuery get(GeneratedQueryDTO dto) {
         if (dto == null) return null;
         
-        if (!cacheMapDTOtoBDO.containsKey(dto) || cacheMapDTOtoBDO.get(dto).getVersion() < dto.getVersion())
+        if (!cacheMapDTOtoBDO.containsKey(dto) || cacheMapDTOtoBDO.get(dto).getVersion() < dto.version())
             putIntoMaps(dto, new GeneratedQuery(
-                    dto.getSql(),
-                    llmMapper.get(LLMDAOImpl.getInstance().getByID(dto.getGeneratorId())),
-                    promptMapper.get(PromptDAOImpl.getInstance().getByID(dto.getPromptId())),
-                    dto.getVersion()));
+                    dto.sql(),
+                    llmMapper.get(LLMDAOImpl.getInstance().getByID(dto.generatorId())),
+                    promptMapper.get(PromptDAOImpl.getInstance().getByID(dto.promptId())),
+                    dto.version()));
         
         return cacheMapDTOtoBDO.get(dto);
     }
@@ -38,13 +38,13 @@ public class GeneratedQueryMapper extends AbstractBusinessDomainMapper<Generated
     public GeneratedQueryDTO get(GeneratedQuery bdo) {
         if (bdo == null) return null;
         
-        if (!cacheMapBDOtoDTO.containsKey(bdo) || cacheMapBDOtoDTO.get(bdo).getVersion() < bdo.getVersion())
+        if (!cacheMapBDOtoDTO.containsKey(bdo) || cacheMapBDOtoDTO.get(bdo).version() < bdo.getVersion())
             putIntoMaps(bdo, new GeneratedQueryDTO(
-                    cacheMapBDOtoDTO.containsKey(bdo) ? cacheMapBDOtoDTO.get(bdo).getId() : idSupplier.get(),
+                    cacheMapBDOtoDTO.containsKey(bdo) ? cacheMapBDOtoDTO.get(bdo).id() : idSupplier.get(),
                     bdo.getVersion(),
                     bdo.getSql(),
-                    llmMapper.get(bdo.getGenerator()) == null ? -1 : llmMapper.get(bdo.getGenerator()).getId(),
-                    promptMapper.get(bdo.getPrompt()) == null ? -1 : promptMapper.get(bdo.getPrompt()).getId()
+                    llmMapper.get(bdo.getGenerator()) == null ? -1 : llmMapper.get(bdo.getGenerator()).id(),
+                    promptMapper.get(bdo.getPrompt()) == null ? -1 : promptMapper.get(bdo.getPrompt()).id()
             ));
         
         return cacheMapBDOtoDTO.get(bdo);

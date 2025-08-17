@@ -46,9 +46,9 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
         Objects.requireNonNull(dto);
         try {
             PersistenceHelper.delete(dto);
-            cache.remove(dto.getId());
+            cache.remove(dto.id());
         } catch (PersistenceException e) {
-            log.warn("Deletion of id '{}' from the file system for class {} failed!", dto.getId(), getDtoClass(), e);
+            log.warn("Deletion of id '{}' from the file system for class {} failed!", dto.id(), getDtoClass(), e);
         }
     }
     
@@ -57,9 +57,9 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
         Objects.requireNonNull(dto);
         try {
             PersistenceHelper.persist(dto);
-            cache.put(dto.getId(), dto);
+            cache.put(dto.id(), dto);
         } catch (PersistenceException e) {
-            log.warn("Save/update of id '{}' from the file system for class {} failed!", getDtoClass(), dto.getId(), e);
+            log.warn("Save/update of id '{}' from the file system for class {} failed!", getDtoClass(), dto.id(), e);
         }
     }
     
@@ -73,7 +73,7 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
         }
         
         cache.clear();
-        dtos.forEach(dto -> cache.put(dto.getId(), dto));
+        dtos.forEach(dto -> cache.put(dto.id(), dto));
     }
     
     public int getFreeId() {

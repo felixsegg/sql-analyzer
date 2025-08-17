@@ -19,14 +19,14 @@ public class SampleQueryMapper extends AbstractBusinessDomainMapper<SampleQuery,
     public SampleQuery get(SampleQueryDTO dto) {
         if (dto == null) return null;
         
-        if (!cacheMapDTOtoBDO.containsKey(dto) || cacheMapDTOtoBDO.get(dto).getVersion() < dto.getVersion())
+        if (!cacheMapDTOtoBDO.containsKey(dto) || cacheMapDTOtoBDO.get(dto).getVersion() < dto.version())
             putIntoMaps(dto, new SampleQuery(
-                    dto.getName(),
-                    dto.getDescription(),
-                    dto.getSql(),
-                    dto.getPromptContext(),
-                    dto.getComplexity() == null ? null : SampleQuery.Complexity.valueOf(dto.getComplexity()),
-                    dto.getVersion()
+                    dto.name(),
+                    dto.description(),
+                    dto.sql(),
+                    dto.promptContext(),
+                    dto.complexity() == null ? null : SampleQuery.Complexity.valueOf(dto.complexity()),
+                    dto.version()
             ));
         
         return cacheMapDTOtoBDO.get(dto);
@@ -36,9 +36,9 @@ public class SampleQueryMapper extends AbstractBusinessDomainMapper<SampleQuery,
     public SampleQueryDTO get(SampleQuery bdo) {
         if (bdo == null) return null;
         
-        if (!cacheMapBDOtoDTO.containsKey(bdo) || cacheMapBDOtoDTO.get(bdo).getVersion() < bdo.getVersion())
+        if (!cacheMapBDOtoDTO.containsKey(bdo) || cacheMapBDOtoDTO.get(bdo).version() < bdo.getVersion())
             putIntoMaps(bdo, new SampleQueryDTO(
-                    cacheMapBDOtoDTO.containsKey(bdo) ? cacheMapBDOtoDTO.get(bdo).getId() : idSupplier.get(),
+                    cacheMapBDOtoDTO.containsKey(bdo) ? cacheMapBDOtoDTO.get(bdo).id() : idSupplier.get(),
                     bdo.getVersion(),
                     bdo.getName(),
                     bdo.getDescription(),

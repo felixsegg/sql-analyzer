@@ -24,12 +24,12 @@ public class PromptMapper extends AbstractBusinessDomainMapper<Prompt, PromptDTO
     public Prompt get(PromptDTO dto) {
         if (dto == null) return null;
         
-        if (!cacheMapDTOtoBDO.containsKey(dto) || cacheMapDTOtoBDO.get(dto).getVersion() < dto.getVersion())
+        if (!cacheMapDTOtoBDO.containsKey(dto) || cacheMapDTOtoBDO.get(dto).getVersion() < dto.version())
             putIntoMaps(dto, new Prompt(
-                    dto.getText(),
-                    sampleQueryMapper.get(SampleQueryDAOImpl.getInstance().getByID(dto.getSampleQueryId())),
-                    promptTypeMapper.get(PromptTypeDAOImpl.getInstance().getByID(dto.getTypeId())),
-                    dto.getVersion()
+                    dto.text(),
+                    sampleQueryMapper.get(SampleQueryDAOImpl.getInstance().getByID(dto.sampleQueryId())),
+                    promptTypeMapper.get(PromptTypeDAOImpl.getInstance().getByID(dto.typeId())),
+                    dto.version()
             ));
         
         return cacheMapDTOtoBDO.get(dto);
@@ -39,13 +39,13 @@ public class PromptMapper extends AbstractBusinessDomainMapper<Prompt, PromptDTO
     public PromptDTO get(Prompt bdo) {
         if (bdo == null) return null;
         
-        if (!cacheMapBDOtoDTO.containsKey(bdo) || cacheMapBDOtoDTO.get(bdo).getVersion() < bdo.getVersion())
+        if (!cacheMapBDOtoDTO.containsKey(bdo) || cacheMapBDOtoDTO.get(bdo).version() < bdo.getVersion())
             putIntoMaps(bdo, new PromptDTO(
-                    cacheMapBDOtoDTO.containsKey(bdo) ? cacheMapBDOtoDTO.get(bdo).getId() : idSupplier.get(),
+                    cacheMapBDOtoDTO.containsKey(bdo) ? cacheMapBDOtoDTO.get(bdo).id() : idSupplier.get(),
                     bdo.getVersion(),
                     bdo.getText(),
-                    sampleQueryMapper.get(bdo.getSampleQuery()) == null ? -1 : sampleQueryMapper.get(bdo.getSampleQuery()).getId(),
-                    promptTypeMapper.get(bdo.getType()) == null ? -1 : promptTypeMapper.get(bdo.getType()).getId()
+                    sampleQueryMapper.get(bdo.getSampleQuery()) == null ? -1 : sampleQueryMapper.get(bdo.getSampleQuery()).id(),
+                    promptTypeMapper.get(bdo.getType()) == null ? -1 : promptTypeMapper.get(bdo.getType()).id()
             ));
         
         return cacheMapBDOtoDTO.get(bdo);

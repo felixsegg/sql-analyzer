@@ -19,11 +19,11 @@ public class PromptTypeMapper extends AbstractBusinessDomainMapper<PromptType, P
     public PromptType get(PromptTypeDTO dto) {
         if (dto == null) return null;
         
-        if (!cacheMapDTOtoBDO.containsKey(dto) || cacheMapDTOtoBDO.get(dto).getVersion() < dto.getVersion())
+        if (!cacheMapDTOtoBDO.containsKey(dto) || cacheMapDTOtoBDO.get(dto).getVersion() < dto.version())
             putIntoMaps(dto, new PromptType(
-                    dto.getName(),
-                    dto.getDescription(),
-                    dto.getVersion()
+                    dto.name(),
+                    dto.description(),
+                    dto.version()
             ));
         
         return cacheMapDTOtoBDO.get(dto);
@@ -33,9 +33,9 @@ public class PromptTypeMapper extends AbstractBusinessDomainMapper<PromptType, P
     public PromptTypeDTO get(PromptType bdo) {
         if (bdo == null) return null;
         
-        if (!cacheMapBDOtoDTO.containsKey(bdo) || cacheMapBDOtoDTO.get(bdo).getVersion() < bdo.getVersion())
+        if (!cacheMapBDOtoDTO.containsKey(bdo) || cacheMapBDOtoDTO.get(bdo).version() < bdo.getVersion())
             putIntoMaps(bdo, new PromptTypeDTO(
-                    cacheMapBDOtoDTO.containsKey(bdo) ? cacheMapBDOtoDTO.get(bdo).getId() : idSupplier.get(),
+                    cacheMapBDOtoDTO.containsKey(bdo) ? cacheMapBDOtoDTO.get(bdo).id() : idSupplier.get(),
                     bdo.getVersion(),
                     bdo.getName(),
                     bdo.getDescription()

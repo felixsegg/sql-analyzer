@@ -20,15 +20,15 @@ public class LLMMapper extends AbstractBusinessDomainMapper<LLM, LLMDTO> {
     public LLM get(LLMDTO dto) {
         if (dto == null) return null;
         
-        if (!cacheMapDTOtoBDO.containsKey(dto) || cacheMapDTOtoBDO.get(dto).getVersion() < dto.getVersion())
+        if (!cacheMapDTOtoBDO.containsKey(dto) || cacheMapDTOtoBDO.get(dto).getVersion() < dto.version())
             putIntoMaps(dto, new LLM(
-                    dto.getName(),
-                    PromptableApi.valueOf(dto.getApi()),
-                    dto.getModel(),
-                    dto.getApiKey(),
-                    dto.getMinTemperature(),
-                    dto.getMaxTemperature(),
-                    dto.getVersion()
+                    dto.name(),
+                    PromptableApi.valueOf(dto.api()),
+                    dto.model(),
+                    dto.apiKey(),
+                    dto.minTemperature(),
+                    dto.maxTemperature(),
+                    dto.version()
             ));
         
         return cacheMapDTOtoBDO.get(dto);
@@ -38,9 +38,9 @@ public class LLMMapper extends AbstractBusinessDomainMapper<LLM, LLMDTO> {
     public LLMDTO get(LLM bdo) {
         if (bdo == null) return null;
         
-        if (!cacheMapBDOtoDTO.containsKey(bdo) || cacheMapBDOtoDTO.get(bdo).getVersion() < bdo.getVersion())
+        if (!cacheMapBDOtoDTO.containsKey(bdo) || cacheMapBDOtoDTO.get(bdo).version() < bdo.getVersion())
             putIntoMaps(bdo, new LLMDTO(
-                    cacheMapBDOtoDTO.containsKey(bdo) ? cacheMapBDOtoDTO.get(bdo).getId() : idSupplier.get(),
+                    cacheMapBDOtoDTO.containsKey(bdo) ? cacheMapBDOtoDTO.get(bdo).id() : idSupplier.get(),
                     bdo.getVersion(),
                     bdo.getName(),
                     bdo.getLlmApi().name(),

@@ -29,7 +29,7 @@ public class PersistenceHelper {
     }
     
     public static void persist(Persistable p) throws PersistenceException {
-        String fileName = String.valueOf(p.getId());
+        String fileName = String.valueOf(p.id());
         Path dir = getDirPathFor(p.getClass());
         
         try {
@@ -43,7 +43,7 @@ public class PersistenceHelper {
             
             Persistable previousObject = gson.fromJson(previousJson, p.getClass());
             
-            switch (Long.compare(previousObject.getVersion(), p.getVersion())) {
+            switch (Long.compare(previousObject.version(), p.version())) {
                 case -1:
                     writeJson(dir, fileName, json);
                 case 0:
@@ -103,15 +103,15 @@ public class PersistenceHelper {
     }
     
     public static void delete(Persistable p) throws PersistenceException {
-        String fileName = String.valueOf(p.getId());
+        String fileName = String.valueOf(p.id());
         Path dir = getDirPathFor(p.getClass());
         
         try {
             deleteJson(dir, fileName);
         } catch (NoSuchFileException e) {
-            throw new PersistenceException("Deletion of object with id " + p.getId() + " of class " + p.getClass().getSimpleName() + " failed, file does not exist.", e);
+            throw new PersistenceException("Deletion of object with id " + p.id() + " of class " + p.getClass().getSimpleName() + " failed, file does not exist.", e);
         } catch (IOException e) {
-            throw new PersistenceException("Deletion of object with id " + p.getId() + " of class " + p.getClass().getSimpleName() + " failed.", e);
+            throw new PersistenceException("Deletion of object with id " + p.id() + " of class " + p.getClass().getSimpleName() + " failed.", e);
         }
     }
     
