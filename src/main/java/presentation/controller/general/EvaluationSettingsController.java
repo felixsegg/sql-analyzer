@@ -64,6 +64,8 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         outputDirBtn.setOnAction(e -> outputDirBtnClick());
         okBtn.setOnAction(e -> okBtnClick());
         cancelBtn.setOnAction(e -> cancelBtnClick());
+        
+        enableHelp("evaluation_settings");
     }
     
     public static SettingsObject getSettingsObject() {

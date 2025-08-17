@@ -53,6 +53,8 @@ public class GenerationSettingsController extends TitledInitializableWindow {
         
         okBtn.setOnAction(e -> okBtnClick());
         cancelBtn.setOnAction(e -> cancelBtnClick());
+        
+        enableHelp("generation_settings");
     }
     
     public static SettingsObject getSettings() {

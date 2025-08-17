@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generation Settings Help</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<b>Generation Settings Help</b><br><br>
+Configure how the batch generation will run.
+<ul>
+    <li>
+        <b>Thread pool size:</b><br>
+        Number of API calls executed in parallel. Higher values run faster but risk hitting provider rate limits; lower values are safer but slower. Start modestly and adjust to your quota.
+    </li>
+    <li>
+        <b>Repetitions:</b><br>
+        Times each Prompt–LLM pair is generated. Used to avoid cached responses by slightly varying temperature per call. More repetitions increase runtime and cost.
+    </li>
+    <li>
+        <b>LLM selection:</b><br>
+        Choose the language models to use. Real providers require valid API settings; dummy providers are available for demos (rate-limited dummies may simulate failures).
+    </li>
+    <li>
+        <b>Prompt selection:</b><br>
+        Choose the prompts to generate. Use “Select all” to toggle the whole list.
+    </li>
+    <li>
+        <b>OK / Cancel:</b><br>
+        “OK” applies your choices and closes the dialog; “Cancel” discards changes.
+    </li>
+</ul>
+</body>
+</html>

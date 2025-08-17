@@ -6,39 +6,41 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <b>LLM Details Help</b><br><br>
-    This window allows you to define and manage Large Language Models (LLMs) used by the SQL evaluation tool.
-    <ul>
-        <li>
-            <b>Name:</b><br>
-            Provide a descriptive name for the LLM. This name will help you identify the model within the application.
-        </li>
-        <li>
-            <b>API:</b><br>
-            Choose the API provider used to communicate with the LLM.<br>
-            Available options are:
-            <ul>
-                <li>OpenAI (ChatGPT)</li>
-                <li>Google Gemini</li>
-                <li>Anthropic Claude</li>
-                <li>DeepSeek AI</li>
-                <li>Numerical dummy (returns random numbers for demo/testing, no simulated rate limit)</li>
-                <li>SQL dummy (returns a fixed SQL query for demo/testing, no simulated rate limit)</li>
-                <li>Rate limited numerical dummy (returns random numbers for demo/testing, 5% chance of hitting artificial rate limit)</li>
-                <li>Rate limited SQL dummy (returns a fixed SQL query for demo/testing, 5% chance of hitting artificial rate limit)</li>
-            </ul>
-        </li>
-        <li>
-            <b>Model:</b><br>
-            Specify the model identifier as required by the selected API.<br>
-            Examples: <code>gpt-4o-mini-2024-07-18</code>, <code>claude-sonnet-4-20250514</code>
-        </li>
-        <li>
-            <b>Min and Max Temperature:</b><br>
-            Set the range for the temperature parameter. Lower values (close to 0) produce more predictable output. Higher values (up to 1) produce more varied and creative responses.<br>
-            <br>
-            <i>Recommendation:</i> Choose a small range (e.g., 0.7-0.8) to prevent cached responses and encourage diverse results.
-        </li>
-    </ul>
+<b>LLM Details Help</b><br><br>
+This window allows you to define and manage Large Language Models (LLMs) used by the SQL evaluation tool.
+<ul>
+    <li>
+        <b>Name:</b><br>
+        Provide a descriptive name for the LLM. This helps you identify it in lists.
+    </li>
+    <li>
+        <b>API:</b><br>
+        Choose the provider used to communicate with the LLM. You can show/hide dummy providers using the checkbox.<br>
+        Available options include:
+        <ul>
+            <li>OpenAI (ChatGPT)</li>
+            <li>Google Gemini</li>
+            <li>Anthropic Claude</li>
+            <li>DeepSeek AI</li>
+            <li>Numerical dummy (returns random numbers; no API key; no real rate limit)</li>
+            <li>SQL dummy (returns a fixed SQL query; no API key; no real rate limit)</li>
+            <li>Rate-limited numerical dummy (simulates ~5% rate-limit failures)</li>
+            <li>Rate-limited SQL dummy (simulates ~5% rate-limit failures)</li>
+        </ul>
+    </li>
+    <li>
+        <b>API key:</b><br>
+        Enter the API key required by the selected provider. Not needed for dummy providers.
+    </li>
+    <li>
+        <b>Model:</b><br>
+        Specify the model identifier as required by the provider (e.g., <code>gpt-4o-mini-2024-07-18</code>, <code>claude-sonnet-4-20250514</code>). Not required for dummy providers.
+    </li>
+    <li>
+        <b>Min and Max Temperature:</b><br>
+        Define a small range used across repetitions to avoid cached responses from providers. This is <i>not</i> intended to test creativity.<br>
+        <i>Recommendation:</i> Use a narrow interval (e.g., 0.7–0.8).
+    </li>
+</ul>
 </body>
 </html>

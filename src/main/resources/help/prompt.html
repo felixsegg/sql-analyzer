@@ -11,16 +11,19 @@ This window allows you to create and edit prompts that are used for LLM evaluati
 <ul>
     <li>
         <b>Sample query:</b><br>
-        Select the sample query that this prompt is based on.
+        Select the sample query this prompt belongs to.
     </li>
     <li>
         <b>Prompt type:</b><br>
-        Choose the prompt type, which defines the style or approach for formulating the prompt.
+        Choose the prompt type, which defines the phrasing style (e.g., descriptive, technical, goal-oriented, keyword).
     </li>
     <li>
         <b>Prompt text:</b><br>
-        Enter the actual text of the prompt.
-        The content should match the requirements for the selected prompt type and sample query.
+        Enter the variable part of the request. Keep it aligned with the chosen type; schema or domain hints belong in the sample query’s prompt context.
+    </li>
+    <li>
+        <b>How it’s used:</b><br>
+        During generation, the tool builds the full model prompt by inserting this text into the selected sample query’s prompt context at the placeholder <code>§§§</code>. The same prompt can be used with multiple LLMs and across repetitions.
     </li>
 </ul>
 </body>

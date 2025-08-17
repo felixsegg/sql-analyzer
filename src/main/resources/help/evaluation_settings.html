@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluation Settings Help</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<b>Evaluation Settings Help</b><br><br>
+Configure how evaluations run and where results are saved.
+<ul>
+    <li>
+        <b>Comparator:</b><br>
+        Choose the comparison method.
+        <ul>
+            <li><b>Syntactic</b>: deterministic, structure-based comparison.</li>
+            <li><b>LLM</b>: semantic comparison using a selected LLM and temperature.</li>
+        </ul>
+    </li>
+    <li>
+        <b>LLM & Temperature (for LLM comparator):</b><br>
+        Select the LLM used for scoring and set its temperature. Lower values increase stability; higher values can add variance.
+    </li>
+    <li>
+        <b>Thread pool size:</b><br>
+        Number of evaluations processed in parallel. Higher = faster, but LLM scoring can hit provider rate limits more easily.
+    </li>
+    <li>
+        <b>Max repetitions:</b><br>
+        Number of retries if an attempt fails or returns no score. Disabled for deterministic comparators.
+    </li>
+    <li>
+        <b>Generated queries:</b><br>
+        Pick which queries to evaluate. “Select all” toggles the whole list.
+    </li>
+    <li>
+        <b>CSV output path:</b><br>
+        Choose the directory where the result file will be written.
+    </li>
+    <li>
+        <b>OK / Cancel:</b><br>
+        “OK” applies the settings; “Cancel” closes without changes.
+    </li>
+</ul>
+</body>
+</html>

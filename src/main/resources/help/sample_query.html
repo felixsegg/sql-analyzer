@@ -15,11 +15,12 @@ This window allows you to create and edit sample SQL queries for use in LLM eval
     </li>
     <li>
         <b>Description:</b><br>
-        Optionally add further context or notes about the query and its purpose.
+        Optionally add context or notes about the query and its purpose.
     </li>
     <li>
         <b>Complexity:</b><br>
-        Select the query’s complexity level. Possible values:
+        Select the query’s complexity level. This is used for classification, filtering, and analysis; it does not change generation behavior.<br>
+        Possible values:
         <ul>
             <li><b>Low</b>: Simple query, few joins, no subqueries or aggregations.</li>
             <li><b>Mid</b>: Multiple joins, simple aggregations, simple subqueries.</li>
@@ -28,14 +29,12 @@ This window allows you to create and edit sample SQL queries for use in LLM eval
     </li>
     <li>
         <b>Prompt Context:</b><br>
-        Define a text template used to generate prompts for LLMs.
-        This must include the placeholder <code>§§§</code>, which will be replaced by the specific question or task.
-        The placeholder must appear exactly once.
+        Define a text template used to build the LLM prompt. The placeholder <code>§§§</code> will be replaced at runtime by the specific prompt text, and must appear exactly once.<br>
+        You can include brief schema or domain hints here to guide the model.
     </li>
     <li>
         <b>SQL:</b><br>
-        Enter the reference SQL statement for this sample query.<br>
-        The statement must start with <code>SELECT</code>.
+        Enter the reference SQL statement for this sample query. The statement must start with <code>SELECT</code>.
     </li>
 </ul>
 </body>

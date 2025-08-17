@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,32 +8,38 @@
 </head>
 <body>
 <b>Generation Help</b><br><br>
-This window allows you to automatically generate SQL queries for a combination of selected LLMs and prompts.
+This window runs batch generation of SQL queries for the LLMs and prompts configured in <i>Generation Settings</i>.
 <ul>
     <li>
         <b>Settings (⚙):</b><br>
-        Click the settings button to configure generation parameters:<br>
-        - <b>Thread pool size:</b> Number of LLM calls processed in parallel.<br>
-        &nbsp;&nbsp;&bull; If you set the pool size too high, you may quickly run into API rate limits and failed requests.<br>
-        &nbsp;&nbsp;&bull; If you set it too low, the generation process will take longer.<br>
-        - <b>Repetitions:</b> Number of times each prompt/LLM combination is generated.<br>
-        &nbsp;&nbsp;&bull; Multiple repetitions help avoid cached responses by varying the temperature for each call.<br>
-        - <b>LLM selection:</b> Choose which large language models should be used for generation.<br>
-        - <b>Prompt selection:</b> Choose which prompts should be used for generation.
+        Open the Generation Settings dialog to choose LLMs, prompts, repetitions, and thread pool size.
     </li>
     <li>
         <b>Start:</b><br>
-        Starts the batch generation process. Progress bars show the progress for each LLM.
+        Starts the batch job. Each LLM shows a dual progress bar:<br>
+        – <b>Gray</b> = calls started (submitted).<br>
+        – <b>Red</b> = calls finished (completed and recorded).<br>
+        Both reach 100% when done.
+    </li>
+    <li>
+        <b>Rate limits:</b><br>
+        If a provider’s rate limit is hit, a countdown appears indicating the next retry time. Retries happen automatically.
+        <br>While the timer runs, progress may still advance (in-flight calls can complete and some new calls may start if allowed). This is expected.
     </li>
     <li>
         <b>Cancel:</b><br>
-        Stops the ongoing batch process.
+        Stops the ongoing job and clears progress indicators.
     </li>
     <li>
         <b>Save:</b><br>
-        Saves all generated queries to the database. You can view them later in the "Generated Queries" overview.
+        Enabled after completion. Saves all generated queries and opens the “Generated queries” overview filtered to the new results.
     </li>
 </ul>
-The generation process uses the specified prompts, LLMs, and temperature settings to generate multiple SQL queries in parallel. Progress is displayed in real time.
+Notes:
+<ul>
+    <li>Multiple repetitions per Prompt–LLM pair are used to avoid cached responses by varying temperature across calls (not to test creativity).</li>
+    <li>Very large thread pools can trigger rate limits; very small pools slow execution.</li>
+    <li>Ensure LLM entries (API, model, key) are set; dummy providers don’t require keys.</li>
+</ul>
 </body>
 </html>

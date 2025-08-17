@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,33 +8,43 @@
 </head>
 <body>
 <b>Evaluation Help</b><br><br>
-This window allows you to evaluate generated SQL queries using different comparison strategies and export the results as a CSV file.
+Evaluate generated SQL queries and export the scores as CSV.
 <ul>
     <li>
         <b>Settings (⚙):</b><br>
-        Click the settings button to configure evaluation parameters:<br>
-        - <b>Comparator:</b> Select the method used to compare generated queries.<br>
-        &nbsp;&nbsp;&bull; <b>Syntactic:</b> Compares queries based on structure and content using static analysis.<br>
-        &nbsp;&nbsp;&bull; <b>LLM:</b> Uses a large language model to assess semantic similarity. Additional parameters (LLM, temperature) are available when this option is selected.<br>
-        - <b>Thread pool size:</b> Number of comparisons processed in parallel.<br>
-        &nbsp;&nbsp;&bull; A higher value speeds up evaluation but increases the risk of hitting rate limits with LLM-based comparators.<br>
-        &nbsp;&nbsp;&bull; A lower value avoids rate limits but results in longer evaluation times.<br>
-        - <b>Max repetitions:</b> Number of attempts if an evaluation fails or returns no valid score.<br>
-        - <b>Query selection:</b> Choose which generated queries should be evaluated.
+        Open the dialog to choose the comparator, thread pool size, max repetitions (if applicable), which generated queries to include, and the CSV output folder.
     </li>
     <li>
         <b>Start:</b><br>
-        Starts the evaluation process. Progress is displayed in real time.
+        Begins evaluation. A single dual progress bar shows job progress:<br>
+        – <b>Gray</b> = comparisons started (submitted).<br>
+        – <b>Red</b> = comparisons finished (completed and recorded).<br>
+        Both reach 100% when done.
+    </li>
+    <li>
+        <b>Rate limits:</b><br>
+        If the selected method uses an LLM and a rate limit is hit, a countdown appears to the right (“retry in…”). While it runs,
+        progress may still move a bit (in-flight calls can complete; some new calls may start if allowed). That’s expected.
     </li>
     <li>
         <b>Cancel:</b><br>
-        Stops the ongoing evaluation process.
+        Stops the ongoing job and clears the indicators.
     </li>
     <li>
         <b>Save:</b><br>
-        Exports the evaluation results as a CSV file to the configured output directory.
+        After completion, exports results to the configured directory as a CSV file.
     </li>
 </ul>
-If you use an LLM as comparator, be aware that high parallelism (large thread pool) may quickly hit API rate limits and cause failures. If you select a small pool, evaluation will take longer, but you reduce the risk of rejected or throttled requests.
+Comparators:
+<ul>
+    <li><b>Syntactic</b>: Static analysis of query structure (clauses, joins, etc.). Deterministic.</li>
+    <li><b>LLM</b>: An LLM rates semantic similarity. Not fully deterministic; choose a low temperature for stable scoring.</li>
+</ul>
+Tips:
+<ul>
+    <li>Larger thread pools evaluate faster but can trigger API rate limits with the LLM comparator; smaller pools are slower but safer.</li>
+    <li>“Max repetitions” controls how many retries are attempted if a score is unavailable; deterministic comparators don’t need retries.</li>
+    <li>Be sure to set the CSV output path in Settings before saving.</li>
+</ul>
 </body>
 </html>
