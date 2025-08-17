@@ -36,7 +36,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
     @FXML
     private CheckBox selectAllCB;
     @FXML
-    private VBox gqSelectionVBox;
+    private VBox gqSelectionVBox, maxRepsVBox;
     @FXML
     private Button outputDirBtn, cancelBtn, okBtn;
     @FXML
@@ -73,8 +73,10 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
     private void initializeComparatorCB() {
         comparatorCB.getItems().setAll(ComparatorType.values());
         comparatorCB.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldV, newV)
-                        -> llmSettingsHBox.setDisable(newV == null || !newV.equals(ComparatorType.LLM))
+                (obs, oldV, newV) -> {
+                    llmSettingsHBox.setDisable(newV == null || !newV.equals(ComparatorType.LLM));
+                    maxRepsVBox.setDisable(newV != null && newV.isDeterministic());
+                }
         );
         comparatorCB.getSelectionModel().select(settingsObject.getComparatorType());
     }
@@ -125,6 +127,13 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         return true;
     }
     
+    private boolean areAnyGQsSelected() {
+        for (CheckBox cb : gqCBs)
+            if (cb.isSelected()) return true;
+        
+        return false;
+    }
+    
     private void outputDirBtnClick() {
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Choose csv output directory");
@@ -150,7 +159,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         if (comparatorCB.getValue() == null) {
             UIUtil.signalBorder(comparatorCB);
             return false;
-        } else if (comparatorCB.getValue().equals(ComparatorType.LLM)) {
+        } else if (comparatorCB.getValue().equals(ComparatorType.LLM))
             if (llmCB.getValue() == null) {
                 UIUtil.signalBorder(llmCB);
                 return false;
@@ -158,18 +167,21 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
                 UIUtil.signalBorder(tempSlider);
                 return false;
             }
-        }
         
         if (poolSizeTF.getText() == null || poolSizeTF.getText().isBlank()) {
             UIUtil.signalBorder(poolSizeTF);
             return false;
         }
-        if (maxRepsTF.getText() == null || maxRepsTF.getText().isBlank()) {
+        if (!comparatorCB.getValue().isDeterministic() && (maxRepsTF.getText() == null || maxRepsTF.getText().isBlank())) {
             UIUtil.signalBorder(maxRepsTF);
             return false;
         }
         if (csvOutputPathField.getText() == null || csvOutputPathField.getText().isBlank()) {
             UIUtil.signalBorder(maxRepsTF);
+            return false;
+        }
+        if (!areAnyGQsSelected()) {
+            UIUtil.signalBorder(gqSelectionVBox.getParent().getParent());
             return false;
         }
         
@@ -234,7 +246,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
             return generatedQueriesSelection;
         }
         
-        public void setGeneratedQueriesSelection(Collection<GeneratedQuery> generatedQueriesSelection)  {
+        public void setGeneratedQueriesSelection(Collection<GeneratedQuery> generatedQueriesSelection) {
             this.generatedQueriesSelection.clear();
             this.generatedQueriesSelection.addAll(generatedQueriesSelection);
         }
