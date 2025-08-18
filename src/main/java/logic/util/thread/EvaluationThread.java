@@ -15,6 +15,24 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
+/**
+ * Worker that evaluates {@link logic.bdo.GeneratedQuery} instances in parallel using a
+ * {@link logic.util.eval.StatementComparator}.
+ * <p>
+ * Submits one task per query to a fixed thread pool ({@code poolSize}). Each task retries up to
+ * {@code repCountIfFailure} times until the comparator returns a numeric score (non-NaN). Progress
+ * is signaled via {@code startedProgress}/{@code finishedProgress}. If the comparator is an
+ * {@link logic.util.eval.impl.LLMComparator}, a rate-limit reporter is registered.
+ * On full success, {@code signalDone} is invoked.
+ * </p>
+ * <p>
+ * Threading: results are stored in a synchronized map; interruption is honored and cancels work.
+ * Read results via {@link #getResult()} only after successful completion.
+ * </p>
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 public class EvaluationThread extends WorkerThread {
     private static final Logger log = LoggerFactory.getLogger(EvaluationThread.class);
     
@@ -28,6 +46,19 @@ public class EvaluationThread extends WorkerThread {
     private final int repCountIfFailure;
     private Map<GeneratedQuery, Double> scores;
     
+    /**
+     * Constructs an evaluation worker thread.
+     *
+     * @param poolSize          number of parallel subworkers to use
+     * @param repCountIfFailure maximum attempts per query until a non-NaN score is returned
+     * @param gqs               set of generated queries to evaluate
+     * @param comparator        comparator used to compute similarity scores
+     * @param signalDone        callback invoked on successful completion (may be {@code null})
+     * @param startedProgress   callback invoked when a task starts
+     * @param finishedProgress  callback invoked when a task finishes
+     * @param reportRetryIn     optional consumer for retry instants when using an {@link logic.util.eval.impl.LLMComparator}
+     * @implNote Thread is named {@code "Evaluation-Worker-<n>"} using an atomic counter.
+     */
     public EvaluationThread(int poolSize,
                             int repCountIfFailure,
                             Set<GeneratedQuery> gqs,
@@ -45,6 +76,20 @@ public class EvaluationThread extends WorkerThread {
         this.reportRetryIn = reportRetryIn;
     }
     
+    /**
+     * Evaluates a single generated query using the provided comparator.
+     * <p>
+     * Skips execution if the thread is already interrupted. Invokes {@code startedProgress},
+     * then attempts up to {@code repCountIfFailure} comparisons until a numeric (non-NaN) score
+     * is obtained. Checks for interruption again before finishing, then invokes
+     * {@code finishedProgress}, logs the score, and stores it in {@code scores}.
+     * </p>
+     *
+     * @param comparator the {@link logic.util.eval.StatementComparator} to compute the score
+     * @param gq         the {@link logic.bdo.GeneratedQuery} to evaluate
+     * @implNote Interruption is checked both before and after comparison attempts to avoid
+     *           reporting progress for canceled work.
+     */
     private void subworkerJob(StatementComparator comparator, GeneratedQuery gq) {
         if (Thread.currentThread().isInterrupted()) return;
         
@@ -63,12 +108,21 @@ public class EvaluationThread extends WorkerThread {
         scores.put(gq, score);
     }
     
+    /**
+     * Executes evaluation by dispatching one task per {@link GeneratedQuery} to a fixed thread pool.
+     * <p>
+     * If the comparator is an {@link logic.util.eval.impl.LLMComparator}, registers the rate-limit reporter.
+     * Initializes a synchronized score map, submits all tasks, then shuts down the pool and awaits completion
+     * (practically unbounded). On full success, invokes {@code signalDone} if non-null. On interruption,
+     * cancels subworkers, logs, and re-interrupts the thread; on timeout, logs an error.
+     * </p>
+     */
     @Override
     public void run() {
         ExecutorService subworkerThreadPool = Executors.newFixedThreadPool(poolSize);
-        if (comparator instanceof LLMComparator llmComparator) {
+        if (comparator instanceof LLMComparator llmComparator)
             llmComparator.setRateLimitReporter(reportRetryIn);
-        }
+        
         try {
             scores = Collections.synchronizedMap(new HashMap<>());
             
@@ -80,7 +134,7 @@ public class EvaluationThread extends WorkerThread {
             subworkerThreadPool.shutdown();
             if (!subworkerThreadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS)) throw new TimeoutException();
             
-            signalDone.run();
+            if (signalDone != null) signalDone.run();
         } catch (InterruptedException e) {
             subworkerThreadPool.shutdownNow();
             log.info("Canceled.");
@@ -90,6 +144,15 @@ public class EvaluationThread extends WorkerThread {
         }
     }
     
+    /**
+     * Returns the computed similarity scores per {@link GeneratedQuery}.
+     * <p>
+     * Behavior is undefined if called before the worker has completed successfully.
+     * </p>
+     *
+     * @return a synchronized map of queries to their scores
+     * @implNote The returned map is a {@code Collections.synchronizedMap}; synchronize on it when iterating.
+     */
     @Override
     public Map<GeneratedQuery, Double> getResult() {
         return scores;

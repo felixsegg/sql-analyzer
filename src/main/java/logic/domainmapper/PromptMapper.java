@@ -5,6 +5,17 @@ import persistence.dao.DAOImpl.PromptTypeDAOImpl;
 import persistence.dao.DAOImpl.SampleQueryDAOImpl;
 import persistence.dto.PromptDTO;
 
+/**
+ * Bidirectional mapper between {@link logic.bdo.Prompt} and {@link persistence.dto.PromptDTO}.
+ * <p>
+ * Maintains BDO↔DTO caches and refreshes entries when the source side has a newer {@code version}.
+ * Resolves referenced objects via {@link SampleQueryMapper}/{@link PromptTypeMapper} and their DAOs.
+ * Singleton — access via {@link #getInstance()}.
+ * </p>
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 public class PromptMapper extends AbstractBusinessDomainMapper<Prompt, PromptDTO> {
     private static PromptMapper instance = null;
     
@@ -20,6 +31,16 @@ public class PromptMapper extends AbstractBusinessDomainMapper<Prompt, PromptDTO
         return instance;
     }
     
+    /**
+     * Maps a {@link persistence.dto.PromptDTO} to a {@link logic.bdo.Prompt} with caching.
+     * <p>
+     * Resolves referenced entities (sample query, prompt type) via their DAOs and mappers.
+     * Refreshes the cached mapping if the DTO has a newer {@code version}.
+     * </p>
+     *
+     * @param dto the source DTO; may be {@code null}
+     * @return the mapped {@link logic.bdo.Prompt}, or {@code null} if {@code dto} is {@code null}
+     */
     @Override
     public Prompt get(PromptDTO dto) {
         if (dto == null) return null;
@@ -35,6 +56,17 @@ public class PromptMapper extends AbstractBusinessDomainMapper<Prompt, PromptDTO
         return cacheMapDTOtoBDO.get(dto);
     }
     
+    /**
+     * Maps a {@link logic.bdo.Prompt} to its {@link persistence.dto.PromptDTO} with caching.
+     * <p>
+     * Reuses the cached DTO if up to date; otherwise creates a new DTO, reusing the cached ID
+     * or allocating one via {@code idSupplier}. Maps referenced sample query and prompt type;
+     * stores {@code -1} if a reference is {@code null} or cannot be mapped.
+     * </p>
+     *
+     * @param bdo the source business object; may be {@code null}
+     * @return the mapped DTO, or {@code null} if {@code bdo} is {@code null}
+     */
     @Override
     public PromptDTO get(Prompt bdo) {
         if (bdo == null) return null;

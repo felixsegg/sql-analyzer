@@ -9,12 +9,37 @@ import com.google.gson.JsonObject;
 import logic.promptable.exception.LLMException;
 import logic.promptable.exception.RateLimitException;
 
+/**
+ * Handles communication with the Anthropic Claude API.
+ * Builds the request payload, sends the HTTP request, processes the response,
+ * and returns the generated text.
+ * Supports error handling for rate limits and API-specific error messages.
+ */
 public class ClaudePromptHandler extends AbstractLLMHandler {
     
+    /**
+     * Constructs a new {@code ClaudePromptHandler} instance,
+     * initializing the underlying HTTP client and JSON parser
+     * via the {@link AbstractLLMHandler} superclass.
+     */
     public ClaudePromptHandler() {
         super();
     }
     
+    /**
+     * Sends a prompt request to the Claude API and returns the model's response text.
+     * <p>
+     * Builds and submits an HTTP request containing the user input, model name, API key,
+     * and temperature parameter. Handles HTTP errors and rate limits, parsing error messages
+     * or retry-after values where available.
+     *
+     * @param input       the user input to be processed by the model
+     * @param model       the Claude model identifier
+     * @param apiKey      the API key used for authentication
+     * @param temperature the sampling temperature for response generation
+     * @return the text content of Claude's response
+     * @throws LLMException if the request fails, is rate limited, or the response is invalid
+     */
     @Override
     public String prompt(String input, String model, String apiKey, double temperature) throws LLMException {
         try {
@@ -70,6 +95,17 @@ public class ClaudePromptHandler extends AbstractLLMHandler {
         }
     }
     
+    /**
+     * Extracts the recommended retry-after delay from an HTTP response.
+     * <p>
+     * First attempts to read the standard {@code retry-after} header.
+     * If not present or invalid, it falls back to the
+     * {@code anthropic-ratelimit-requests-reset} header, interpreting
+     * its timestamp as the reset time for the rate limit.
+     *
+     * @param response the HTTP response containing headers
+     * @return the number of seconds to wait before retrying, or -1 if unavailable
+     */
     private long extractRetryAfter(HttpResponse<String> response) {
         String retryAfter = response.headers()
                 .firstValue("retry-after")

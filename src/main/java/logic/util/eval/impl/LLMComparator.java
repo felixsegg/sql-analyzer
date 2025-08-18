@@ -12,6 +12,22 @@ import org.slf4j.LoggerFactory;
 import java.time.Instant;
 import java.util.function.Consumer;
 
+/**
+ * {@link logic.util.eval.StatementComparator} that delegates semantic comparison to an LLM.
+ * <p>
+ * Sends both SQL statements to the configured {@link logic.bdo.LLM} using a fixed instruction
+ * prompt and expects a numeric score 0–100. The result is normalized to {@code 0.0–1.0};
+ * if parsing fails or the call errors, {@link Double#NaN} is returned.
+ * </p>
+ * <p>
+ * Rate limiting is handled via {@link logic.promptable.util.PromptAuthorizer}; an optional
+ * {@link #setRateLimitReporter(java.util.function.Consumer)} receives retry instants.
+ * Calls are blocking and may wait for rate limits—avoid invoking on UI threads.
+ * </p>
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 public class LLMComparator implements StatementComparator {
     private static final Logger log = LoggerFactory.getLogger(LLMComparator.class);
     
@@ -19,6 +35,11 @@ public class LLMComparator implements StatementComparator {
     private final double temperature;
     private Consumer<Instant> rateLimitReporter;
     
+    /**
+     * Fixed instruction template sent to the LLM for comparing two SQL statements.
+     * Contains the grading rubric and instructs the model to return only an integer
+     * in the range 0–100 with no additional text.
+     */
     @SuppressWarnings("FieldCanBeLocal")
     private final String PROMPT_TEXT = """
             You will receive two SQL select statements. The first is a sample solution. The second was modeled based on an informal description of the goal of the first statement.
@@ -40,11 +61,29 @@ public class LLMComparator implements StatementComparator {
             """;
     
     
+    /**
+     * Creates an LLM-backed statement comparator with the given configuration.
+     *
+     * @param llm          the LLM used to perform the comparison
+     * @param temperature  the sampling temperature passed to the LLM
+     */
     public LLMComparator(LLM llm, double temperature) {
         this.llm = llm;
         this.temperature = temperature;
     }
     
+    /**
+     * Compares two SQL statements by delegating to the configured LLM.
+     * <p>
+     * Builds a fixed instruction prompt, requests an integer score (0–100),
+     * and returns the normalized value in {@code 0.0–1.0}. If the response is
+     * absent or unparsable, returns {@link Double#NaN}.
+     * </p>
+     *
+     * @param query1 first SQL statement wrapper
+     * @param query2 second SQL statement wrapper
+     * @return normalized similarity score in {@code 0.0–1.0}, or {@code NaN} on failure
+     */
     @Override
     public double compare(SQLQueryWrapper query1, SQLQueryWrapper query2) {
         String result = promptLLM(getFullPrompt(query1.getSql(), query2.getSql()));
@@ -56,6 +95,17 @@ public class LLMComparator implements StatementComparator {
         return Double.NaN;
     }
     
+    /**
+     * Calls the configured LLM with the given prompt, handling rate limits.
+     * <p>
+     * Waits via {@link PromptAuthorizer} if a retry deadline is registered. On
+     * {@link RateLimitException}, reports the retry {@link Instant} and registers it,
+     * then retries. Logs and returns {@code null} if an {@link LLMException} occurs.
+     * </p>
+     *
+     * @param prompt the fully constructed instruction sent to the LLM
+     * @return the raw LLM response string, or {@code null} if the call ultimately fails
+     */
     private String promptLLM(String prompt) {
         PromptAuthorizer authorizer = PromptAuthorizer.getInstance();
         try {
@@ -72,18 +122,24 @@ public class LLMComparator implements StatementComparator {
         return null;
     }
     
+    /**
+     * Builds the full LLM instruction by appending both SQL statements to the fixed
+     * {@code PROMPT_TEXT}, labeled as “Sample query” and “Recreated query”.
+     *
+     * @param sampleQuerySQL    the reference/sample SQL
+     * @param generatedQuerySQL the SQL to compare against the sample
+     * @return the complete prompt string sent to the LLM
+     */
     private String getFullPrompt(String sampleQuerySQL, String generatedQuerySQL) {
-        return PROMPT_TEXT + "\n\nMuster-Statement:\n(\n" + sampleQuerySQL + "\n)\n\nNachempfundenes Statement:\n(\n" + generatedQuerySQL + "\n)";
+        return PROMPT_TEXT + "\n\nSample query:\n(\n" + sampleQuerySQL + "\n)\n\nRecreated query:\n(\n" + generatedQuerySQL + "\n)";
     }
     
-    public LLM getLlm() {
-        return llm;
-    }
-    
-    public double getTemperature() {
-        return temperature;
-    }
-    
+    /**
+     * Sets a callback to receive retry instants when a rate limit is encountered.
+     *
+     * @param rateLimitReporter consumer invoked with the {@link Instant} after which
+     *                          a retry is allowed; may be {@code null} to disable reporting
+     */
     public void setRateLimitReporter(Consumer<Instant> rateLimitReporter) {
         this.rateLimitReporter = rateLimitReporter;
     }

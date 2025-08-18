@@ -7,6 +7,22 @@ import logic.promptable.util.PromptableFactory;
 
 import java.util.Objects;
 
+/**
+ * Business domain object (BDO) representing a configured Large Language Model (LLM).
+ * <p>
+ * Wraps observable JavaFX properties for name, API provider, model identifier,
+ * API key, and temperature bounds. Versioning is inherited from
+ * {@link logic.bdo.BusinessDomainObject} and updated automatically when
+ * observed properties change.
+ * </p>
+ *
+ * <p>A lazily created {@link logic.promptable.Promptable} instance can be obtained
+ * from the configured {@link logic.promptable.util.PromptableApi} using
+ * {@link logic.promptable.util.PromptableFactory}.</p>
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 @SuppressWarnings("unused") // for later use
 public class LLM extends BusinessDomainObject {
     private final StringProperty name = new SimpleStringProperty();
@@ -16,18 +32,54 @@ public class LLM extends BusinessDomainObject {
     private final DoubleProperty minTemperature = new SimpleDoubleProperty();
     private final DoubleProperty maxTemperature = new SimpleDoubleProperty();
     
-    
-    
     private Promptable promptable; // lazy loaded, generated for PromptableApi
     
+    /**
+     * Creates a new {@code LLM} instance with default values.
+     * <p>
+     * Initializes all string fields as empty, the API as {@code null},
+     * temperatures as {@code 0} and {@code 1}, and the version as {@code null}.
+     * </p>
+     */
     public LLM() {
         this("", null, "", "", 0, 1, null);
     }
     
+    /**
+     * Creates a new {@code LLM} instance with the given configuration.
+     * <p>
+     * Sets the version to {@code null}, causing it to be initialized automatically.
+     * </p>
+     *
+     * @param name           non-null name of the LLM
+     * @param promptableApi  non-null API provider
+     * @param model          non-null model identifier
+     * @param apiKey         non-null API key
+     * @param minTemperature minimum temperature value
+     * @param maxTemperature maximum temperature value
+     * @throws NullPointerException if any string or {@code promptableApi} is {@code null}
+     */
     public LLM(String name, PromptableApi promptableApi, String model, String apiKey, double minTemperature, double maxTemperature) {
         this(name, promptableApi, model, apiKey, minTemperature, maxTemperature, null);
     }
     
+    /**
+     * Creates a new {@code LLM} instance with the given configuration.
+     * <p>
+     * Initializes all fields and registers property listeners so that changes
+     * automatically update the version. If {@code version} is {@code null},
+     * the version is initialized to the current time.
+     * </p>
+     *
+     * @param name           non-null name of the LLM
+     * @param promptableApi  non-null API provider
+     * @param model          non-null model identifier
+     * @param apiKey         non-null API key
+     * @param minTemperature minimum temperature value
+     * @param maxTemperature maximum temperature value
+     * @param version        initial version value, or {@code null} for auto-generation
+     * @throws NullPointerException if {@code name}, {@code promptableApi}, {@code model}, or {@code apiKey} is {@code null}
+     */
     public LLM(String name, PromptableApi promptableApi, String model, String apiKey, double minTemperature, double maxTemperature, Long version) {
         super(version);
         
@@ -41,6 +93,14 @@ public class LLM extends BusinessDomainObject {
         registerProperties(this.name, this.llmApi, this.model, this.minTemperature, this.maxTemperature);
     }
     
+    /**
+     * Returns a human-readable string representation of this LLM.
+     * <p>
+     * Format: {@code name (model)}.
+     * </p>
+     *
+     * @return string representation of this LLM
+     */
     @Override
     public String toString() {
         return getName() + " (" + model.get() + ")";
@@ -54,6 +114,15 @@ public class LLM extends BusinessDomainObject {
         return name;
     }
     
+    /**
+     * Returns the {@link Promptable} instance associated with this LLM.
+     * <p>
+     * The instance is created lazily via {@link PromptableFactory} using the
+     * current {@link #getLlmApi()} value and cached for subsequent calls.
+     * </p>
+     *
+     * @return the lazily initialized {@code Promptable} for this LLM
+     */
     public Promptable getPromptable() {
         if (promptable == null)
             promptable = PromptableFactory.getInstance().getPromptable(llmApi.get());
@@ -64,6 +133,16 @@ public class LLM extends BusinessDomainObject {
         this.name.set(Objects.requireNonNull(name));
     }
     
+    /**
+     * Sets the API provider for this LLM.
+     * <p>
+     * Also resets the cached {@link Promptable} instance so it will be
+     * recreated on the next call to {@link #getPromptable()}.
+     * </p>
+     *
+     * @param promptableApi non-null API provider
+     * @throws NullPointerException if {@code promptableApi} is {@code null}
+     */
     public void setLlmApi(PromptableApi promptableApi) {
         this.llmApi.set(Objects.requireNonNull(promptableApi));
         this.promptable = null;

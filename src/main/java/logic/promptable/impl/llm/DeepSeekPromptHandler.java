@@ -9,12 +9,37 @@ import com.google.gson.JsonObject;
 import logic.promptable.exception.LLMException;
 import logic.promptable.exception.RateLimitException;
 
+/**
+ * Handles communication with the DeepSeek API for generating chat completions.
+ * <p>
+ * Builds and sends requests to the DeepSeek endpoint, processes responses,
+ * and extracts the generated text. Handles error responses, including
+ * unexpected formats, API errors, and potential rate limits.
+ */
 public class DeepSeekPromptHandler extends AbstractLLMHandler {
     
+    /**
+     * Constructs a new {@code DeepSeekPromptHandler} and initializes
+     * the required HTTP client and JSON utilities via the superclass.
+     */
     public DeepSeekPromptHandler() {
         super();
     }
     
+    /**
+     * Sends a prompt request to the DeepSeek API and retrieves the generated response.
+     * <p>
+     * Builds a JSON request with the given parameters, sends it via HTTP,
+     * and parses the API response to extract the first choice's message content.
+     * </p>
+     *
+     * @param input       the user prompt to send to the model
+     * @param model       the model identifier to use
+     * @param apiKey      the DeepSeek API key for authentication
+     * @param temperature the sampling temperature controlling randomness
+     * @return the generated response text from DeepSeek
+     * @throws LLMException if the request fails, returns an error, or the response is malformed
+     */
     @Override
     public String prompt(String input, String model, String apiKey, double temperature) throws LLMException {
         try {

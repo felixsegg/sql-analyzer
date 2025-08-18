@@ -7,21 +7,67 @@ import javafx.beans.property.StringProperty;
 
 import java.util.Objects;
 
+/**
+ * Business domain object (BDO) representing a prompt.
+ * <p>
+ * Wraps observable JavaFX properties for the prompt text,
+ * the associated {@link SampleQuery}, and the {@link PromptType}.
+ * Versioning is inherited from {@link logic.bdo.BusinessDomainObject}
+ * and is automatically refreshed when observed properties change.
+ * </p>
+ *
+ * <p>The {@link #toString()} representation concatenates the names of the
+ * sample query and the prompt type.</p>
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 @SuppressWarnings("unused") // for later use
 public class Prompt extends BusinessDomainObject {
     private final StringProperty text = new SimpleStringProperty();
     private final ObjectProperty<SampleQuery> sampleQuery = new SimpleObjectProperty<>();
     private final ObjectProperty<PromptType> type = new SimpleObjectProperty<>();
     
+    /**
+     * Creates a new {@code Prompt} with default values.
+     * <p>
+     * Initializes text as an empty string, sample query and type as {@code null},
+     * and the version as {@code null}.
+     * </p>
+     */
     public Prompt() {
         this("", null, null, null);
     }
     
-    
+    /**
+     * Creates a new {@code Prompt} with the given values.
+     * <p>
+     * Sets the version to {@code null}, causing it to be initialized automatically.
+     * </p>
+     *
+     * @param text        non-null prompt text
+     * @param sampleQuery optional related sample query
+     * @param type        optional prompt type
+     * @throws NullPointerException if {@code text} is {@code null}
+     */
     public Prompt(String text, SampleQuery sampleQuery, PromptType type) {
         this(text, sampleQuery, type, null);
     }
     
+    /**
+     * Creates a new {@code Prompt} with the given values and an optional version.
+     * <p>
+     * Initializes all fields and registers property listeners so that changes
+     * automatically refresh the version. If {@code version} is {@code null},
+     * the version is initialized to the current time.
+     * </p>
+     *
+     * @param text        non-null prompt text
+     * @param sampleQuery optional related sample query
+     * @param type        optional prompt type
+     * @param version     initial version value, or {@code null} to auto-generate
+     * @throws NullPointerException if {@code text} is {@code null}
+     */
     public Prompt(String text, SampleQuery sampleQuery, PromptType type, Long version) {
         super(version);
         this.text.set(Objects.requireNonNull(text));
@@ -31,6 +77,15 @@ public class Prompt extends BusinessDomainObject {
         registerProperties(this.text, this.sampleQuery, this.type);
     }
     
+    /**
+     * Returns a string representation of this prompt.
+     * <p>
+     * Format: {@code "<sampleQueryName> - <typeName>"}. If either reference
+     * is {@code null}, the string {@code "null"} is used in its place.
+     * </p>
+     *
+     * @return string representation of this prompt
+     */
     @Override
     public String toString() {
         String sqName = getSampleQuery() == null ? "null" : getSampleQuery().getName();

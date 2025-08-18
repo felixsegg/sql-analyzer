@@ -9,12 +9,35 @@ import com.google.gson.JsonObject;
 import logic.promptable.exception.LLMException;
 import logic.promptable.exception.RateLimitException;
 
+/**
+ * Handler for interacting with the OpenAI Chat Completions API.
+ * <p>
+ * This class builds and sends requests to the OpenAI endpoint using the provided
+ * API key, model, and prompt data. It parses responses to extract the generated
+ * message text and handles rate-limiting or error responses.
+ * </p>
+ */
 public class OpenAIPromptHandler extends AbstractLLMHandler {
     
+    /**
+     * Constructs a new {@code OpenAIPromptHandler}, initializing the underlying
+     * HTTP client and JSON parser via the superclass.
+     */
     public OpenAIPromptHandler() {
         super();
     }
     
+    /**
+     * Sends the given input prompt to the OpenAI Chat Completions API and returns
+     * the generated response content.
+     *
+     * @param input       the user input text to be sent to the model
+     * @param model       the OpenAI model identifier (e.g., "gpt-4o-mini")
+     * @param apiKey      the API key used for authentication
+     * @param temperature the sampling temperature controlling randomness
+     * @return the generated response text from the model
+     * @throws LLMException if the API call fails, returns an error, or the response cannot be parsed
+     */
     @Override
     public String prompt(String input, String model, String apiKey, double temperature) throws LLMException {
         try {
@@ -66,6 +89,13 @@ public class OpenAIPromptHandler extends AbstractLLMHandler {
         }
     }
     
+    /**
+     * Extracts the retry delay from the HTTP response headers when a rate limit error occurs.
+     * Looks for the {@code retry-after} header and parses its value as seconds.
+     *
+     * @param response the HTTP response returned by the API
+     * @return the number of seconds to wait before retrying, or {@code -1} if unavailable or invalid
+     */
     private long extractRetryAfter(HttpResponse<String> response) {
         var opt = response.headers().firstValue("retry-after");
         if (opt.isPresent()) {
