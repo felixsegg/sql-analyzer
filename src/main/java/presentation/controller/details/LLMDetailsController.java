@@ -14,6 +14,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Details/edit window controller for a single {@link logic.bdo.LLM}.
+ * Initializes API selection (optionally showing dummy providers), binds bounded
+ * temperature sliders, performs lightweight validation on save, and loads/saves
+ * values between UI controls and the domain object. Includes contextual help.
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 public class LLMDetailsController extends DetailsWindow<LLM> {
     @FXML
     private TextField nameTF, modelTF;
@@ -28,12 +37,26 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
     @FXML
     private CheckBox dummiesCheckBox;
     
-    BDOService<LLM> service = LLMService.getInstance();
+    private final BDOService<LLM> service = LLMService.getInstance();
     
+    /**
+     * Creates a details controller bound to the given LLM instance.
+     *
+     * @param object the LLM to display and edit; expected non-null
+     */
     public LLMDetailsController(LLM object) {
         super(object);
     }
     
+    /**
+     * Initializes the LLM details view: delegates to {@code super.initialize}, enables
+     * contextual help, sets up the API combo box (incl. optional dummy providers),
+     * and configures bounded temperature sliders with labels.
+     *
+     * @param location FXML location (may be {@code null})
+     * @param resources localization bundle (may be {@code null})
+     * @implNote Invoked by the FXML loader on the JavaFX Application Thread.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
@@ -42,8 +65,13 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
         UIUtil.initBoundedSliders(minTempSlider, maxTempSlider, minTempLabel, maxTempLabel);
     }
     
-    
-    
+    /**
+     * Populates and manages the API combo box: loads non-dummy providers by default,
+     * toggles inclusion of dummy providers via the checkbox, clears selection if a
+     * dummy is selected when disabling, and forces a visual refresh of the combo box.
+     *
+     * @implNote Runs on the JavaFX Application Thread.
+     */
     private void initializeApiCB() {
         List<PromptableApi> regulars = Arrays.stream(PromptableApi.values()).filter(p -> !p.isDummy()).toList();
         List<PromptableApi> dummies = Arrays.stream(PromptableApi.values()).filter(PromptableApi::isDummy).toList();
@@ -63,16 +91,32 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
         apiCB.getItems().setAll(regulars);
     }
     
+    /**
+     * Returns the service used to load and persist LLM objects.
+     *
+     * @return the {@link LLMService} instance
+     */
     @Override
     protected BDOService<LLM> getService() {
         return service;
     }
     
+    /**
+     * Returns the fixed title for the LLM details window.
+     *
+     * @return the string {@code "Large language model"}
+     */
     @Override
     public String getTitle() {
         return "Large language model";
     }
     
+    /**
+     * Loads values from the bound {@link LLM} into the UI controls
+     * (name, API, model, API key, min/max temperature).
+     *
+     * @implNote Invoke on the JavaFX Application Thread.
+     */
     @Override
     protected void refresh() {
         nameTF.setText(getObject().getName());
@@ -83,6 +127,13 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
         maxTempSlider.setValue(getObject().getMaxTemperature());
     }
     
+    /**
+     * Validates the current LLM form and returns human-readable error messages.
+     * Checks: non-empty name; API selected; for non-dummy APIs, non-empty model and API key;
+     * temperatures within {@code [0,1]} and {@code min <= max}.
+     *
+     * @return list of validation messages; empty if saving is allowed
+     */
     @Override
     protected java.util.List<String> saveChecks() {
         java.util.List<String> messages = new ArrayList<>();
@@ -97,6 +148,10 @@ public class LLMDetailsController extends DetailsWindow<LLM> {
         return messages;
     }
     
+    /**
+     * Writes the current UI values into the bound {@link LLM} instance
+     * (name, API, model, API key, min/max temperature). Does not persist.
+     */
     @Override
     protected void insertValues() {
         getObject().setName(nameTF.getText());

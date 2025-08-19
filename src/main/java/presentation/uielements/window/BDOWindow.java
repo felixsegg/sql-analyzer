@@ -17,6 +17,21 @@ import presentation.util.WindowManager;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Abstract JavaFX base controller for windows operating on a specific
+ * {@link logic.bdo.BusinessDomainObject} type. Provides shared header/title
+ * handling, a refresh action hook, and a guarded deletion workflow that checks
+ * for dependants and can route to their overview windows.
+ *
+ * <p>Subclasses supply the backing {@link logic.service.BDOService} and implement
+ * {@link #refresh()} and {@link #getTitle()}.</p>
+ *
+ * <p>Intended for use on the JavaFX Application Thread.</p>
+ *
+ * @param <T> the concrete {@link logic.bdo.BusinessDomainObject} handled by the window
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 public abstract class BDOWindow<T extends BusinessDomainObject> extends TitledInitializableWindow {
     @FXML
     protected Label headerLabel;
@@ -25,8 +40,18 @@ public abstract class BDOWindow<T extends BusinessDomainObject> extends TitledIn
     
     private final StringProperty headerStringProperty = new SimpleStringProperty("Window");
     
+    /**
+     * Returns the backing service for this window’s domain type, used for CRUD
+     * operations, queries, and dependency resolution.
+     *
+     * @return the non-null {@link BDOService} for {@code T}
+     */
     protected abstract BDOService<T> getService();
     
+    /**
+     * Refreshes the window’s content from the underlying model/service.
+     * Implementations should reload data and update bound controls.
+     */
     protected abstract void refresh();
     
     /**
@@ -46,11 +71,15 @@ public abstract class BDOWindow<T extends BusinessDomainObject> extends TitledIn
         refreshBtn.setOnAction(e -> refresh());
     }
     
-    
+    /**
+     * Updates the window’s header text shown in the bound label.
+     *
+     * @param headerText new header text; may be {@code null} to clear
+     * @implNote Invoke on the JavaFX Application Thread.
+     */
     protected void setHeaderText(String headerText) {
         headerStringProperty.set(headerText);
     }
-    
     
     /**
      * Shows the alerts to the user. Doesn't actually delete the object itself, but returns if it's safe to delete
@@ -83,6 +112,14 @@ public abstract class BDOWindow<T extends BusinessDomainObject> extends TitledIn
         }
     }
     
+    /**
+     * Opens overview windows for the given dependants, grouped by their concrete type.
+     * Each window is launched with a predicate that filters to the provided instances.
+     *
+     * @param bdos non-null collection of dependant BDOs to display
+     * @implNote Groups by {@code bdo.getClass()}, then schedules one
+     *           {@link presentation.util.WindowManager#openOverview} call per type via {@link javafx.application.Platform#runLater(Runnable)}.
+     */
     private void showDependantsOverview(Collection<BusinessDomainObject> bdos) {
         Map<Class<? extends BusinessDomainObject>, Set<BusinessDomainObject>> bdoTypeMap = new HashMap<>();
         for (BusinessDomainObject bdo : bdos) {

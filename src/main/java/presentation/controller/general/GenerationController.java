@@ -18,22 +18,59 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
+/**
+ * Controller for the SQL generation workflow. Extends {@link presentation.uielements.window.WorkerWindow}
+ * to spawn a {@link logic.util.thread.GenerationThread}, track per-LLM progress (incl. rate-limit countdown),
+ * enable contextual help, validate settings, and persist/open newly generated queries on save.
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 public class GenerationController extends WorkerWindow {
+    
+    /**
+     * Shared settings singleton from {@link GenerationSettingsController#getSettings()}.
+     * Carries pool size, repetition count, and the current LLM/Prompt selections;
+     * numeric values persist via {@link logic.service.ConfigService} on change.
+     *
+     * <p>Updated when the user confirms the settings dialog; treated as read-only here.
+     * Access from the JavaFX Application Thread.</p>
+     */
     private final GenerationSettingsController.SettingsObject settings = GenerationSettingsController.getSettings();
     
     private final GeneratedQueryService gqService = GeneratedQueryService.getInstance();
     
+    /**
+     * Calls {@code super.initialize(...)} and enables the generation help link.
+     *
+     * @param location FXML location (may be {@code null})
+     * @param resources localization bundle (may be {@code null})
+     * @implNote Invoke on the JavaFX Application Thread.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         enableHelp("generation");
     }
     
+    /**
+     * Returns the fixed title for the generation window.
+     *
+     * @return the string {@code "Generation"}
+     */
     @Override
     public String getTitle() {
         return "Generation";
     }
     
+    /**
+     * Persists newly generated queries and navigates to their overview. Retrieves the
+     * result set from the active {@link GenerationThread}, saves each via the service,
+     * opens the Generated Query overview filtered to the new items, then closes this window.
+     *
+     * @implNote Assumes {@code workerProperty.get()} is a completed {@link GenerationThread}.
+     *           Invoke on the JavaFX Application Thread.
+     */
     @Override
     @SuppressWarnings("SuspiciousMethodCalls")
     protected void saveBtnClick() {
@@ -43,6 +80,21 @@ public class GenerationController extends WorkerWindow {
         closeWindow();
     }
     
+    /**
+     * Prepares per-LLM progress UI and callback wiring for the generation run.
+     * For each selected {@link LLM} this:
+     * <ul>
+     *   <li>Adds a {@link presentation.uielements.node.DualProgressBar} bound to started/finished progress,</li>
+     *   <li>Exposes a retry {@link java.time.Instant} via a bound {@link presentation.uielements.node.CountdownLabel},</li>
+     *   <li>Maintains atomic counters and derives progress as {@code started/total} and {@code finished/total},</li>
+     *   <li>Stores lambdas in maps used by the worker to update progress and the latest rate-limit instant.</li>
+     * </ul>
+     * The method then constructs and returns a {@link GenerationThread} that consumes these maps
+     * to report progress and rate-limit updates.
+     *
+     * @return a configured, not-yet-started {@link Thread} for SQL generation
+     * @implNote UI nodes are created and bound here; worker callbacks should be marshalled to the FX thread.
+     */
     @Override
     protected Thread createWorkerThread() {
         Map<LLM, Runnable> startedProgressMap = new HashMap<>();
@@ -84,11 +136,20 @@ public class GenerationController extends WorkerWindow {
         );
     }
     
+    /**
+     * Opens the Generation Settings window for configuring the run.
+     */
     @Override
     protected void showSettingsPopup() {
         WindowManager.openWindow(GeneralWindowType.GEN_SETTINGS);
     }
     
+    /**
+     * Validates that generation can start: positive pool size and repetition count,
+     * and non-empty selections of LLMs and prompts.
+     *
+     * @return {@code true} if all preconditions are met; {@code false} otherwise
+     */
     @Override
     protected boolean startValid() {
         return settings.getPoolSize() > 0

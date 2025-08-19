@@ -17,11 +17,19 @@ import presentation.util.UIUtil;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
+/**
+ * Controller for the Evaluation Settings dialog.
+ * Lets users choose the comparator (syntactic or LLM) and, if LLM is selected,
+ * configure model and temperature. Also configures thread pool size, max reps,
+ * CSV output directory, and the set of {@link logic.bdo.GeneratedQuery} items to evaluate.
+ * Persists options via a shared {@link EvaluationSettingsController.SettingsObject}
+ * backed by {@link logic.service.ConfigService}. Intended for FXML use on the JavaFX thread.
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 public class EvaluationSettingsController extends TitledInitializableWindow {
     @FXML
     private ComboBox<ComparatorType> comparatorCB;
@@ -42,15 +50,35 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
     @FXML
     private Label headerLabel, tempLabel;
     
+    /**
+     * Checkboxes representing selectable generated queries in the dialog.
+     * Used to sync “Select all” and to collect the user’s selection.
+     */
     private final Set<CheckBox> gqCBs = new HashSet<>();
     
+    /**
+     * Shared settings instance backing this dialog; persists choices via ConfigService.
+     */
     private static final SettingsObject settingsObject = new SettingsObject();
     
-    @Override
+    /**
+     * Returns the fixed title for the evaluation settings window.
+     *
+     * @return the string {@code "Evaluation Settings"}
+     */@Override
     public String getTitle() {
         return "Evaluation Settings";
     }
     
+    /**
+     * Initializes header and controls: sets the title, configures the temperature slider,
+     * populates comparator/LLM combo boxes, numeric/text fields, and the generated-query
+     * checklist; wires actions (choose output dir, OK/Cancel); enables contextual help.
+     *
+     * @param location FXML location (may be {@code null})
+     * @param resources localization bundle (may be {@code null})
+     * @implNote Invoked by the FXML loader on the JavaFX Application Thread.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         headerLabel.setText(getTitle());
@@ -63,15 +91,28 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         
         outputDirBtn.setOnAction(e -> outputDirBtnClick());
         okBtn.setOnAction(e -> okBtnClick());
-        cancelBtn.setOnAction(e -> cancelBtnClick());
+        cancelBtn.setOnAction(e -> closeWindow());
         
         enableHelp("evaluation_settings");
     }
     
-    public static SettingsObject getSettingsObject() {
+    /**
+     * Package-private accessor for the shared evaluation settings used within this package.
+     *
+     * @return the singleton {@link SettingsObject}
+     */
+    static SettingsObject getSettingsObject() {
         return settingsObject;
     }
     
+    /**
+     * Populates the comparator combo box and wires selection behavior:
+     * enables LLM-specific settings only for {@code ComparatorType.LLM} and
+     * disables the max-reps UI for deterministic comparators. Restores the
+     * previously saved selection from settings.
+     *
+     * @implNote Must run on the JavaFX Application Thread.
+     */
     private void initializeComparatorCB() {
         comparatorCB.getItems().setAll(ComparatorType.values());
         comparatorCB.getSelectionModel().selectedItemProperty().addListener(
@@ -83,6 +124,13 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         comparatorCB.getSelectionModel().select(settingsObject.getComparatorType());
     }
     
+    /**
+     * Populates the LLM combo box with available models, installs a display converter,
+     * restores the previously selected LLM and temperature from settings, and updates
+     * the temperature slider accordingly.
+     *
+     * @implNote Must run on the JavaFX Application Thread. The {@code fromString} of the converter is unused.
+     */
     private void initializeLLMCB() {
         llmCB.getItems().setAll(LLMService.getInstance().getAll());
         llmCB.setConverter(new StringConverter<>() {
@@ -101,6 +149,12 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         
     }
     
+    /**
+     * Prepares numeric/text inputs: constrains pool size and max reps to digits,
+     * and seeds all fields from the saved settings (including CSV output path).
+     *
+     * @implNote Uses {@link presentation.util.UIUtil#initIntegerField(javafx.scene.control.TextField)}.
+     */
     private void initializeTextFields() {
         UIUtil.initIntegerField(poolSizeTF);
         UIUtil.initIntegerField(maxRepsTF);
@@ -109,6 +163,13 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         csvOutputPathField.setText(settingsObject.getCsvOutputPath());
     }
     
+    /**
+     * Builds the checklist of generated queries: creates a checkbox per query,
+     * restores selection from settings, stores the query in {@code userData},
+     * keeps the “Select all” checkbox synced, and sets the container’s children.
+     *
+     * @implNote Must run on the JavaFX Application Thread.
+     */
     private void initializeGQSelection() {
         gqCBs.clear();
         for (GeneratedQuery gq : GeneratedQueryService.getInstance().getAll()) {
@@ -122,6 +183,11 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         selectAllCB.setOnAction(e -> gqCBs.forEach(gq -> gq.setSelected(selectAllCB.isSelected())));
     }
     
+    /**
+     * Returns whether all generated-query checkboxes are selected.
+     *
+     * @return {@code true} if every checkbox is selected; {@code false} otherwise
+     */
     private boolean areAllGQsSelected() {
         for (CheckBox cb : gqCBs)
             if (!cb.isSelected()) return false;
@@ -129,6 +195,11 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         return true;
     }
     
+    /**
+     * Returns whether at least one generated-query checkbox is selected.
+     *
+     * @return {@code true} if any checkbox is selected; {@code false} otherwise
+     */
     private boolean areAnyGQsSelected() {
         for (CheckBox cb : gqCBs)
             if (cb.isSelected()) return true;
@@ -136,6 +207,12 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         return false;
     }
     
+    /**
+     * Lets the user choose a CSV output directory via a {@link javafx.stage.DirectoryChooser}
+     * and writes the selected path into the output text field.
+     *
+     * @implNote Uses {@link #getStage()} as the owner for the dialog; runs on the FX thread.
+     */
     private void outputDirBtnClick() {
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Choose csv output directory");
@@ -143,6 +220,13 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         if (selectedDir != null) csvOutputPathField.setText(selectedDir.getAbsolutePath());
     }
     
+    /**
+     * Applies the dialog settings and closes the window. Validates inputs first,
+     * then stores comparator choice (incl. LLM and temperature), thread/max reps,
+     * CSV output path, and the selected generated queries in the shared settings.
+     *
+     * @implNote Typically invoked by the OK button’s action handler.
+     */
     private void okBtnClick() {
         if (!checkInputs()) return;
         
@@ -157,6 +241,16 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         closeWindow();
     }
     
+    /**
+     * Validates the evaluation settings form. Checks that a comparator is chosen
+     * (and for {@code LLM}: model selected and temperature in {@code [0,1]}),
+     * required numeric fields (pool size and, for non-deterministic comparators, max reps)
+     * are filled, a CSV output path is provided, and at least one generated query is selected.
+     * Highlights offending controls on failure.
+     *
+     * @return {@code true} if all inputs are valid; {@code false} otherwise
+     * @implNote Intended to run on the JavaFX Application Thread.
+     */
     private boolean checkInputs() {
         if (comparatorCB.getValue() == null) {
             UIUtil.signalBorder(comparatorCB);
@@ -190,11 +284,20 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         return true;
     }
     
-    private void cancelBtnClick() {
-        closeWindow();
-    }
-    
-    public static class SettingsObject {
+    /**
+     * Mutable container for evaluation settings: comparator choice (syntactic or LLM),
+     * optional LLM and temperature, selected generated queries, thread pool size,
+     * max repetitions, and CSV output path. Persists options via
+     * {@link logic.service.ConfigService}.
+     *
+     * <p>Exposed as a package-private singleton via
+     * {@link presentation.controller.general.EvaluationSettingsController#getSettingsObject()}.
+     * Not thread-safe; use on the JavaFX Application Thread.</p>
+     *
+     * @author Felix Seggebäing
+     * @since 1.0
+     */
+    static class SettingsObject {
         private ComparatorType comparatorType;
         private LLM comparatorLlm;
         private double comparatorTemp;
@@ -205,6 +308,15 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
         
         private final ConfigService config = ConfigService.getInstance();
         
+        /**
+         * Initializes settings from persisted configuration:
+         * reads {@code eval.comparator} (lenient; falls back to {@code null} on parse/missing),
+         * sets comparator LLM {@code null} and temperature {@code 0}, clears selection,
+         * and loads defaults for {@code eval.threads=1}, {@code eval.reps=3}, and
+         * {@code eval.output.path} (may be {@code null}).
+         *
+         * @implNote Private constructor; instance provided via the controller’s singleton.
+         */
         private SettingsObject() {
             try {
                 comparatorType = ComparatorType.valueOf(config.get("eval.comparator"));
@@ -219,7 +331,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
             csvOutputPath = config.get("eval.output.path");
         }
         
-        public ComparatorType getComparatorType() {
+        ComparatorType getComparatorType() {
             return comparatorType;
         }
         
@@ -228,7 +340,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
             config.set("eval.comparator", comparatorType.name());
         }
         
-        public LLM getComparatorLlm() {
+        LLM getComparatorLlm() {
             return comparatorLlm;
         }
         
@@ -236,7 +348,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
             this.comparatorLlm = comparatorLlm;
         }
         
-        public double getComparatorTemp() {
+        double getComparatorTemp() {
             return comparatorTemp;
         }
         
@@ -244,16 +356,16 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
             this.comparatorTemp = comparatorTemp;
         }
         
-        public Set<GeneratedQuery> getGeneratedQueriesSelection() {
-            return generatedQueriesSelection;
+        Set<GeneratedQuery> getGeneratedQueriesSelection() {
+            return Collections.unmodifiableSet(generatedQueriesSelection);
         }
         
-        public void setGeneratedQueriesSelection(Collection<GeneratedQuery> generatedQueriesSelection) {
+        void setGeneratedQueriesSelection(Collection<GeneratedQuery> generatedQueriesSelection) {
             this.generatedQueriesSelection.clear();
             this.generatedQueriesSelection.addAll(generatedQueriesSelection);
         }
         
-        public int getThreadPoolSize() {
+        int getThreadPoolSize() {
             return threadPoolSize;
         }
         
@@ -262,7 +374,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
             config.set("eval.threads", String.valueOf(threadPoolSize));
         }
         
-        public int getMaxReps() {
+        int getMaxReps() {
             return maxReps;
         }
         
@@ -271,7 +383,7 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
             config.set("eval.reps", String.valueOf(maxReps));
         }
         
-        public String getCsvOutputPath() {
+        String getCsvOutputPath() {
             return csvOutputPath;
         }
         

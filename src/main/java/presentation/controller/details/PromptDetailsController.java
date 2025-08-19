@@ -17,6 +17,15 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
+/**
+ * Details/edit window controller for a single {@link logic.bdo.Prompt}.
+ * Initializes and populates sample-query and prompt-type selectors (with custom cells, sorted),
+ * loads values into controls, validates inputs, and writes changes back on save.
+ * Includes contextual help integration.
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 public class PromptDetailsController extends DetailsWindow<Prompt> {
     @FXML
     private ComboBox<SampleQuery> sampleQueryCB;
@@ -25,12 +34,25 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
     @FXML
     private TextArea promptTA;
     
-    PromptService service = PromptService.getInstance();
+    private final PromptService service = PromptService.getInstance();
     
+    /**
+     * Creates a details controller bound to the given {@link Prompt}.
+     *
+     * @param object the prompt to display and edit; expected non-null
+     */
     public PromptDetailsController(Prompt object) {
         super(object);
     }
     
+    /**
+     * Initializes the prompt details view: delegates to {@code super.initialize},
+     * enables contextual help, and populates the sample query and prompt type combo boxes.
+     *
+     * @param location FXML location (may be {@code null})
+     * @param resources localization bundle (may be {@code null})
+     * @implNote Invoked by the FXML loader on the JavaFX Application Thread.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
@@ -40,6 +62,12 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
         initializePromptTypeCB();
     }
     
+    /**
+     * Configures the sample query combo box: sets custom cells showing {@code toString()},
+     * assigns a matching button cell, loads all sample queries from the service, and sorts by name.
+     *
+     * @implNote Must run on the JavaFX Application Thread.
+     */
     private void initializeSampleQueryCB() {
         sampleQueryCB.setCellFactory(listView -> new ListCell<>() {
             @Override
@@ -61,6 +89,12 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
         sampleQueryCB.getItems().sort(Comparator.comparing(SampleQuery::getName));
     }
     
+    /**
+     * Configures the prompt type combo box: sets custom cells showing {@code toString()},
+     * assigns a matching button cell, loads all prompt types from the service, and sorts by name.
+     *
+     * @implNote Must run on the JavaFX Application Thread.
+     */
     private void initializePromptTypeCB() {
         promptTypeCB.setCellFactory(listView -> new ListCell<>() {
             @Override
@@ -82,16 +116,32 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
         promptTypeCB.getItems().sort(Comparator.comparing(PromptType::getName));
     }
     
+    /**
+     * Returns the service used to load and persist prompt objects.
+     *
+     * @return the {@link PromptService} instance
+     */
     @Override
     protected PromptService getService() {
         return service;
     }
     
+    /**
+     * Returns the fixed title for the prompt details window.
+     *
+     * @return the string {@code "Prompt"}
+     */
     @Override
     public String getTitle() {
         return "Prompt";
     }
     
+    /**
+     * Loads the bound {@link Prompt} into the controls
+     * (text, sample query, and type).
+     *
+     * @implNote Invoke on the JavaFX Application Thread.
+     */
     @Override
     protected void refresh() {
         promptTA.setText(getObject().getText());
@@ -99,6 +149,12 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
         promptTypeCB.setValue(getObject().getType());
     }
     
+    /**
+     * Validates the prompt form and returns human-readable errors.
+     * Checks: non-empty prompt text, selected sample query, and selected type.
+     *
+     * @return list of validation messages; empty if saving is allowed
+     */
     @Override
     protected java.util.List<String> saveChecks() {
         java.util.List<String> messages = new ArrayList<>();
@@ -113,6 +169,10 @@ public class PromptDetailsController extends DetailsWindow<Prompt> {
         return messages;
     }
     
+    /**
+     * Writes the current UI values into the bound {@link Prompt}
+     * (text, sample query, and type). Does not persist.
+     */
     @Override
     protected void insertValues() {
         getObject().setText(promptTA.getText());

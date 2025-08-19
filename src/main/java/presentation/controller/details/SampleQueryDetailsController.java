@@ -14,6 +14,15 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+/**
+ * Details/edit window controller for a single {@link logic.bdo.SampleQuery}.
+ * Loads values into UI controls, validates inputs (incl. SQL must start with
+ * {@code SELECT} and prompt context must contain exactly one {@code §§§} placeholder),
+ * and writes changes back to the domain object on save. Includes contextual help.
+ *
+ * @author Felix Seggebäing
+ * @since 1.0
+ */
 public class SampleQueryDetailsController extends DetailsWindow<SampleQuery> {
     @FXML
     private TextField nameTF;
@@ -22,12 +31,25 @@ public class SampleQueryDetailsController extends DetailsWindow<SampleQuery> {
     @FXML
     private ComboBox<SampleQuery.Complexity> complexityCB;
     
-    SampleQueryService service = SampleQueryService.getInstance();
+    private final SampleQueryService service = SampleQueryService.getInstance();
     
+    /**
+     * Creates a details controller bound to the given {@link SampleQuery}.
+     *
+     * @param object the sample query to display and edit; expected non-null
+     */
     public SampleQueryDetailsController(SampleQuery object) {
         super(object);
     }
     
+    /**
+     * Initializes the sample query details view: delegates to {@code super.initialize},
+     * enables contextual help, and populates the complexity combo box with all enum values.
+     *
+     * @param location FXML location (may be {@code null})
+     * @param resources localization bundle (may be {@code null})
+     * @implNote Invoked by the FXML loader on the JavaFX Application Thread.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
@@ -36,16 +58,32 @@ public class SampleQueryDetailsController extends DetailsWindow<SampleQuery> {
         complexityCB.getItems().addAll(SampleQuery.Complexity.values());
     }
     
+    /**
+     * Returns the service used to load and persist sample query objects.
+     *
+     * @return the {@link SampleQueryService} instance
+     */
     @Override
     protected SampleQueryService getService() {
         return service;
     }
     
+    /**
+     * Returns the fixed title for the sample query details window.
+     *
+     * @return the string {@code "Sample query"}
+     */
     @Override
     public String getTitle() {
         return "Sample query";
     }
     
+    /**
+     * Loads the bound {@link SampleQuery} values into the UI controls
+     * (name, description, SQL, prompt context, complexity).
+     *
+     * @implNote Invoke on the JavaFX Application Thread.
+     */
     @Override
     protected void refresh() {
         nameTF.setText(getObject().getName());
@@ -55,6 +93,14 @@ public class SampleQueryDetailsController extends DetailsWindow<SampleQuery> {
         complexityCB.setValue(getObject().getComplexity());
     }
     
+    /**
+     * Validates the sample query form and returns human-readable errors.
+     * Checks: non-empty name; non-empty SQL that starts with {@code SELECT } (case-insensitive,
+     * allowing a newline after SELECT); complexity selected; prompt context non-empty and
+     * containing exactly one {@code §§§} placeholder.
+     *
+     * @return list of validation messages; empty if saving is allowed
+     */
     @Override
     protected List<String> saveChecks() {
         List<String> messages = new ArrayList<>();
@@ -87,6 +133,10 @@ public class SampleQueryDetailsController extends DetailsWindow<SampleQuery> {
         return messages;
     }
     
+    /**
+     * Writes the current UI values into the bound {@link SampleQuery} instance
+     * (name, description, SQL, prompt context, complexity). Does not persist.
+     */
     @Override
     protected void insertValues() {
         getObject().setName(nameTF.getText());
