@@ -1,0 +1,24 @@
+unnamed package
+logic.bdo
+logic.domainmapper
+logic.promptable
+logic.promptable.exception
+logic.promptable.impl.dummy
+logic.promptable.impl.llm
+logic.promptable.util
+logic.service
+logic.util
+logic.util.eval
+logic.util.eval.impl
+logic.util.thread
+persistence
+persistence.dao
+persistence.dao.DAOImpl
+persistence.dto
+persistence.exception
+presentation.controller.details
+presentation.controller.general
+presentation.controller.overview
+presentation.uielements.node
+presentation.uielements.window
+presentation.util
