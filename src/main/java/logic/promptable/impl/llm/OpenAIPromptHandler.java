@@ -8,6 +8,8 @@ import java.util.List;
 import com.google.gson.JsonObject;
 import logic.promptable.exception.LLMException;
 import logic.promptable.exception.RateLimitException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handler for interacting with the OpenAI Chat Completions API.
@@ -18,6 +20,8 @@ import logic.promptable.exception.RateLimitException;
  * </p>
  */
 public class OpenAIPromptHandler extends AbstractLLMHandler {
+    
+    private static final Logger log = LoggerFactory.getLogger(OpenAIPromptHandler.class);
     
     /**
      * Constructs a new {@code OpenAIPromptHandler}, initializing the underlying

@@ -8,6 +8,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import logic.promptable.exception.LLMException;
 import logic.promptable.exception.RateLimitException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handles communication with the DeepSeek API for generating chat completions.
@@ -17,6 +19,8 @@ import logic.promptable.exception.RateLimitException;
  * unexpected formats, API errors, and potential rate limits.
  */
 public class DeepSeekPromptHandler extends AbstractLLMHandler {
+    
+    private static final Logger log = LoggerFactory.getLogger(DeepSeekPromptHandler.class);
     
     /**
      * Constructs a new {@code DeepSeekPromptHandler} and initializes

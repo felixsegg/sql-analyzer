@@ -8,6 +8,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import logic.promptable.exception.LLMException;
 import logic.promptable.exception.RateLimitException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handles communication with the Anthropic Claude API.
@@ -16,6 +18,8 @@ import logic.promptable.exception.RateLimitException;
  * Supports error handling for rate limits and API-specific error messages.
  */
 public class ClaudePromptHandler extends AbstractLLMHandler {
+    
+    private static final Logger log = LoggerFactory.getLogger(ClaudePromptHandler.class);
     
     /**
      * Constructs a new {@code ClaudePromptHandler} instance,
