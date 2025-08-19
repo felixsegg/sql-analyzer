@@ -17,13 +17,6 @@ import presentation.util.WindowManager;
  * </ul>
  * </p>
  *
- * <h6>Startup sequence</h6>
- * <ol>
- *   <li>Resolve the saves base path from {@link logic.service.ConfigService}.</li>
- *   <li>Initialize {@link persistence.PersistenceHelper} with that base path.</li>
- *   <li>Open the primary window via {@link presentation.util.WindowManager#start(javafx.stage.Stage)}.</li>
- * </ol>
- *
  * <p><strong>Threading:</strong> {@link #start(javafx.stage.Stage)} is invoked on the JavaFX Application Thread.
  * No additional background threads are started here; long-running work should be scheduled by the respective
  * services or worker classes.</p>

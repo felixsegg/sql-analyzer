@@ -27,6 +27,11 @@ public record GeneratedQueryDTO(int id, long version, String sql, int generatorI
      * {@link NullPointerException} is thrown.
      * </p>
      *
+     * @param id          stable identifier
+     * @param version     numeric value representing the modification state
+     * @param sql         non-null generated SQL string
+     * @param generatorId identifier of the LLM or generator that produced the query
+     * @param promptId    identifier of the prompt that led to this query
      * @throws NullPointerException if {@code sql} is {@code null}
      */
     public GeneratedQueryDTO(int id, long version, String sql, int generatorId, int promptId) {

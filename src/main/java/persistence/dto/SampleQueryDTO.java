@@ -28,6 +28,13 @@ public record SampleQueryDTO(int id, long version, String name, String descripti
      * {@link NullPointerException} is thrown.
      * </p>
      *
+     * @param id            stable identifier
+     * @param version       numeric value representing the modification state
+     * @param name          non-null name
+     * @param description   non-null description
+     * @param sql           non-null SQL string
+     * @param promptContext non-null context string
+     * @param complexity    non-null complexity label
      * @throws NullPointerException if any string field is {@code null}
      */
     public SampleQueryDTO(int id, long version, String name, String description, String sql, String promptContext, String complexity) {

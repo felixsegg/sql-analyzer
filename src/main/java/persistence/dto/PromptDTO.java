@@ -25,6 +25,11 @@ public record PromptDTO(int id, long version, String text, int sampleQueryId, in
      * {@link NullPointerException} is thrown.
      * </p>
      *
+     * @param id            stable identifier
+     * @param version       numeric value representing the modification state
+     * @param text          non-null prompt text
+     * @param sampleQueryId identifier of the related sample query
+     * @param typeId        identifier of the related prompt type
      * @throws NullPointerException if {@code text} is {@code null}
      */
     public PromptDTO(int id, long version, String text, int sampleQueryId, int typeId) {

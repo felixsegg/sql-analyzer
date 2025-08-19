@@ -25,6 +25,10 @@ public record PromptTypeDTO(int id, long version, String name, String descriptio
      * otherwise a {@link NullPointerException} is thrown.
      * </p>
      *
+     * @param id          stable identifier
+     * @param version     numeric value representing the modification state
+     * @param name        non-null name
+     * @param description non-null description
      * @throws NullPointerException if {@code name} or {@code description} is {@code null}
      */
     public PromptTypeDTO(int id, long version, String name, String description) {

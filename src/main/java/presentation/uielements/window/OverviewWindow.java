@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * Abstract base for list/overview windows of {@link logic.bdo.BusinessDomainObject}s.
  * Provides a ready-to-use {@link javafx.scene.control.ListView} with single selection,
- * external and internal filtering, context menu & double-click/ENTER to open details,
+ * external and internal filtering, context menu &amp; double-click/ENTER to open details,
  * and wired Add/Delete actions (guarded by the parent’s deletion workflow).
  * Subclasses supply the service via {@code getService()} and implement {@code addItem()}.
  * Intended for FXML controllers; use on the JavaFX Application Thread.

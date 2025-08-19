@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Marker interface for objects that can be persisted.
+ *
  * <p>
  * Implementations must provide:
  * <ul>

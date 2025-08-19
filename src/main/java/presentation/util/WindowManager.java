@@ -50,7 +50,7 @@ public class WindowManager {
      * Bootstraps the primary (Home) stage and hands control to the WindowManager.
      * <p>
      * Loads the Home FXML with a {@link presentation.controller.general.HomeController},
-     * sets standardized title & icon (via {@link #loadFxmlInto(Stage, String, TitledInitializableWindow)}),
+     * sets standardized title &amp; icon (via {@link #loadFxmlInto(Stage, String, TitledInitializableWindow)}),
      * shows the stage, and enforces a minimum size based on the root node’s preferred size.
      * The Home stage cannot be closed; its close request is consumed and the stage is hidden
      * instead. If it is closed while no other non-help stages are visible, the application

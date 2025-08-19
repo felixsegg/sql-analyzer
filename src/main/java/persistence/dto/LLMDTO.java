@@ -30,6 +30,14 @@ public record LLMDTO(int id, long version, String name, String api, String model
      * are non-null; otherwise a {@link NullPointerException} is thrown.
      * </p>
      *
+     * @param id             stable identifier
+     * @param version        numeric value representing the modification state
+     * @param name           non-null name
+     * @param api            non-null provider identifier (enum constant name)
+     * @param model          non-null model identifier
+     * @param apiKey         non-null API key
+     * @param minTemperature minimum temperature value
+     * @param maxTemperature maximum temperature value
      * @throws NullPointerException if any of the required string fields is {@code null}
      */
     public LLMDTO(int id, long version, String name, String api, String model, String apiKey, double minTemperature, double maxTemperature) {
