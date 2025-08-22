@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: logic.service, class: PromptTypeService">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.logic.service, class: PromptTypeService">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,28 +69,28 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">logic.service</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.logic.service</a></div>
 <h1 title="Class PromptTypeService" class="title">Class PromptTypeService</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">logic.service.PromptTypeService</div>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.logic.service.PromptTypeService</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="BDOService.html" title="interface in logic.service">BDOService</a>&lt;<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&gt;</code></dd>
+<dd><code><a href="BDOService.html" title="interface in de.seggebaeing.sqlanalyzer.logic.service">BDOService</a>&lt;<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&gt;</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">PromptTypeService</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="BDOService.html" title="interface in logic.service">BDOService</a>&lt;<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&gt;</span></div>
-<div class="block">Service layer for managing <a href="../bdo/PromptType.html" title="class in logic.bdo"><code>PromptType</code></a> business objects.
+implements <a href="BDOService.html" title="interface in de.seggebaeing.sqlanalyzer.logic.service">BDOService</a>&lt;<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&gt;</span></div>
+<div class="block">Service layer for managing <a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>PromptType</code></a> business objects.
  <p>
- Maps between <a href="../bdo/PromptType.html" title="class in logic.bdo"><code>PromptType</code></a> and <a href="../../persistence/dto/PromptTypeDTO.html" title="class in persistence.dto"><code>PromptTypeDTO</code></a>
- via <a href="../domainmapper/PromptTypeMapper.html" title="class in logic.domainmapper"><code>PromptTypeMapper</code></a> and persists through
- <a href="../../persistence/dao/DAOImpl/PromptTypeDAOImpl.html" title="class in persistence.dao.DAOImpl"><code>PromptTypeDAOImpl</code></a>. Implements a singleton
+ Maps between <a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>PromptType</code></a> and <a href="../../persistence/dto/PromptTypeDTO.html" title="class in de.seggebaeing.sqlanalyzer.persistence.dto"><code>PromptTypeDTO</code></a>
+ via <a href="../domainmapper/PromptTypeMapper.html" title="class in de.seggebaeing.sqlanalyzer.logic.domainmapper"><code>PromptTypeMapper</code></a> and persists through
+ <a href="../../persistence/dao/DAOImpl/PromptTypeDAOImpl.html" title="class in de.seggebaeing.sqlanalyzer.persistence.dao.DAOImpl"><code>PromptTypeDAOImpl</code></a>. Implements a singleton
  (use <a href="#getInstance()"><code>getInstance()</code></a>) and synchronizes public operations for basic
- thread safety. Provides dependant lookup (e.g., <a href="../bdo/Prompt.html" title="class in logic.bdo"><code>Prompt</code></a>
+ thread safety. Provides dependant lookup (e.g., <a href="../bdo/Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>Prompt</code></a>
  referencing a given prompt type).
  </p></div>
 <dl class="notes">
@@ -114,25 +114,25 @@ implements <a href="BDOService.html" title="interface in logic.service">BDOServi
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#delete(logic.bdo.PromptType)" class="member-name-link">delete</a><wbr>(<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&nbsp;bdo)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#delete(logic.bdo.PromptType)" class="member-name-link">delete</a><wbr>(<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&nbsp;bdo)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Deletes the given prompt type by mapping it to its DTO and delegating to the DAO.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAll()" class="member-name-link">getAll</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves all persisted prompt types and maps them to business objects.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDependants(logic.bdo.PromptType)" class="member-name-link">getDependants</a><wbr>(<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&nbsp;object)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getDependants(logic.bdo.PromptType)" class="member-name-link">getDependants</a><wbr>(<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&nbsp;object)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns business objects that directly reference the given prompt type.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="PromptTypeService.html" title="class in logic.service">PromptTypeService</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="PromptTypeService.html" title="class in de.seggebaeing.sqlanalyzer.logic.service">PromptTypeService</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getInstance()" class="member-name-link">getInstance</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#saveOrUpdate(logic.bdo.PromptType)" class="member-name-link">saveOrUpdate</a><wbr>(<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&nbsp;bdo)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#saveOrUpdate(logic.bdo.PromptType)" class="member-name-link">saveOrUpdate</a><wbr>(<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&nbsp;bdo)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Saves a new prompt type or updates an existing one by mapping it to its DTO and delegating to the DAO.</div>
 </div>
@@ -156,32 +156,32 @@ implements <a href="BDOService.html" title="interface in logic.service">BDOServi
 <li>
 <section class="detail" id="getInstance()">
 <h3>getInstance</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="PromptTypeService.html" title="class in logic.service">PromptTypeService</a></span>&nbsp;<span class="element-name">getInstance</span>()</div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="PromptTypeService.html" title="class in de.seggebaeing.sqlanalyzer.logic.service">PromptTypeService</a></span>&nbsp;<span class="element-name">getInstance</span>()</div>
 </section>
 </li>
 <li>
 <section class="detail" id="getAll()">
 <h3>getAll</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&gt;</span>&nbsp;<span class="element-name">getAll</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&gt;</span>&nbsp;<span class="element-name">getAll</span>()</div>
 <div class="block">Retrieves all persisted prompt types and maps them to business objects.
  <p>Thread-safe: synchronized to guard DAO/mapper access.</p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="BDOService.html#getAll()">getAll</a></code>&nbsp;in interface&nbsp;<code><a href="BDOService.html" title="interface in logic.service">BDOService</a>&lt;<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&gt;</code></dd>
+<dd><code><a href="BDOService.html#getAll()">getAll</a></code>&nbsp;in interface&nbsp;<code><a href="BDOService.html" title="interface in de.seggebaeing.sqlanalyzer.logic.service">BDOService</a>&lt;<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&gt;</code></dd>
 <dt>Returns:</dt>
-<dd>a set of <a href="../bdo/PromptType.html" title="class in logic.bdo"><code>PromptType</code></a>; may be empty</dd>
+<dd>a set of <a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>PromptType</code></a>; may be empty</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="delete(logic.bdo.PromptType)">
 <h3>delete</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">delete</span><wbr><span class="parameters">(<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&nbsp;bdo)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">delete</span><wbr><span class="parameters">(<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&nbsp;bdo)</span></div>
 <div class="block">Deletes the given prompt type by mapping it to its DTO and delegating to the DAO.
  <p>Thread-safe: synchronized to guard DAO/mapper access.</p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="BDOService.html#delete(B)">delete</a></code>&nbsp;in interface&nbsp;<code><a href="BDOService.html" title="interface in logic.service">BDOService</a>&lt;<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&gt;</code></dd>
+<dd><code><a href="BDOService.html#delete(B)">delete</a></code>&nbsp;in interface&nbsp;<code><a href="BDOService.html" title="interface in de.seggebaeing.sqlanalyzer.logic.service">BDOService</a>&lt;<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>bdo</code> - the prompt type to delete</dd>
 </dl>
@@ -190,12 +190,12 @@ implements <a href="BDOService.html" title="interface in logic.service">BDOServi
 <li>
 <section class="detail" id="saveOrUpdate(logic.bdo.PromptType)">
 <h3>saveOrUpdate</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">saveOrUpdate</span><wbr><span class="parameters">(<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&nbsp;bdo)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">saveOrUpdate</span><wbr><span class="parameters">(<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&nbsp;bdo)</span></div>
 <div class="block">Saves a new prompt type or updates an existing one by mapping it to its DTO and delegating to the DAO.
  <p>Thread-safe: synchronized to guard DAO/mapper access.</p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="BDOService.html#saveOrUpdate(B)">saveOrUpdate</a></code>&nbsp;in interface&nbsp;<code><a href="BDOService.html" title="interface in logic.service">BDOService</a>&lt;<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&gt;</code></dd>
+<dd><code><a href="BDOService.html#saveOrUpdate(B)">saveOrUpdate</a></code>&nbsp;in interface&nbsp;<code><a href="BDOService.html" title="interface in de.seggebaeing.sqlanalyzer.logic.service">BDOService</a>&lt;<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>bdo</code> - the prompt type to save or update</dd>
 </dl>
@@ -204,15 +204,15 @@ implements <a href="BDOService.html" title="interface in logic.service">BDOServi
 <li>
 <section class="detail" id="getDependants(logic.bdo.PromptType)">
 <h3>getDependants</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&gt;</span>&nbsp;<span class="element-name">getDependants</span><wbr><span class="parameters">(<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&nbsp;object)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&gt;</span>&nbsp;<span class="element-name">getDependants</span><wbr><span class="parameters">(<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&nbsp;object)</span></div>
 <div class="block">Returns business objects that directly reference the given prompt type.
  <p>
- Scans all <a href="../bdo/Prompt.html" title="class in logic.bdo"><code>Prompt</code></a> instances and collects those whose <code>getType()</code>
+ Scans all <a href="../bdo/Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>Prompt</code></a> instances and collects those whose <code>getType()</code>
  is the same instance as <code>object</code> (reference equality).
  </p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="BDOService.html#getDependants(B)">getDependants</a></code>&nbsp;in interface&nbsp;<code><a href="BDOService.html" title="interface in logic.service">BDOService</a>&lt;<a href="../bdo/PromptType.html" title="class in logic.bdo">PromptType</a>&gt;</code></dd>
+<dd><code><a href="BDOService.html#getDependants(B)">getDependants</a></code>&nbsp;in interface&nbsp;<code><a href="BDOService.html" title="interface in de.seggebaeing.sqlanalyzer.logic.service">BDOService</a>&lt;<a href="../bdo/PromptType.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">PromptType</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>object</code> - the prompt type whose dependants to collect</dd>
 <dt>Returns:</dt>

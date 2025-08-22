@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: logic.promptable.impl.dummy, class: RateLimitedSQLDummy">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.logic.promptable.impl.dummy, class: RateLimitedSQLDummy">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,27 +69,27 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">logic.promptable.impl.dummy</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.logic.promptable.impl.dummy</a></div>
 <h1 title="Class RateLimitedSQLDummy" class="title">Class RateLimitedSQLDummy</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance"><a href="SQLDummy.html" title="class in logic.promptable.impl.dummy">logic.promptable.impl.dummy.SQLDummy</a>
-<div class="inheritance">logic.promptable.impl.dummy.RateLimitedSQLDummy</div>
+<div class="inheritance"><a href="SQLDummy.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.impl.dummy">de.seggebaeing.sqlanalyzer.logic.promptable.impl.dummy.SQLDummy</a>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.logic.promptable.impl.dummy.RateLimitedSQLDummy</div>
 </div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../../Promptable.html" title="interface in logic.promptable">Promptable</a></code></dd>
+<dd><code><a href="../../Promptable.html" title="interface in de.seggebaeing.sqlanalyzer.logic.promptable">Promptable</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">RateLimitedSQLDummy</span>
-<span class="extends-implements">extends <a href="SQLDummy.html" title="class in logic.promptable.impl.dummy">SQLDummy</a></span></div>
-<div class="block">A dummy <a href="../../Promptable.html" title="interface in logic.promptable"><code>Promptable</code></a> implementation that simulates an LLM being occasionally rate-limited.
+<span class="extends-implements">extends <a href="SQLDummy.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.impl.dummy">SQLDummy</a></span></div>
+<div class="block">A dummy <a href="../../Promptable.html" title="interface in de.seggebaeing.sqlanalyzer.logic.promptable"><code>Promptable</code></a> implementation that simulates an LLM being occasionally rate-limited.
  <p>
- This class delegates to <a href="SQLDummy.html" title="class in logic.promptable.impl.dummy"><code>SQLDummy</code></a> for generating a mock SQL query but introduces random
+ This class delegates to <a href="SQLDummy.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.impl.dummy"><code>SQLDummy</code></a> for generating a mock SQL query but introduces random
  rate-limiting behavior via an internal <code>RateLimiter</code>. If a rate limit is active,
- a <a href="../../exception/RateLimitException.html" title="class in logic.promptable.exception"><code>RateLimitException</code></a> is thrown instead of returning a result.</div>
+ a <a href="../../exception/RateLimitException.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.exception"><code>RateLimitException</code></a> is thrown instead of returning a result.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -163,18 +163,18 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;model,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;apiKey,
  double&nbsp;temperature)</span>
-              throws <span class="exceptions"><a href="../../exception/LLMException.html" title="class in logic.promptable.exception">LLMException</a></span></div>
+              throws <span class="exceptions"><a href="../../exception/LLMException.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.exception">LLMException</a></span></div>
 <div class="block">Simulates prompting an LLM while enforcing random rate limits.
  <p>
  Before delegating to <a href="SQLDummy.html#prompt(java.lang.String,java.lang.String,java.lang.String,double)"><code>SQLDummy.prompt(String, String, String, double)</code></a>, this method
  checks whether a rate limit is currently active using the <code>RateLimiter</code>. If so, it throws
- a <a href="../../exception/RateLimitException.html" title="class in logic.promptable.exception"><code>RateLimitException</code></a>. Otherwise, it returns the dummy SQL
+ a <a href="../../exception/RateLimitException.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.exception"><code>RateLimitException</code></a>. Otherwise, it returns the dummy SQL
  response from the superclass.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../../Promptable.html#prompt(java.lang.String,java.lang.String,java.lang.String,double)">prompt</a></code>&nbsp;in interface&nbsp;<code><a href="../../Promptable.html" title="interface in logic.promptable">Promptable</a></code></dd>
+<dd><code><a href="../../Promptable.html#prompt(java.lang.String,java.lang.String,java.lang.String,double)">prompt</a></code>&nbsp;in interface&nbsp;<code><a href="../../Promptable.html" title="interface in de.seggebaeing.sqlanalyzer.logic.promptable">Promptable</a></code></dd>
 <dt>Overrides:</dt>
-<dd><code><a href="SQLDummy.html#prompt(java.lang.String,java.lang.String,java.lang.String,double)">prompt</a></code>&nbsp;in class&nbsp;<code><a href="SQLDummy.html" title="class in logic.promptable.impl.dummy">SQLDummy</a></code></dd>
+<dd><code><a href="SQLDummy.html#prompt(java.lang.String,java.lang.String,java.lang.String,double)">prompt</a></code>&nbsp;in class&nbsp;<code><a href="SQLDummy.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.impl.dummy">SQLDummy</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>input</code> - the input prompt text</dd>
 <dd><code>model</code> - the (unused) model identifier</dd>
@@ -183,7 +183,7 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>a dummy SQL query string</dd>
 <dt>Throws:</dt>
-<dd><code><a href="../../exception/LLMException.html" title="class in logic.promptable.exception">LLMException</a></code> - if a rate limit is active or another error occurs</dd>
+<dd><code><a href="../../exception/LLMException.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.exception">LLMException</a></code> - if a rate limit is active or another error occurs</dd>
 </dl>
 </section>
 </li>

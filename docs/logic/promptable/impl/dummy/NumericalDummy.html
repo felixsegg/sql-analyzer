@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: logic.promptable.impl.dummy, class: NumericalDummy">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.logic.promptable.impl.dummy, class: NumericalDummy">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,26 +69,26 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">logic.promptable.impl.dummy</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.logic.promptable.impl.dummy</a></div>
 <h1 title="Class NumericalDummy" class="title">Class NumericalDummy</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">logic.promptable.impl.dummy.NumericalDummy</div>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.logic.promptable.impl.dummy.NumericalDummy</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../../Promptable.html" title="interface in logic.promptable">Promptable</a></code></dd>
+<dd><code><a href="../../Promptable.html" title="interface in de.seggebaeing.sqlanalyzer.logic.promptable">Promptable</a></code></dd>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="RateLimitedNumericalDummy.html" title="class in logic.promptable.impl.dummy">RateLimitedNumericalDummy</a></code></dd>
+<dd><code><a href="RateLimitedNumericalDummy.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.impl.dummy">RateLimitedNumericalDummy</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">NumericalDummy</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="../../Promptable.html" title="interface in logic.promptable">Promptable</a></span></div>
-<div class="block">A dummy implementation of <a href="../../Promptable.html" title="interface in logic.promptable"><code>Promptable</code></a> that simulates
+implements <a href="../../Promptable.html" title="interface in de.seggebaeing.sqlanalyzer.logic.promptable">Promptable</a></span></div>
+<div class="block">A dummy implementation of <a href="../../Promptable.html" title="interface in de.seggebaeing.sqlanalyzer.logic.promptable"><code>Promptable</code></a> that simulates
  a numerical LLM response. Instead of performing any real processing, it waits
  for a random delay between 1 and 5 seconds and then returns a random integer
  as a string. This is primarily intended for testing and benchmarking without
@@ -167,13 +167,13 @@ implements <a href="../../Promptable.html" title="interface in logic.promptable"
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;model,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;apiKey,
  double&nbsp;temperature)</span>
-              throws <span class="exceptions"><a href="../../exception/LLMException.html" title="class in logic.promptable.exception">LLMException</a></span></div>
+              throws <span class="exceptions"><a href="../../exception/LLMException.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.exception">LLMException</a></span></div>
 <div class="block">Simulates prompting by waiting for a random delay between 1 and 5 seconds
  and then returning a random integer (0–99) as a string. No actual LLM call
  is performed.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../../Promptable.html#prompt(java.lang.String,java.lang.String,java.lang.String,double)">prompt</a></code>&nbsp;in interface&nbsp;<code><a href="../../Promptable.html" title="interface in logic.promptable">Promptable</a></code></dd>
+<dd><code><a href="../../Promptable.html#prompt(java.lang.String,java.lang.String,java.lang.String,double)">prompt</a></code>&nbsp;in interface&nbsp;<code><a href="../../Promptable.html" title="interface in de.seggebaeing.sqlanalyzer.logic.promptable">Promptable</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>input</code> - the input prompt (ignored in this dummy implementation)</dd>
 <dd><code>model</code> - the model identifier (ignored)</dd>
@@ -182,7 +182,7 @@ implements <a href="../../Promptable.html" title="interface in logic.promptable"
 <dt>Returns:</dt>
 <dd>a random integer (0–99) as a string</dd>
 <dt>Throws:</dt>
-<dd><code><a href="../../exception/LLMException.html" title="class in logic.promptable.exception">LLMException</a></code> - never thrown in this dummy implementation</dd>
+<dd><code><a href="../../exception/LLMException.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.exception">LLMException</a></code> - never thrown in this dummy implementation</dd>
 </dl>
 </section>
 </li>

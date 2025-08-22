@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: persistence, class: PersistenceHelper">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.persistence, class: PersistenceHelper">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../script-dir/jquery-ui.min.css" title="Style">
@@ -69,17 +69,17 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">persistence</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.persistence</a></div>
 <h1 title="Class PersistenceHelper" class="title">Class PersistenceHelper</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">persistence.PersistenceHelper</div>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.persistence.PersistenceHelper</div>
 </div>
 <section class="class-description" id="class-description">
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">PersistenceHelper</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">File–system based JSON persistence utility for DTOs implementing <a href="dto/Persistable.html" title="interface in persistence.dto"><code>Persistable</code></a>.
+<div class="block">File–system based JSON de.seggebaeing.sqlanalyzer.persistence utility for DTOs implementing <a href="dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto"><code>Persistable</code></a>.
  <p>
  Stores each object as a single <code>.json</code> file under a class-named directory
  (<code>&lt;basePath&gt;/&lt;SimpleClassName&gt;/&lt;id&gt;.json</code>). Provides CRUD-style helpers:
@@ -87,9 +87,9 @@ loadScripts(document, 'script');</script>
  A small normalization step ensures top-level <code>String</code> fields of Java <code>record</code>s are non-null.
  </p>
 
- <p><strong>Versioning:</strong> <a href="#persist(persistence.dto.Persistable)"><code>persist(persistence.dto.Persistable)</code></a> compares the on-disk <code>version()</code> with the candidate.
+ <p><strong>Versioning:</strong> <a href="#persist(persistence.dto.Persistable)"><code>persist(de.seggebaeing.sqlanalyzer.persistence.dto.Persistable)</code></a> compares the on-disk <code>version()</code> with the candidate.
  Older or equal versions are not overwritten; newer candidates replace the file. Attempting to save an older
- version results in a <a href="exception/PersistenceException.html" title="class in persistence.exception"><code>PersistenceException</code></a>.</p>
+ version results in a <a href="exception/PersistenceException.html" title="class in de.seggebaeing.sqlanalyzer.persistence.exception"><code>PersistenceException</code></a>.</p>
 
  <p><strong>Threading/Concurrency:</strong> This is a static, process-local helper. It is not a full
  concurrency control mechanism; coordinate concurrent writes at a higher level if multiple threads/processes
@@ -133,30 +133,30 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#delete(persistence.dto.Persistable)" class="member-name-link">delete</a><wbr>(<a href="dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&nbsp;p)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#delete(persistence.dto.Persistable)" class="member-name-link">delete</a><wbr>(<a href="dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&nbsp;p)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Deletes the persisted file of the given object.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#initializeBasePath(java.nio.file.Path)" class="member-name-link">initializeBasePath</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Initializes the root directory for persistence operations.</div>
+<div class="block">Initializes the root directory for de.seggebaeing.sqlanalyzer.persistence operations.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T extends <a href="dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;<br>T</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T extends <a href="dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;<br>T</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#load(java.lang.Class,long)" class="member-name-link">load</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;clazz,
  long&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Loads a persisted object by class and identifier.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T extends <a href="dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;<br><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;T&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static &lt;T extends <a href="dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;<br><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;T&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#loadAll(java.lang.Class)" class="member-name-link">loadAll</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;clazz)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Loads all persisted objects of the given class.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#persist(persistence.dto.Persistable)" class="member-name-link">persist</a><wbr>(<a href="dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&nbsp;p)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#persist(persistence.dto.Persistable)" class="member-name-link">persist</a><wbr>(<a href="dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&nbsp;p)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Persists a <a href="dto/Persistable.html" title="interface in persistence.dto"><code>Persistable</code></a> object to the file system.</div>
+<div class="block">Persists a <a href="dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto"><code>Persistable</code></a> object to the file system.</div>
 </div>
 </div>
 </div>
@@ -193,7 +193,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="initializeBasePath(java.nio.file.Path)">
 <h3>initializeBasePath</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">initializeBasePath</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;basePath)</span></div>
-<div class="block">Initializes the root directory for persistence operations.
+<div class="block">Initializes the root directory for de.seggebaeing.sqlanalyzer.persistence operations.
  <p>
  Must be called exactly once before any other method of this helper is used.
  Subsequent calls will throw an <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link"><code>IllegalStateException</code></a>.
@@ -203,16 +203,16 @@ loadScripts(document, 'script');</script>
 <dd><code>basePath</code> - the directory under which all persisted objects will be stored;
                  subdirectories are created per class name</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - if the persistence base path has already been initialized</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - if the de.seggebaeing.sqlanalyzer.persistence base path has already been initialized</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="persist(persistence.dto.Persistable)">
 <h3>persist</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">persist</span><wbr><span class="parameters">(<a href="dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&nbsp;p)</span>
-                    throws <span class="exceptions"><a href="exception/PersistenceException.html" title="class in persistence.exception">PersistenceException</a></span></div>
-<div class="block">Persists a <a href="dto/Persistable.html" title="interface in persistence.dto"><code>Persistable</code></a> object to the file system.
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">persist</span><wbr><span class="parameters">(<a href="dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&nbsp;p)</span>
+                    throws <span class="exceptions"><a href="exception/PersistenceException.html" title="class in de.seggebaeing.sqlanalyzer.persistence.exception">PersistenceException</a></span></div>
+<div class="block">Persists a <a href="dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto"><code>Persistable</code></a> object to the file system.
  <p>
  Each object is stored as a JSON file named by its <code>id()</code> in a directory
  specific to its class. If a file with the same ID already exists, the stored
@@ -220,14 +220,14 @@ loadScripts(document, 'script');</script>
  <ul>
    <li>If the new version is greater, the file is overwritten.</li>
    <li>If the versions are equal, nothing is changed.</li>
-   <li>If the existing version is greater, a <a href="exception/PersistenceException.html" title="class in persistence.exception"><code>PersistenceException</code></a> is thrown.</li>
+   <li>If the existing version is greater, a <a href="exception/PersistenceException.html" title="class in de.seggebaeing.sqlanalyzer.persistence.exception"><code>PersistenceException</code></a> is thrown.</li>
  </ul>
  </p></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>p</code> - the persistable object to save</dd>
 <dt>Throws:</dt>
-<dd><code><a href="exception/PersistenceException.html" title="class in persistence.exception">PersistenceException</a></code> - if file access fails,
+<dd><code><a href="exception/PersistenceException.html" title="class in de.seggebaeing.sqlanalyzer.persistence.exception">PersistenceException</a></code> - if file access fails,
          if the existing JSON cannot be parsed as the expected type,
          or if a newer version already exists on disk</dd>
 </dl>
@@ -236,9 +236,9 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="load(java.lang.Class,long)">
 <h3>load</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T extends <a href="dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</span>&nbsp;<span class="return-type">T</span>&nbsp;<span class="element-name">load</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;clazz,
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T extends <a href="dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</span>&nbsp;<span class="return-type">T</span>&nbsp;<span class="element-name">load</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;clazz,
  long&nbsp;id)</span>
-                                      throws <span class="exceptions"><a href="exception/PersistenceException.html" title="class in persistence.exception">PersistenceException</a></span></div>
+                                      throws <span class="exceptions"><a href="exception/PersistenceException.html" title="class in de.seggebaeing.sqlanalyzer.persistence.exception">PersistenceException</a></span></div>
 <div class="block">Loads a persisted object by class and identifier.
  <p>
  Reads the JSON file named <code>&amp;lt;id&amp;gt;.json</code> from the directory corresponding
@@ -254,7 +254,7 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>the deserialized object of type <code>T</code></dd>
 <dt>Throws:</dt>
-<dd><code><a href="exception/PersistenceException.html" title="class in persistence.exception">PersistenceException</a></code> - if the file is missing, unreadable,
+<dd><code><a href="exception/PersistenceException.html" title="class in de.seggebaeing.sqlanalyzer.persistence.exception">PersistenceException</a></code> - if the file is missing, unreadable,
          contains invalid JSON, or does not match the expected type</dd>
 </dl>
 </section>
@@ -262,8 +262,8 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="loadAll(java.lang.Class)">
 <h3>loadAll</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T extends <a href="dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;T&gt;</span>&nbsp;<span class="element-name">loadAll</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;clazz)</span>
-                                              throws <span class="exceptions"><a href="exception/PersistenceException.html" title="class in persistence.exception">PersistenceException</a></span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="type-parameters">&lt;T extends <a href="dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;T&gt;</span>&nbsp;<span class="element-name">loadAll</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html" title="class or interface in java.lang" class="external-link">Class</a>&lt;T&gt;&nbsp;clazz)</span>
+                                              throws <span class="exceptions"><a href="exception/PersistenceException.html" title="class in de.seggebaeing.sqlanalyzer.persistence.exception">PersistenceException</a></span></div>
 <div class="block">Loads all persisted objects of the given class.
  <p>
  Scans the directory associated with <code>clazz</code> for <code>.json</code> files,
@@ -278,15 +278,15 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>a set of deserialized objects of type <code>T</code>; may be empty if no files exist</dd>
 <dt>Throws:</dt>
-<dd><code><a href="exception/PersistenceException.html" title="class in persistence.exception">PersistenceException</a></code> - if the directory listing fails</dd>
+<dd><code><a href="exception/PersistenceException.html" title="class in de.seggebaeing.sqlanalyzer.persistence.exception">PersistenceException</a></code> - if the directory listing fails</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="delete(persistence.dto.Persistable)">
 <h3>delete</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">delete</span><wbr><span class="parameters">(<a href="dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&nbsp;p)</span>
-                   throws <span class="exceptions"><a href="exception/PersistenceException.html" title="class in persistence.exception">PersistenceException</a></span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">delete</span><wbr><span class="parameters">(<a href="dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&nbsp;p)</span>
+                   throws <span class="exceptions"><a href="exception/PersistenceException.html" title="class in de.seggebaeing.sqlanalyzer.persistence.exception">PersistenceException</a></span></div>
 <div class="block">Deletes the persisted file of the given object.
  <p>
  Resolves the JSON file path from the object's class and <code>id()</code>, then attempts
@@ -296,7 +296,7 @@ loadScripts(document, 'script');</script>
 <dt>Parameters:</dt>
 <dd><code>p</code> - the persistable object whose file should be removed</dd>
 <dt>Throws:</dt>
-<dd><code><a href="exception/PersistenceException.html" title="class in persistence.exception">PersistenceException</a></code> - if the file does not exist
+<dd><code><a href="exception/PersistenceException.html" title="class in de.seggebaeing.sqlanalyzer.persistence.exception">PersistenceException</a></code> - if the file does not exist
          or an I/O error occurs during deletion</dd>
 </dl>
 </section>

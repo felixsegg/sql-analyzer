@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: presentation.util, class: ControllerFactory">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.presentation.util, class: ControllerFactory">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,21 +69,21 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">presentation.util</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.presentation.util</a></div>
 <h1 title="Class ControllerFactory" class="title">Class ControllerFactory</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">presentation.util.ControllerFactory</div>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.presentation.util.ControllerFactory</div>
 </div>
 <section class="class-description" id="class-description">
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ControllerFactory</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Factory for constructing presentation-layer controllers.
- Provides creators for <a href="../uielements/window/OverviewWindow.html" title="class in presentation.uielements.window"><code>OverviewWindow</code></a> (by <a href="BdoWindowType.html" title="enum class in presentation.util"><code>BdoWindowType</code></a>
- and optional filter), <a href="../uielements/window/DetailsWindow.html" title="class in presentation.uielements.window"><code>DetailsWindow</code></a> (by concrete
- <a href="../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo"><code>BusinessDomainObject</code></a> instance), and general workflow/settings controllers
- (by <a href="GeneralWindowType.html" title="enum class in presentation.util"><code>GeneralWindowType</code></a>). Throws <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link"><code>IllegalArgumentException</code></a> for unsupported types.
+<div class="block">Factory for constructing de.seggebaeing.sqlanalyzer.presentation-layer controllers.
+ Provides creators for <a href="../uielements/window/OverviewWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window"><code>OverviewWindow</code></a> (by <a href="BdoWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util"><code>BdoWindowType</code></a>
+ and optional filter), <a href="../uielements/window/DetailsWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window"><code>DetailsWindow</code></a> (by concrete
+ <a href="../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>BusinessDomainObject</code></a> instance), and general workflow/settings controllers
+ (by <a href="GeneralWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util"><code>GeneralWindowType</code></a>). Throws <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link"><code>IllegalArgumentException</code></a> for unsupported types.
  Intended to be used on the JavaFX Application Thread; does not perform FXML loading.</div>
 <dl class="notes">
 <dt>Since:</dt>
@@ -118,20 +118,20 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../uielements/window/DetailsWindow.html" title="class in presentation.uielements.window">DetailsWindow</a>&lt;?&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createDetailsController(logic.bdo.BusinessDomainObject)" class="member-name-link">createDetailsController</a><wbr>(<a href="../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&nbsp;bdo)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../uielements/window/DetailsWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window">DetailsWindow</a>&lt;?&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createDetailsController(logic.bdo.BusinessDomainObject)" class="member-name-link">createDetailsController</a><wbr>(<a href="../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&nbsp;bdo)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Creates a details controller bound to the given BDO instance by dispatching on
  its runtime type (SampleQuery, PromptType, LLM, Prompt, GeneratedQuery).</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../uielements/window/TitledInitializableWindow.html" title="class in presentation.uielements.window">TitledInitializableWindow</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createGeneralController(presentation.util.GeneralWindowType)" class="member-name-link">createGeneralController</a><wbr>(<a href="GeneralWindowType.html" title="enum class in presentation.util">GeneralWindowType</a>&nbsp;windowType)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../uielements/window/TitledInitializableWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window">TitledInitializableWindow</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createGeneralController(presentation.util.GeneralWindowType)" class="member-name-link">createGeneralController</a><wbr>(<a href="GeneralWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util">GeneralWindowType</a>&nbsp;windowType)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Creates a controller for the requested general window type
  (generation/evaluation workflows or their settings dialogs).</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../uielements/window/OverviewWindow.html" title="class in presentation.uielements.window">OverviewWindow</a>&lt;?&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createOverviewController(presentation.util.BdoWindowType,java.util.function.Predicate)" class="member-name-link">createOverviewController</a><wbr>(<a href="BdoWindowType.html" title="enum class in presentation.util">BdoWindowType</a>&nbsp;windowType,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="../uielements/window/OverviewWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window">OverviewWindow</a>&lt;?&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#createOverviewController(presentation.util.BdoWindowType,java.util.function.Predicate)" class="member-name-link">createOverviewController</a><wbr>(<a href="BdoWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util">BdoWindowType</a>&nbsp;windowType,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html" title="class or interface in java.util.function" class="external-link">Predicate</a>&lt;?&gt;&nbsp;filter)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Creates an overview controller for the given BDO window type, optionally applying
@@ -171,7 +171,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="createOverviewController(presentation.util.BdoWindowType,java.util.function.Predicate)">
 <h3>createOverviewController</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../uielements/window/OverviewWindow.html" title="class in presentation.uielements.window">OverviewWindow</a>&lt;?&gt;</span>&nbsp;<span class="element-name">createOverviewController</span><wbr><span class="parameters">(<a href="BdoWindowType.html" title="enum class in presentation.util">BdoWindowType</a>&nbsp;windowType,
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../uielements/window/OverviewWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window">OverviewWindow</a>&lt;?&gt;</span>&nbsp;<span class="element-name">createOverviewController</span><wbr><span class="parameters">(<a href="BdoWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util">BdoWindowType</a>&nbsp;windowType,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html" title="class or interface in java.util.function" class="external-link">Predicate</a>&lt;?&gt;&nbsp;filter)</span></div>
 <div class="block">Creates an overview controller for the given BDO window type, optionally applying
  an external filter. The filter is cast to the concrete BDO type expected by the
@@ -182,7 +182,7 @@ loadScripts(document, 'script');</script>
 <dd><code>windowType</code> - the BDO overview type to instantiate</dd>
 <dd><code>filter</code> - optional predicate to pre-filter listed items; may be <code>null</code></dd>
 <dt>Returns:</dt>
-<dd>a new <a href="../uielements/window/OverviewWindow.html" title="class in presentation.uielements.window"><code>OverviewWindow</code></a> for the requested type</dd>
+<dd>a new <a href="../uielements/window/OverviewWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window"><code>OverviewWindow</code></a> for the requested type</dd>
 <dt>Implementation Note:</dt>
 <dd>Uses unchecked casts per branch; passing a mismatched predicate type may cause
            a <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ClassCastException.html" title="class or interface in java.lang" class="external-link"><code>ClassCastException</code></a> at runtime.</dd>
@@ -192,14 +192,14 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="createDetailsController(logic.bdo.BusinessDomainObject)">
 <h3>createDetailsController</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../uielements/window/DetailsWindow.html" title="class in presentation.uielements.window">DetailsWindow</a>&lt;?&gt;</span>&nbsp;<span class="element-name">createDetailsController</span><wbr><span class="parameters">(<a href="../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&nbsp;bdo)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../uielements/window/DetailsWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window">DetailsWindow</a>&lt;?&gt;</span>&nbsp;<span class="element-name">createDetailsController</span><wbr><span class="parameters">(<a href="../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&nbsp;bdo)</span></div>
 <div class="block">Creates a details controller bound to the given BDO instance by dispatching on
  its runtime type (SampleQuery, PromptType, LLM, Prompt, GeneratedQuery).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>bdo</code> - the domain object to display/edit</dd>
 <dt>Returns:</dt>
-<dd>a new <a href="../uielements/window/DetailsWindow.html" title="class in presentation.uielements.window"><code>DetailsWindow</code></a> for the object</dd>
+<dd>a new <a href="../uielements/window/DetailsWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window"><code>DetailsWindow</code></a> for the object</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if the BDO type is unsupported</dd>
 </dl>
@@ -208,14 +208,14 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="createGeneralController(presentation.util.GeneralWindowType)">
 <h3>createGeneralController</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../uielements/window/TitledInitializableWindow.html" title="class in presentation.uielements.window">TitledInitializableWindow</a></span>&nbsp;<span class="element-name">createGeneralController</span><wbr><span class="parameters">(<a href="GeneralWindowType.html" title="enum class in presentation.util">GeneralWindowType</a>&nbsp;windowType)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../uielements/window/TitledInitializableWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window">TitledInitializableWindow</a></span>&nbsp;<span class="element-name">createGeneralController</span><wbr><span class="parameters">(<a href="GeneralWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util">GeneralWindowType</a>&nbsp;windowType)</span></div>
 <div class="block">Creates a controller for the requested general window type
  (generation/evaluation workflows or their settings dialogs).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>windowType</code> - the general window type to instantiate</dd>
 <dt>Returns:</dt>
-<dd>a new <a href="../uielements/window/TitledInitializableWindow.html" title="class in presentation.uielements.window"><code>TitledInitializableWindow</code></a> instance</dd>
+<dd>a new <a href="../uielements/window/TitledInitializableWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window"><code>TitledInitializableWindow</code></a> instance</dd>
 </dl>
 </section>
 </li>

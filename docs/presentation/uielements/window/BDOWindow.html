@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: presentation.uielements.window, class: BDOWindow">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.presentation.uielements.window, class: BDOWindow">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,18 +69,18 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">presentation.uielements.window</a></div>
-<h1 title="Class BDOWindow" class="title">Class BDOWindow&lt;T extends <a href="../../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&gt;</h1>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.presentation.uielements.window</a></div>
+<h1 title="Class BDOWindow" class="title">Class BDOWindow&lt;T extends <a href="../../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&gt;</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance"><a href="TitledInitializableWindow.html" title="class in presentation.uielements.window">presentation.uielements.window.TitledInitializableWindow</a>
-<div class="inheritance">presentation.uielements.window.BDOWindow&lt;T&gt;</div>
+<div class="inheritance"><a href="TitledInitializableWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window">de.seggebaeing.sqlanalyzer.presentation.uielements.window.TitledInitializableWindow</a>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.presentation.uielements.window.BDOWindow&lt;T&gt;</div>
 </div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>Type Parameters:</dt>
-<dd><code>T</code> - the concrete <a href="../../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo"><code>BusinessDomainObject</code></a> handled by the window</dd>
+<dd><code>T</code> - the concrete <a href="../../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>BusinessDomainObject</code></a> handled by the window</dd>
 </dl>
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
@@ -88,17 +88,17 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="DetailsWindow.html" title="class in presentation.uielements.window">DetailsWindow</a></code>, <code><a href="OverviewWindow.html" title="class in presentation.uielements.window">OverviewWindow</a></code></dd>
+<dd><code><a href="DetailsWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window">DetailsWindow</a></code>, <code><a href="OverviewWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window">OverviewWindow</a></code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">BDOWindow&lt;T extends <a href="../../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&gt;</span>
-<span class="extends-implements">extends <a href="TitledInitializableWindow.html" title="class in presentation.uielements.window">TitledInitializableWindow</a></span></div>
+<div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">BDOWindow&lt;T extends <a href="../../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&gt;</span>
+<span class="extends-implements">extends <a href="TitledInitializableWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window">TitledInitializableWindow</a></span></div>
 <div class="block">Abstract JavaFX base controller for windows operating on a specific
- <a href="../../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo"><code>BusinessDomainObject</code></a> type. Provides shared header/title
+ <a href="../../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>BusinessDomainObject</code></a> type. Provides shared header/title
  handling, a refresh action hook, and a guarded deletion workflow that checks
  for dependants and can route to their overview windows.
 
- <p>Subclasses supply the backing <a href="../../../logic/service/BDOService.html" title="interface in logic.service"><code>BDOService</code></a> and implement
+ <p>Subclasses supply the backing <a href="../../../logic/service/BDOService.html" title="interface in de.seggebaeing.sqlanalyzer.logic.service"><code>BDOService</code></a> and implement
  <a href="#refresh()"><code>refresh()</code></a> and <a href="TitledInitializableWindow.html#getTitle()"><code>TitledInitializableWindow.getTitle()</code></a>.</p>
 
  <p>Intended for use on the JavaFX Application Thread.</p></div>
@@ -128,7 +128,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color">&nbsp;</div>
 </div>
 <div class="inherited-list">
-<h3 id="fields-inherited-from-class-presentation.uielements.window.TitledInitializableWindow">Fields inherited from class&nbsp;presentation.uielements.window.<a href="TitledInitializableWindow.html" title="class in presentation.uielements.window">TitledInitializableWindow</a></h3>
+<h3 id="fields-inherited-from-class-presentation.uielements.window.TitledInitializableWindow">Fields inherited from class&nbsp;de.seggebaeing.sqlanalyzer.presentation.uielements.window.<a href="TitledInitializableWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window">TitledInitializableWindow</a></h3>
 <code><a href="TitledInitializableWindow.html#root">root</a></code></div>
 </section>
 </li>
@@ -156,7 +156,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>protected abstract <a href="../../../logic/service/BDOService.html" title="interface in logic.service">BDOService</a>&lt;<a href="BDOWindow.html" title="type parameter in BDOWindow">T</a>&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>protected abstract <a href="../../../logic/service/BDOService.html" title="interface in de.seggebaeing.sqlanalyzer.logic.service">BDOService</a>&lt;<a href="BDOWindow.html" title="type parameter in BDOWindow">T</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getService()" class="member-name-link">getService</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Returns the backing service for this window’s domain type, used for CRUD
@@ -187,7 +187,7 @@ loadScripts(document, 'script');</script>
 </div>
 </div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-presentation.uielements.window.TitledInitializableWindow">Methods inherited from class&nbsp;presentation.uielements.window.<a href="TitledInitializableWindow.html" title="class in presentation.uielements.window">TitledInitializableWindow</a></h3>
+<h3 id="methods-inherited-from-class-presentation.uielements.window.TitledInitializableWindow">Methods inherited from class&nbsp;de.seggebaeing.sqlanalyzer.presentation.uielements.window.<a href="TitledInitializableWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window">TitledInitializableWindow</a></h3>
 <code><a href="TitledInitializableWindow.html#closeWindow()">closeWindow</a>, <a href="TitledInitializableWindow.html#enableHelp(java.lang.String)">enableHelp</a>, <a href="TitledInitializableWindow.html#getRoot()">getRoot</a>, <a href="TitledInitializableWindow.html#getStage()">getStage</a>, <a href="TitledInitializableWindow.html#getTitle()">getTitle</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
@@ -240,12 +240,12 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="getService()">
 <h3>getService</h3>
-<div class="member-signature"><span class="modifiers">protected abstract</span>&nbsp;<span class="return-type"><a href="../../../logic/service/BDOService.html" title="interface in logic.service">BDOService</a>&lt;<a href="BDOWindow.html" title="type parameter in BDOWindow">T</a>&gt;</span>&nbsp;<span class="element-name">getService</span>()</div>
+<div class="member-signature"><span class="modifiers">protected abstract</span>&nbsp;<span class="return-type"><a href="../../../logic/service/BDOService.html" title="interface in de.seggebaeing.sqlanalyzer.logic.service">BDOService</a>&lt;<a href="BDOWindow.html" title="type parameter in BDOWindow">T</a>&gt;</span>&nbsp;<span class="element-name">getService</span>()</div>
 <div class="block">Returns the backing service for this window’s domain type, used for CRUD
  operations, queries, and dependency resolution.</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd>the non-null <a href="../../../logic/service/BDOService.html" title="interface in logic.service"><code>BDOService</code></a> for <code>T</code></dd>
+<dd>the non-null <a href="../../../logic/service/BDOService.html" title="interface in de.seggebaeing.sqlanalyzer.logic.service"><code>BDOService</code></a> for <code>T</code></dd>
 </dl>
 </section>
 </li>

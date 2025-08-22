@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: logic.domainmapper, class: AbstractBusinessDomainMapper">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.logic.domainmapper, class: AbstractBusinessDomainMapper">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,11 +69,11 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">logic.domainmapper</a></div>
-<h1 title="Class AbstractBusinessDomainMapper" class="title">Class AbstractBusinessDomainMapper&lt;B extends <a href="../bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>,<wbr>P extends <a href="../../persistence/dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</h1>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.logic.domainmapper</a></div>
+<h1 title="Class AbstractBusinessDomainMapper" class="title">Class AbstractBusinessDomainMapper&lt;B extends <a href="../bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>,<wbr>P extends <a href="../../persistence/dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">logic.domainmapper.AbstractBusinessDomainMapper&lt;B,<wbr>P&gt;</div>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.logic.domainmapper.AbstractBusinessDomainMapper&lt;B,<wbr>P&gt;</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
@@ -83,18 +83,18 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="BusinessDomainMapper.html" title="interface in logic.domainmapper">BusinessDomainMapper</a>&lt;B,<wbr>P&gt;</code></dd>
+<dd><code><a href="BusinessDomainMapper.html" title="interface in de.seggebaeing.sqlanalyzer.logic.domainmapper">BusinessDomainMapper</a>&lt;B,<wbr>P&gt;</code></dd>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="GeneratedQueryMapper.html" title="class in logic.domainmapper">GeneratedQueryMapper</a></code>, <code><a href="LLMMapper.html" title="class in logic.domainmapper">LLMMapper</a></code>, <code><a href="PromptMapper.html" title="class in logic.domainmapper">PromptMapper</a></code>, <code><a href="PromptTypeMapper.html" title="class in logic.domainmapper">PromptTypeMapper</a></code>, <code><a href="SampleQueryMapper.html" title="class in logic.domainmapper">SampleQueryMapper</a></code></dd>
+<dd><code><a href="GeneratedQueryMapper.html" title="class in de.seggebaeing.sqlanalyzer.logic.domainmapper">GeneratedQueryMapper</a></code>, <code><a href="LLMMapper.html" title="class in de.seggebaeing.sqlanalyzer.logic.domainmapper">LLMMapper</a></code>, <code><a href="PromptMapper.html" title="class in de.seggebaeing.sqlanalyzer.logic.domainmapper">PromptMapper</a></code>, <code><a href="PromptTypeMapper.html" title="class in de.seggebaeing.sqlanalyzer.logic.domainmapper">PromptTypeMapper</a></code>, <code><a href="SampleQueryMapper.html" title="class in de.seggebaeing.sqlanalyzer.logic.domainmapper">SampleQueryMapper</a></code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">AbstractBusinessDomainMapper&lt;B extends <a href="../bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>,<wbr>P extends <a href="../../persistence/dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</span>
+<div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">AbstractBusinessDomainMapper&lt;B extends <a href="../bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>,<wbr>P extends <a href="../../persistence/dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="BusinessDomainMapper.html" title="interface in logic.domainmapper">BusinessDomainMapper</a>&lt;B,<wbr>P&gt;</span></div>
+implements <a href="BusinessDomainMapper.html" title="interface in de.seggebaeing.sqlanalyzer.logic.domainmapper">BusinessDomainMapper</a>&lt;B,<wbr>P&gt;</span></div>
 <div class="block">Abstract base for bidirectional mapping between business domain objects (BDOs) and
- persistence DTOs.
+ de.seggebaeing.sqlanalyzer.persistence DTOs.
  <p>
  Maintains identity-preserving caches in both directions to avoid duplicate mappings
  (<code>BDO→DTO</code> and <code>DTO→BDO</code>). Provides <a href="#initialize(java.util.function.Supplier)"><code>initialize(Supplier)</code></a> to inject
@@ -185,7 +185,7 @@ implements <a href="BusinessDomainMapper.html" title="interface in logic.domainm
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-logic.domainmapper.BusinessDomainMapper">Methods inherited from interface&nbsp;logic.domainmapper.<a href="BusinessDomainMapper.html" title="interface in logic.domainmapper">BusinessDomainMapper</a></h3>
+<h3 id="methods-inherited-from-class-logic.domainmapper.BusinessDomainMapper">Methods inherited from interface&nbsp;de.seggebaeing.sqlanalyzer.logic.domainmapper.<a href="BusinessDomainMapper.html" title="interface in de.seggebaeing.sqlanalyzer.logic.domainmapper">BusinessDomainMapper</a></h3>
 <code><a href="BusinessDomainMapper.html#get(B)">get</a>, <a href="BusinessDomainMapper.html#get(P)">get</a></code></div>
 </section>
 </li>
@@ -201,14 +201,14 @@ implements <a href="BusinessDomainMapper.html" title="interface in logic.domainm
 <li>
 <section class="detail" id="cacheMapBDOtoDTO">
 <h3>cacheMapBDOtoDTO</h3>
-<div class="member-signature"><span class="modifiers">protected final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="AbstractBusinessDomainMapper.html" title="type parameter in AbstractBusinessDomainMapper">B</a> extends <a href="../bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>,<wbr><a href="AbstractBusinessDomainMapper.html" title="type parameter in AbstractBusinessDomainMapper">P</a> extends <a href="../../persistence/dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</span>&nbsp;<span class="element-name">cacheMapBDOtoDTO</span></div>
+<div class="member-signature"><span class="modifiers">protected final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="AbstractBusinessDomainMapper.html" title="type parameter in AbstractBusinessDomainMapper">B</a> extends <a href="../bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>,<wbr><a href="AbstractBusinessDomainMapper.html" title="type parameter in AbstractBusinessDomainMapper">P</a> extends <a href="../../persistence/dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</span>&nbsp;<span class="element-name">cacheMapBDOtoDTO</span></div>
 <div class="block">Identity cache mapping BDO → DTO to reuse mapped instances (not thread-safe).</div>
 </section>
 </li>
 <li>
 <section class="detail" id="cacheMapDTOtoBDO">
 <h3>cacheMapDTOtoBDO</h3>
-<div class="member-signature"><span class="modifiers">protected final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="AbstractBusinessDomainMapper.html" title="type parameter in AbstractBusinessDomainMapper">P</a> extends <a href="../../persistence/dto/Persistable.html" title="interface in persistence.dto">Persistable</a>,<wbr><a href="AbstractBusinessDomainMapper.html" title="type parameter in AbstractBusinessDomainMapper">B</a> extends <a href="../bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&gt;</span>&nbsp;<span class="element-name">cacheMapDTOtoBDO</span></div>
+<div class="member-signature"><span class="modifiers">protected final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="AbstractBusinessDomainMapper.html" title="type parameter in AbstractBusinessDomainMapper">P</a> extends <a href="../../persistence/dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>,<wbr><a href="AbstractBusinessDomainMapper.html" title="type parameter in AbstractBusinessDomainMapper">B</a> extends <a href="../bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&gt;</span>&nbsp;<span class="element-name">cacheMapDTOtoBDO</span></div>
 <div class="block">Identity cache mapping DTO → BDO to reuse mapped instances (not thread-safe).</div>
 </section>
 </li>
@@ -279,7 +279,7 @@ implements <a href="BusinessDomainMapper.html" title="interface in logic.domainm
 <div class="block">Initializes this mapper with a supplier for allocating new IDs.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="BusinessDomainMapper.html#initialize(java.util.function.Supplier)">initialize</a></code>&nbsp;in interface&nbsp;<code><a href="BusinessDomainMapper.html" title="interface in logic.domainmapper">BusinessDomainMapper</a>&lt;<a href="AbstractBusinessDomainMapper.html" title="type parameter in AbstractBusinessDomainMapper">B</a> extends <a href="../bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>,<wbr><a href="AbstractBusinessDomainMapper.html" title="type parameter in AbstractBusinessDomainMapper">P</a> extends <a href="../../persistence/dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</code></dd>
+<dd><code><a href="BusinessDomainMapper.html#initialize(java.util.function.Supplier)">initialize</a></code>&nbsp;in interface&nbsp;<code><a href="BusinessDomainMapper.html" title="interface in de.seggebaeing.sqlanalyzer.logic.domainmapper">BusinessDomainMapper</a>&lt;<a href="AbstractBusinessDomainMapper.html" title="type parameter in AbstractBusinessDomainMapper">B</a> extends <a href="../bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>,<wbr><a href="AbstractBusinessDomainMapper.html" title="type parameter in AbstractBusinessDomainMapper">P</a> extends <a href="../../persistence/dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>idSupplier</code> - non-null supplier of unique IDs</dd>
 <dt>Throws:</dt>

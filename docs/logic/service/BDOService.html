@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: logic.service, interface: BDOService">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.logic.service, interface: BDOService">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,8 +69,8 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">logic.service</a></div>
-<h1 title="Interface BDOService" class="title">Interface BDOService&lt;B extends <a href="../bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&gt;</h1>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.logic.service</a></div>
+<h1 title="Interface BDOService" class="title">Interface BDOService&lt;B extends <a href="../bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&gt;</h1>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
@@ -79,11 +79,11 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>All Known Implementing Classes:</dt>
-<dd><code><a href="GeneratedQueryService.html" title="class in logic.service">GeneratedQueryService</a></code>, <code><a href="LLMService.html" title="class in logic.service">LLMService</a></code>, <code><a href="PromptService.html" title="class in logic.service">PromptService</a></code>, <code><a href="PromptTypeService.html" title="class in logic.service">PromptTypeService</a></code>, <code><a href="SampleQueryService.html" title="class in logic.service">SampleQueryService</a></code></dd>
+<dd><code><a href="GeneratedQueryService.html" title="class in de.seggebaeing.sqlanalyzer.logic.service">GeneratedQueryService</a></code>, <code><a href="LLMService.html" title="class in de.seggebaeing.sqlanalyzer.logic.service">LLMService</a></code>, <code><a href="PromptService.html" title="class in de.seggebaeing.sqlanalyzer.logic.service">PromptService</a></code>, <code><a href="PromptTypeService.html" title="class in de.seggebaeing.sqlanalyzer.logic.service">PromptTypeService</a></code>, <code><a href="SampleQueryService.html" title="class in de.seggebaeing.sqlanalyzer.logic.service">SampleQueryService</a></code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">BDOService&lt;B extends <a href="../bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&gt;</span></div>
-<div class="block">Service-layer abstraction for managing <a href="../bdo/BusinessDomainObject.html" title="class in logic.bdo"><code>BusinessDomainObject</code></a> instances.
+<div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">BDOService&lt;B extends <a href="../bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&gt;</span></div>
+<div class="block">Service-layer abstraction for managing <a href="../bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>BusinessDomainObject</code></a> instances.
  <p>
  Provides basic CRUD-style operations and an optional dependency query for objects
  that hold direct references to a given BDO.
@@ -118,7 +118,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Returns all managed business domain objects of type <code>B</code>.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#getDependants(B)" class="member-name-link">getDependants</a><wbr>(<a href="BDOService.html" title="type parameter in BDOService">B</a>&nbsp;bdo)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block">Returns business objects that hold a direct reference to the given BDO.</div>
@@ -178,7 +178,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="getDependants(B)">
 <h3 id="getDependants(logic.bdo.BusinessDomainObject)">getDependants</h3>
-<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&gt;</span>&nbsp;<span class="element-name">getDependants</span><wbr><span class="parameters">(<a href="BDOService.html" title="type parameter in BDOService">B</a>&nbsp;bdo)</span></div>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&gt;</span>&nbsp;<span class="element-name">getDependants</span><wbr><span class="parameters">(<a href="BDOService.html" title="type parameter in BDOService">B</a>&nbsp;bdo)</span></div>
 <div class="block">Returns business objects that hold a direct reference to the given BDO.
  <p>
  Default implementation returns an empty list; override in services that track references.

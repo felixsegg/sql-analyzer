@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: logic.util.thread, class: EvaluationThread">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.logic.util.thread, class: EvaluationThread">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,13 +69,13 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">logic.util.thread</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.logic.util.thread</a></div>
 <h1 title="Class EvaluationThread" class="title">Class EvaluationThread</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Thread.html" title="class or interface in java.lang" class="external-link">java.lang.Thread</a>
-<div class="inheritance"><a href="WorkerThread.html" title="class in logic.util.thread">logic.util.thread.WorkerThread</a>
-<div class="inheritance">logic.util.thread.EvaluationThread</div>
+<div class="inheritance"><a href="WorkerThread.html" title="class in de.seggebaeing.sqlanalyzer.logic.util.thread">de.seggebaeing.sqlanalyzer.logic.util.thread.WorkerThread</a>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.logic.util.thread.EvaluationThread</div>
 </div>
 </div>
 </div>
@@ -86,14 +86,14 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">EvaluationThread</span>
-<span class="extends-implements">extends <a href="WorkerThread.html" title="class in logic.util.thread">WorkerThread</a></span></div>
-<div class="block">Worker that evaluates <a href="../../bdo/GeneratedQuery.html" title="class in logic.bdo"><code>GeneratedQuery</code></a> instances in parallel using a
- <a href="../eval/StatementComparator.html" title="interface in logic.util.eval"><code>StatementComparator</code></a>.
+<span class="extends-implements">extends <a href="WorkerThread.html" title="class in de.seggebaeing.sqlanalyzer.logic.util.thread">WorkerThread</a></span></div>
+<div class="block">Worker that evaluates <a href="../../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>GeneratedQuery</code></a> instances in parallel using a
+ <a href="../eval/StatementComparator.html" title="interface in de.seggebaeing.sqlanalyzer.logic.util.eval"><code>StatementComparator</code></a>.
  <p>
  Submits one task per query to a fixed thread pool (<code>poolSize</code>). Each task retries up to
  <code>repCountIfFailure</code> times until the comparator returns a numeric score (non-NaN). Progress
  is signaled via <code>startedProgress</code>/<code>finishedProgress</code>. If the comparator is an
- <a href="../eval/impl/LLMComparator.html" title="class in logic.util.eval.impl"><code>LLMComparator</code></a>, a rate-limit reporter is registered.
+ <a href="../eval/impl/LLMComparator.html" title="class in de.seggebaeing.sqlanalyzer.logic.util.eval.impl"><code>LLMComparator</code></a>, a rate-limit reporter is registered.
  On full success, <code>signalDone</code> is invoked.
  </p>
  <p>
@@ -123,7 +123,7 @@ loadScripts(document, 'script');</script>
 <section class="field-summary" id="field-summary">
 <h2>Field Summary</h2>
 <div class="inherited-list">
-<h3 id="fields-inherited-from-class-logic.util.thread.WorkerThread">Fields inherited from class&nbsp;logic.util.thread.<a href="WorkerThread.html" title="class in logic.util.thread">WorkerThread</a></h3>
+<h3 id="fields-inherited-from-class-logic.util.thread.WorkerThread">Fields inherited from class&nbsp;de.seggebaeing.sqlanalyzer.logic.util.thread.<a href="WorkerThread.html" title="class in de.seggebaeing.sqlanalyzer.logic.util.thread">WorkerThread</a></h3>
 <code><a href="WorkerThread.html#poolSize">poolSize</a>, <a href="WorkerThread.html#signalDone">signalDone</a></code></div>
 <div class="inherited-list">
 <h3 id="fields-inherited-from-class-java.lang.Thread">Fields inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Thread.html" title="class or interface in java.lang" class="external-link">Thread</a></h3>
@@ -140,8 +140,8 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,int,java.util.Set,logic.util.eval.StatementComparator,java.lang.Runnable,java.lang.Runnable,java.lang.Runnable,java.util.function.Consumer)" class="member-name-link">EvaluationThread</a><wbr>(int&nbsp;poolSize,
  int&nbsp;repCountIfFailure,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../../bdo/GeneratedQuery.html" title="class in logic.bdo">GeneratedQuery</a>&gt;&nbsp;gqs,
- <a href="../eval/StatementComparator.html" title="interface in logic.util.eval">StatementComparator</a>&nbsp;comparator,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">GeneratedQuery</a>&gt;&nbsp;gqs,
+ <a href="../eval/StatementComparator.html" title="interface in de.seggebaeing.sqlanalyzer.logic.util.eval">StatementComparator</a>&nbsp;comparator,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>&nbsp;signalDone,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>&nbsp;startedProgress,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>&nbsp;finishedProgress,
@@ -163,15 +163,15 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="../../bdo/GeneratedQuery.html" title="class in logic.bdo">GeneratedQuery</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="../../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">GeneratedQuery</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getResult()" class="member-name-link">getResult</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the computed similarity scores per <a href="../../bdo/GeneratedQuery.html" title="class in logic.bdo"><code>GeneratedQuery</code></a>.</div>
+<div class="block">Returns the computed similarity scores per <a href="../../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>GeneratedQuery</code></a>.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#run()" class="member-name-link">run</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Executes evaluation by dispatching one task per <a href="../../bdo/GeneratedQuery.html" title="class in logic.bdo"><code>GeneratedQuery</code></a> to a fixed thread pool.</div>
+<div class="block">Executes evaluation by dispatching one task per <a href="../../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>GeneratedQuery</code></a> to a fixed thread pool.</div>
 </div>
 </div>
 </div>
@@ -198,8 +198,8 @@ loadScripts(document, 'script');</script>
 <h3>EvaluationThread</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">EvaluationThread</span><wbr><span class="parameters">(int&nbsp;poolSize,
  int&nbsp;repCountIfFailure,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../../bdo/GeneratedQuery.html" title="class in logic.bdo">GeneratedQuery</a>&gt;&nbsp;gqs,
- <a href="../eval/StatementComparator.html" title="interface in logic.util.eval">StatementComparator</a>&nbsp;comparator,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="../../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">GeneratedQuery</a>&gt;&nbsp;gqs,
+ <a href="../eval/StatementComparator.html" title="interface in de.seggebaeing.sqlanalyzer.logic.util.eval">StatementComparator</a>&nbsp;comparator,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>&nbsp;signalDone,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>&nbsp;startedProgress,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a>&nbsp;finishedProgress,
@@ -214,7 +214,7 @@ loadScripts(document, 'script');</script>
 <dd><code>signalDone</code> - callback invoked on successful completion (may be <code>null</code>)</dd>
 <dd><code>startedProgress</code> - callback invoked when a task starts</dd>
 <dd><code>finishedProgress</code> - callback invoked when a task finishes</dd>
-<dd><code>reportRetryIn</code> - optional consumer for retry instants when using an <a href="../eval/impl/LLMComparator.html" title="class in logic.util.eval.impl"><code>LLMComparator</code></a></dd>
+<dd><code>reportRetryIn</code> - optional consumer for retry instants when using an <a href="../eval/impl/LLMComparator.html" title="class in de.seggebaeing.sqlanalyzer.logic.util.eval.impl"><code>LLMComparator</code></a></dd>
 <dt>Implementation Note:</dt>
 <dd>Thread is named <code>"Evaluation-Worker-&lt;n&gt;"</code> using an atomic counter.</dd>
 </dl>
@@ -232,9 +232,9 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="run()">
 <h3>run</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">run</span>()</div>
-<div class="block">Executes evaluation by dispatching one task per <a href="../../bdo/GeneratedQuery.html" title="class in logic.bdo"><code>GeneratedQuery</code></a> to a fixed thread pool.
+<div class="block">Executes evaluation by dispatching one task per <a href="../../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>GeneratedQuery</code></a> to a fixed thread pool.
  <p>
- If the comparator is an <a href="../eval/impl/LLMComparator.html" title="class in logic.util.eval.impl"><code>LLMComparator</code></a>, registers the rate-limit reporter.
+ If the comparator is an <a href="../eval/impl/LLMComparator.html" title="class in de.seggebaeing.sqlanalyzer.logic.util.eval.impl"><code>LLMComparator</code></a>, registers the rate-limit reporter.
  Initializes a synchronized score map, submits all tasks, then shuts down the pool and awaits completion
  (practically unbounded). On full success, invokes <code>signalDone</code> if non-null. On interruption,
  cancels subworkers, logs, and re-interrupts the thread; on timeout, logs an error.
@@ -243,21 +243,21 @@ loadScripts(document, 'script');</script>
 <dt>Specified by:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html#run()" title="class or interface in java.lang" class="external-link">run</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html" title="class or interface in java.lang" class="external-link">Runnable</a></code></dd>
 <dt>Specified by:</dt>
-<dd><code><a href="WorkerThread.html#run()">run</a></code>&nbsp;in class&nbsp;<code><a href="WorkerThread.html" title="class in logic.util.thread">WorkerThread</a></code></dd>
+<dd><code><a href="WorkerThread.html#run()">run</a></code>&nbsp;in class&nbsp;<code><a href="WorkerThread.html" title="class in de.seggebaeing.sqlanalyzer.logic.util.thread">WorkerThread</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getResult()">
 <h3>getResult</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="../../bdo/GeneratedQuery.html" title="class in logic.bdo">GeneratedQuery</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;</span>&nbsp;<span class="element-name">getResult</span>()</div>
-<div class="block">Returns the computed similarity scores per <a href="../../bdo/GeneratedQuery.html" title="class in logic.bdo"><code>GeneratedQuery</code></a>.
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="../../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">GeneratedQuery</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;</span>&nbsp;<span class="element-name">getResult</span>()</div>
+<div class="block">Returns the computed similarity scores per <a href="../../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>GeneratedQuery</code></a>.
  <p>
  Behavior is undefined if called before the worker has completed successfully.
  </p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="WorkerThread.html#getResult()">getResult</a></code>&nbsp;in class&nbsp;<code><a href="WorkerThread.html" title="class in logic.util.thread">WorkerThread</a></code></dd>
+<dd><code><a href="WorkerThread.html#getResult()">getResult</a></code>&nbsp;in class&nbsp;<code><a href="WorkerThread.html" title="class in de.seggebaeing.sqlanalyzer.logic.util.thread">WorkerThread</a></code></dd>
 <dt>Returns:</dt>
 <dd>a synchronized map of queries to their scores</dd>
 <dt>Implementation Note:</dt>

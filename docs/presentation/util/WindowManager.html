@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: presentation.util, class: WindowManager">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.presentation.util, class: WindowManager">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,17 +69,17 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">presentation.util</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.presentation.util</a></div>
 <h1 title="Class WindowManager" class="title">Class WindowManager</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">presentation.util.WindowManager</div>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.presentation.util.WindowManager</div>
 </div>
 <section class="class-description" id="class-description">
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">WindowManager</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Centralized window and navigation manager for the JavaFX presentation layer.
+<div class="block">Centralized window and navigation manager for the JavaFX de.seggebaeing.sqlanalyzer.presentation layer.
  This class bootstraps the primary (Home) stage, opens typed
  windows (general workflow, BDO overviews, BDO details, and Help), wires FXML to
  custom controllers, and coordinates lifecycle and refresh behavior across stages.
@@ -120,24 +120,24 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#openDetails(logic.bdo.BusinessDomainObject)" class="member-name-link">openDetails</a><wbr>(<a href="../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&nbsp;bdo)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#openDetails(logic.bdo.BusinessDomainObject)" class="member-name-link">openDetails</a><wbr>(<a href="../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&nbsp;bdo)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Opens a Details window for the specified <a href="../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo"><code>BusinessDomainObject</code></a>.</div>
+<div class="block">Opens a Details window for the specified <a href="../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>BusinessDomainObject</code></a>.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#openOverview(presentation.util.BdoWindowType,java.util.function.Predicate)" class="member-name-link">openOverview</a><wbr>(<a href="BdoWindowType.html" title="enum class in presentation.util">BdoWindowType</a>&nbsp;bdoWindowType,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html" title="class or interface in java.util.function" class="external-link">Predicate</a>&lt;? extends <a href="../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&gt;&nbsp;filter)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#openOverview(presentation.util.BdoWindowType,java.util.function.Predicate)" class="member-name-link">openOverview</a><wbr>(<a href="BdoWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util">BdoWindowType</a>&nbsp;bdoWindowType,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html" title="class or interface in java.util.function" class="external-link">Predicate</a>&lt;? extends <a href="../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&gt;&nbsp;filter)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Opens an Overview window for the given <a href="BdoWindowType.html" title="enum class in presentation.util"><code>BdoWindowType</code></a> and registers it for centralized refresh.</div>
+<div class="block">Opens an Overview window for the given <a href="BdoWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util"><code>BdoWindowType</code></a> and registers it for centralized refresh.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#openWindow(presentation.util.GeneralWindowType)" class="member-name-link">openWindow</a><wbr>(<a href="GeneralWindowType.html" title="enum class in presentation.util">GeneralWindowType</a>&nbsp;windowType)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#openWindow(presentation.util.GeneralWindowType)" class="member-name-link">openWindow</a><wbr>(<a href="GeneralWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util">GeneralWindowType</a>&nbsp;windowType)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Opens a general-purpose window (e.g., Generation/Evaluation worker or Settings)
- based on the given <a href="GeneralWindowType.html" title="enum class in presentation.util"><code>GeneralWindowType</code></a>.</div>
+ based on the given <a href="GeneralWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util"><code>GeneralWindowType</code></a>.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#refreshOverviewsFor(presentation.util.BdoWindowType)" class="member-name-link">refreshOverviewsFor</a><wbr>(<a href="BdoWindowType.html" title="enum class in presentation.util">BdoWindowType</a>&nbsp;windowType)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#refreshOverviewsFor(presentation.util.BdoWindowType)" class="member-name-link">refreshOverviewsFor</a><wbr>(<a href="BdoWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util">BdoWindowType</a>&nbsp;windowType)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Triggers a UI refresh on all currently open Overview windows of the given type.</div>
 </div>
@@ -188,7 +188,7 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">start</span><wbr><span class="parameters">(javafx.stage.Stage&nbsp;primaryStage)</span></div>
 <div class="block">Bootstraps the primary (Home) stage and hands control to the WindowManager.
  <p>
- Loads the Home FXML with a <a href="../controller/general/HomeController.html" title="class in presentation.controller.general"><code>HomeController</code></a>,
+ Loads the Home FXML with a <a href="../controller/general/HomeController.html" title="class in de.seggebaeing.sqlanalyzer.presentation.controller.general"><code>HomeController</code></a>,
  sets standardized title &amp; icon (via <code>loadFxmlInto(Stage, String, TitledInitializableWindow)</code>),
  shows the stage, and enforces a minimum size based on the root node’s preferred size.
  The Home stage cannot be closed; its close request is consumed and the stage is hidden
@@ -207,9 +207,9 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="openWindow(presentation.util.GeneralWindowType)">
 <h3>openWindow</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">openWindow</span><wbr><span class="parameters">(<a href="GeneralWindowType.html" title="enum class in presentation.util">GeneralWindowType</a>&nbsp;windowType)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">openWindow</span><wbr><span class="parameters">(<a href="GeneralWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util">GeneralWindowType</a>&nbsp;windowType)</span></div>
 <div class="block">Opens a general-purpose window (e.g., Generation/Evaluation worker or Settings)
- based on the given <a href="GeneralWindowType.html" title="enum class in presentation.util"><code>GeneralWindowType</code></a>.
+ based on the given <a href="GeneralWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util"><code>GeneralWindowType</code></a>.
  <p>
  Resolves the FXML name via <a href="GeneralWindowType.html#getFxmlName()"><code>GeneralWindowType.getFxmlName()</code></a>, creates the
  corresponding controller via <a href="ControllerFactory.html#createGeneralController(presentation.util.GeneralWindowType)"><code>ControllerFactory.createGeneralController(GeneralWindowType)</code></a>,
@@ -227,9 +227,9 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="openOverview(presentation.util.BdoWindowType,java.util.function.Predicate)">
 <h3>openOverview</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">openOverview</span><wbr><span class="parameters">(<a href="BdoWindowType.html" title="enum class in presentation.util">BdoWindowType</a>&nbsp;bdoWindowType,
- <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html" title="class or interface in java.util.function" class="external-link">Predicate</a>&lt;? extends <a href="../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&gt;&nbsp;filter)</span></div>
-<div class="block">Opens an Overview window for the given <a href="BdoWindowType.html" title="enum class in presentation.util"><code>BdoWindowType</code></a> and registers it for centralized refresh.
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">openOverview</span><wbr><span class="parameters">(<a href="BdoWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util">BdoWindowType</a>&nbsp;bdoWindowType,
+ <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html" title="class or interface in java.util.function" class="external-link">Predicate</a>&lt;? extends <a href="../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&gt;&nbsp;filter)</span></div>
+<div class="block">Opens an Overview window for the given <a href="BdoWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util"><code>BdoWindowType</code></a> and registers it for centralized refresh.
  <p>
  Uses the shared <code>overview.fxml</code> and a type-specific controller created via
  <a href="ControllerFactory.html#createOverviewController(presentation.util.BdoWindowType,java.util.function.Predicate)"><code>ControllerFactory.createOverviewController(BdoWindowType, java.util.function.Predicate)</code></a>.
@@ -251,8 +251,8 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="openDetails(logic.bdo.BusinessDomainObject)">
 <h3>openDetails</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">openDetails</span><wbr><span class="parameters">(<a href="../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>&nbsp;bdo)</span></div>
-<div class="block">Opens a Details window for the specified <a href="../../logic/bdo/BusinessDomainObject.html" title="class in logic.bdo"><code>BusinessDomainObject</code></a>.
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">openDetails</span><wbr><span class="parameters">(<a href="../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>&nbsp;bdo)</span></div>
+<div class="block">Opens a Details window for the specified <a href="../../logic/bdo/BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>BusinessDomainObject</code></a>.
  <p>
  Determines the FXML via <a href="BdoWindowType.html#getForType(java.lang.Class)"><code>BdoWindowType.getForType(Class)</code></a> and creates the
  appropriate controller using <a href="ControllerFactory.html#createDetailsController(logic.bdo.BusinessDomainObject)"><code>ControllerFactory.createDetailsController(BusinessDomainObject)</code></a>.
@@ -265,7 +265,7 @@ loadScripts(document, 'script');</script>
 <dd><code>bdo</code> - the domain object to view or edit; must not be <code>null</code></dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if <code>bdo</code> is <code>null</code></dd>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if no <a href="BdoWindowType.html" title="enum class in presentation.util"><code>BdoWindowType</code></a> is registered for the object’s class</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if no <a href="BdoWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util"><code>BdoWindowType</code></a> is registered for the object’s class</dd>
 </dl>
 </section>
 </li>
@@ -275,7 +275,7 @@ loadScripts(document, 'script');</script>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">showHelpWindow</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;htmlFileName)</span></div>
 <div class="block">Opens a non-resizable Help window and loads the specified help HTML.
  <p>
- Shows <code>help.fxml</code> with a new <a href="../uielements/window/HelpWindow.html" title="class in presentation.uielements.window"><code>HelpWindow</code></a> controller, then resolves the
+ Shows <code>help.fxml</code> with a new <a href="../uielements/window/HelpWindow.html" title="class in de.seggebaeing.sqlanalyzer.presentation.uielements.window"><code>HelpWindow</code></a> controller, then resolves the
  HTML via <a href="ResourceLoader.html#getHelpHtmlUrl(java.lang.String)"><code>ResourceLoader.getHelpHtmlUrl(String)</code></a> and calls
  <a href="../uielements/window/HelpWindow.html#loadHtml(java.lang.String)"><code>HelpWindow.loadHtml(String)</code></a> with the URL’s external form. If the resource
  cannot be found, an error is logged and the window remains in its default state.
@@ -291,7 +291,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="refreshOverviewsFor(presentation.util.BdoWindowType)">
 <h3>refreshOverviewsFor</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">refreshOverviewsFor</span><wbr><span class="parameters">(<a href="BdoWindowType.html" title="enum class in presentation.util">BdoWindowType</a>&nbsp;windowType)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">refreshOverviewsFor</span><wbr><span class="parameters">(<a href="BdoWindowType.html" title="enum class in de.seggebaeing.sqlanalyzer.presentation.util">BdoWindowType</a>&nbsp;windowType)</span></div>
 <div class="block">Triggers a UI refresh on all currently open Overview windows of the given type.
  <p>
  Looks up tracked controllers in the internal registry and invokes

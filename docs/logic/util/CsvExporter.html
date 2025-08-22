@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: logic.util, class: CsvExporter">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.logic.util, class: CsvExporter">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,11 +69,11 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">logic.util</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.logic.util</a></div>
 <h1 title="Class CsvExporter" class="title">Class CsvExporter</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">logic.util.CsvExporter</div>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.logic.util.CsvExporter</div>
 </div>
 <section class="class-description" id="class-description">
 <hr>
@@ -114,7 +114,7 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#exportScoresCsv(java.util.Map,java.lang.String)" class="member-name-link">exportScoresCsv</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="../bdo/GeneratedQuery.html" title="class in logic.bdo">GeneratedQuery</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;&nbsp;results,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#exportScoresCsv(java.util.Map,java.lang.String)" class="member-name-link">exportScoresCsv</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">GeneratedQuery</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;&nbsp;results,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;path)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Exports generated query scores to a CSV file named <code>output.csv</code> in the given directory.</div>
@@ -153,7 +153,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="exportScoresCsv(java.util.Map,java.lang.String)">
 <h3>exportScoresCsv</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">exportScoresCsv</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="../bdo/GeneratedQuery.html" title="class in logic.bdo">GeneratedQuery</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;&nbsp;results,
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">exportScoresCsv</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">GeneratedQuery</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html" title="class or interface in java.lang" class="external-link">Double</a>&gt;&nbsp;results,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;path)</span>
                             throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
 <div class="block">Exports generated query scores to a CSV file named <code>output.csv</code> in the given directory.
@@ -164,12 +164,12 @@ loadScripts(document, 'script');</script>
  </p></div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>results</code> - map of <a href="../bdo/GeneratedQuery.html" title="class in logic.bdo"><code>GeneratedQuery</code></a> to its score</dd>
+<dd><code>results</code> - map of <a href="../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>GeneratedQuery</code></a> to its score</dd>
 <dd><code>path</code> - target directory for the CSV file</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - if creating directories or writing the file fails</dd>
 <dt>Implementation Note:</dt>
-<dd>Assumes each <a href="../bdo/GeneratedQuery.html" title="class in logic.bdo"><code>GeneratedQuery</code></a> has non-null generator, prompt, type, and sample query.</dd>
+<dd>Assumes each <a href="../bdo/GeneratedQuery.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>GeneratedQuery</code></a> has non-null generator, prompt, type, and sample query.</dd>
 </dl>
 </section>
 </li>

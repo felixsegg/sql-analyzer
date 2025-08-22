@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: logic.util.eval.impl, class: LLMComparator">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.logic.util.eval.impl, class: LLMComparator">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,29 +69,29 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">logic.util.eval.impl</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.logic.util.eval.impl</a></div>
 <h1 title="Class LLMComparator" class="title">Class LLMComparator</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">logic.util.eval.impl.LLMComparator</div>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.logic.util.eval.impl.LLMComparator</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../StatementComparator.html" title="interface in logic.util.eval">StatementComparator</a></code></dd>
+<dd><code><a href="../StatementComparator.html" title="interface in de.seggebaeing.sqlanalyzer.logic.util.eval">StatementComparator</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">LLMComparator</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="../StatementComparator.html" title="interface in logic.util.eval">StatementComparator</a></span></div>
-<div class="block"><a href="../StatementComparator.html" title="interface in logic.util.eval"><code>StatementComparator</code></a> that delegates semantic comparison to an LLM.
+implements <a href="../StatementComparator.html" title="interface in de.seggebaeing.sqlanalyzer.logic.util.eval">StatementComparator</a></span></div>
+<div class="block"><a href="../StatementComparator.html" title="interface in de.seggebaeing.sqlanalyzer.logic.util.eval"><code>StatementComparator</code></a> that delegates semantic comparison to an LLM.
  <p>
- Sends both SQL statements to the configured <a href="../../../bdo/LLM.html" title="class in logic.bdo"><code>LLM</code></a> using a fixed instruction
+ Sends both SQL statements to the configured <a href="../../../bdo/LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>LLM</code></a> using a fixed instruction
  prompt and expects a numeric score 0–100. The result is normalized to <code>0.0–1.0</code>;
  if parsing fails or the call errors, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html#NaN" title="class or interface in java.lang" class="external-link"><code>Double.NaN</code></a> is returned.
  </p>
  <p>
- Rate limiting is handled via <a href="../../../promptable/util/PromptAuthorizer.html" title="class in logic.promptable.util"><code>PromptAuthorizer</code></a>; an optional
+ Rate limiting is handled via <a href="../../../promptable/util/PromptAuthorizer.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.util"><code>PromptAuthorizer</code></a>; an optional
  <a href="#setRateLimitReporter(java.util.function.Consumer)"><code>setRateLimitReporter(java.util.function.Consumer)</code></a> receives retry instants.
  Calls are blocking and may wait for rate limits—avoid invoking on UI threads.
  </p></div>
@@ -112,7 +112,7 @@ implements <a href="../StatementComparator.html" title="interface in logic.util.
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(logic.bdo.LLM,double)" class="member-name-link">LLMComparator</a><wbr>(<a href="../../../bdo/LLM.html" title="class in logic.bdo">LLM</a>&nbsp;llm,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(logic.bdo.LLM,double)" class="member-name-link">LLMComparator</a><wbr>(<a href="../../../bdo/LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a>&nbsp;llm,
  double&nbsp;temperature)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an LLM-backed statement comparator with the given configuration.</div>
@@ -132,8 +132,8 @@ implements <a href="../StatementComparator.html" title="interface in logic.util.
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#compare(logic.bdo.SQLQueryWrapper,logic.bdo.SQLQueryWrapper)" class="member-name-link">compare</a><wbr>(<a href="../../../bdo/SQLQueryWrapper.html" title="interface in logic.bdo">SQLQueryWrapper</a>&nbsp;query1,
- <a href="../../../bdo/SQLQueryWrapper.html" title="interface in logic.bdo">SQLQueryWrapper</a>&nbsp;query2)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#compare(logic.bdo.SQLQueryWrapper,logic.bdo.SQLQueryWrapper)" class="member-name-link">compare</a><wbr>(<a href="../../../bdo/SQLQueryWrapper.html" title="interface in de.seggebaeing.sqlanalyzer.logic.bdo">SQLQueryWrapper</a>&nbsp;query1,
+ <a href="../../../bdo/SQLQueryWrapper.html" title="interface in de.seggebaeing.sqlanalyzer.logic.bdo">SQLQueryWrapper</a>&nbsp;query2)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Compares two SQL statements by delegating to the configured LLM.</div>
 </div>
@@ -162,7 +162,7 @@ implements <a href="../StatementComparator.html" title="interface in logic.util.
 <li>
 <section class="detail" id="&lt;init&gt;(logic.bdo.LLM,double)">
 <h3>LLMComparator</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">LLMComparator</span><wbr><span class="parameters">(<a href="../../../bdo/LLM.html" title="class in logic.bdo">LLM</a>&nbsp;llm,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">LLMComparator</span><wbr><span class="parameters">(<a href="../../../bdo/LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a>&nbsp;llm,
  double&nbsp;temperature)</span></div>
 <div class="block">Creates an LLM-backed statement comparator with the given configuration.</div>
 <dl class="notes">
@@ -183,8 +183,8 @@ implements <a href="../StatementComparator.html" title="interface in logic.util.
 <li>
 <section class="detail" id="compare(logic.bdo.SQLQueryWrapper,logic.bdo.SQLQueryWrapper)">
 <h3>compare</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">compare</span><wbr><span class="parameters">(<a href="../../../bdo/SQLQueryWrapper.html" title="interface in logic.bdo">SQLQueryWrapper</a>&nbsp;query1,
- <a href="../../../bdo/SQLQueryWrapper.html" title="interface in logic.bdo">SQLQueryWrapper</a>&nbsp;query2)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">double</span>&nbsp;<span class="element-name">compare</span><wbr><span class="parameters">(<a href="../../../bdo/SQLQueryWrapper.html" title="interface in de.seggebaeing.sqlanalyzer.logic.bdo">SQLQueryWrapper</a>&nbsp;query1,
+ <a href="../../../bdo/SQLQueryWrapper.html" title="interface in de.seggebaeing.sqlanalyzer.logic.bdo">SQLQueryWrapper</a>&nbsp;query2)</span></div>
 <div class="block">Compares two SQL statements by delegating to the configured LLM.
  <p>
  Builds a fixed instruction prompt, requests an integer score (0–100),
@@ -193,7 +193,7 @@ implements <a href="../StatementComparator.html" title="interface in logic.util.
  </p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../StatementComparator.html#compare(logic.bdo.SQLQueryWrapper,logic.bdo.SQLQueryWrapper)">compare</a></code>&nbsp;in interface&nbsp;<code><a href="../StatementComparator.html" title="interface in logic.util.eval">StatementComparator</a></code></dd>
+<dd><code><a href="../StatementComparator.html#compare(logic.bdo.SQLQueryWrapper,logic.bdo.SQLQueryWrapper)">compare</a></code>&nbsp;in interface&nbsp;<code><a href="../StatementComparator.html" title="interface in de.seggebaeing.sqlanalyzer.logic.util.eval">StatementComparator</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>query1</code> - first SQL statement wrapper</dd>
 <dd><code>query2</code> - second SQL statement wrapper</dd>

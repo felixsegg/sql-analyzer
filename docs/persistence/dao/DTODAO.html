@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: persistence.dao, class: DTODAO">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.persistence.dao, class: DTODAO">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,11 +69,11 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">persistence.dao</a></div>
-<h1 title="Class DTODAO" class="title">Class DTODAO&lt;T extends <a href="../dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</h1>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.persistence.dao</a></div>
+<h1 title="Class DTODAO" class="title">Class DTODAO&lt;T extends <a href="../dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance">persistence.dao.DTODAO&lt;T&gt;</div>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.persistence.dao.DTODAO&lt;T&gt;</div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
@@ -82,20 +82,20 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;T&gt;</code></dd>
+<dd><code><a href="DAO.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dao">DAO</a>&lt;T&gt;</code></dd>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="DAOImpl/GeneratedQueryDAOImpl.html" title="class in persistence.dao.DAOImpl">GeneratedQueryDAOImpl</a></code>, <code><a href="DAOImpl/LLMDAOImpl.html" title="class in persistence.dao.DAOImpl">LLMDAOImpl</a></code>, <code><a href="DAOImpl/PromptDAOImpl.html" title="class in persistence.dao.DAOImpl">PromptDAOImpl</a></code>, <code><a href="DAOImpl/PromptTypeDAOImpl.html" title="class in persistence.dao.DAOImpl">PromptTypeDAOImpl</a></code>, <code><a href="DAOImpl/SampleQueryDAOImpl.html" title="class in persistence.dao.DAOImpl">SampleQueryDAOImpl</a></code></dd>
+<dd><code><a href="DAOImpl/GeneratedQueryDAOImpl.html" title="class in de.seggebaeing.sqlanalyzer.persistence.dao.DAOImpl">GeneratedQueryDAOImpl</a></code>, <code><a href="DAOImpl/LLMDAOImpl.html" title="class in de.seggebaeing.sqlanalyzer.persistence.dao.DAOImpl">LLMDAOImpl</a></code>, <code><a href="DAOImpl/PromptDAOImpl.html" title="class in de.seggebaeing.sqlanalyzer.persistence.dao.DAOImpl">PromptDAOImpl</a></code>, <code><a href="DAOImpl/PromptTypeDAOImpl.html" title="class in de.seggebaeing.sqlanalyzer.persistence.dao.DAOImpl">PromptTypeDAOImpl</a></code>, <code><a href="DAOImpl/SampleQueryDAOImpl.html" title="class in de.seggebaeing.sqlanalyzer.persistence.dao.DAOImpl">SampleQueryDAOImpl</a></code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">DTODAO&lt;T extends <a href="../dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</span>
+<div class="type-signature"><span class="modifiers">public abstract class </span><span class="element-name type-name-label">DTODAO&lt;T extends <a href="../dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;T&gt;</span></div>
-<div class="block">Base DAO implementation for <a href="../dto/Persistable.html" title="interface in persistence.dto"><code>Persistable</code></a> DTOs backed by the file system.
+implements <a href="DAO.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dao">DAO</a>&lt;T&gt;</span></div>
+<div class="block">Base DAO implementation for <a href="../dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto"><code>Persistable</code></a> DTOs backed by the file system.
  <p>
  Provides a simple in-memory cache (id → DTO) synchronized from disk via
- <a href="../PersistenceHelper.html" title="class in persistence"><code>PersistenceHelper</code></a>. Subclasses specify the DTO type by
+ <a href="../PersistenceHelper.html" title="class in de.seggebaeing.sqlanalyzer.persistence"><code>PersistenceHelper</code></a>. Subclasses specify the DTO type by
  implementing <a href="#getDtoClass()"><code>getDtoClass()</code></a>.
  </p>
 
@@ -140,7 +140,7 @@ implements <a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;T&
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">DTODAO</a>()</code></div>
 <div class="col-last even-row-color">
 <div class="block">Constructs a new DAO and initializes the in-memory cache
- by synchronizing with the persistence layer.</div>
+ by synchronizing with the de.seggebaeing.sqlanalyzer.persistence layer.</div>
 </div>
 </div>
 </section>
@@ -159,7 +159,7 @@ implements <a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;T&
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#delete(T)" class="member-name-link">delete</a><wbr>(<a href="DTODAO.html" title="type parameter in DTODAO">T</a>&nbsp;dto)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Deletes the given entity from the persistence layer and removes it from the cache.</div>
+<div class="block">Deletes the given entity from the de.seggebaeing.sqlanalyzer.persistence layer and removes it from the cache.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html" title="class or interface in java.util" class="external-link">Set</a>&lt;<a href="DTODAO.html" title="type parameter in DTODAO">T</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getAll()" class="member-name-link">getAll</a>()</code></div>
@@ -206,7 +206,7 @@ implements <a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;T&
 <li>
 <section class="detail" id="cache">
 <h3>cache</h3>
-<div class="member-signature"><span class="modifiers">protected final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>,<wbr><a href="DTODAO.html" title="type parameter in DTODAO">T</a> extends <a href="../dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</span>&nbsp;<span class="element-name">cache</span></div>
+<div class="member-signature"><span class="modifiers">protected final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>,<wbr><a href="DTODAO.html" title="type parameter in DTODAO">T</a> extends <a href="../dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</span>&nbsp;<span class="element-name">cache</span></div>
 <div class="block">In-memory cache mapping DTO identifiers to their instances.
  <p>
  Keeps recently loaded or persisted objects to reduce file system access.
@@ -226,7 +226,7 @@ implements <a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;T&
 <h3>DTODAO</h3>
 <div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="element-name">DTODAO</span>()</div>
 <div class="block">Constructs a new DAO and initializes the in-memory cache
- by synchronizing with the persistence layer.</div>
+ by synchronizing with the de.seggebaeing.sqlanalyzer.persistence layer.</div>
 </section>
 </li>
 </ul>
@@ -247,7 +247,7 @@ implements <a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;T&
  </p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="DAO.html#getAll()">getAll</a></code>&nbsp;in interface&nbsp;<code><a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;<a href="DTODAO.html" title="type parameter in DTODAO">T</a> extends <a href="../dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</code></dd>
+<dd><code><a href="DAO.html#getAll()">getAll</a></code>&nbsp;in interface&nbsp;<code><a href="DAO.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dao">DAO</a>&lt;<a href="DTODAO.html" title="type parameter in DTODAO">T</a> extends <a href="../dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</code></dd>
 <dt>Returns:</dt>
 <dd>a set of all entities; may be empty if none are cached</dd>
 </dl>
@@ -260,12 +260,12 @@ implements <a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;T&
 <div class="block">Retrieves an entity by its identifier.
  <p>
  First checks the in-memory cache; if not present, attempts to load
- the entity from the persistence layer and refreshes the cache.
+ the entity from the de.seggebaeing.sqlanalyzer.persistence layer and refreshes the cache.
  Returns <code>null</code> if the id is <code>-1</code>, not found, or loading fails.
  </p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="DAO.html#getByID(int)">getByID</a></code>&nbsp;in interface&nbsp;<code><a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;<a href="DTODAO.html" title="type parameter in DTODAO">T</a> extends <a href="../dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</code></dd>
+<dd><code><a href="DAO.html#getByID(int)">getByID</a></code>&nbsp;in interface&nbsp;<code><a href="DAO.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dao">DAO</a>&lt;<a href="DTODAO.html" title="type parameter in DTODAO">T</a> extends <a href="../dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>id</code> - the identifier of the entity</dd>
 <dt>Returns:</dt>
@@ -277,13 +277,13 @@ implements <a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;T&
 <section class="detail" id="delete(T)">
 <h3 id="delete(persistence.dto.Persistable)">delete</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">delete</span><wbr><span class="parameters">(<a href="DTODAO.html" title="type parameter in DTODAO">T</a>&nbsp;dto)</span></div>
-<div class="block">Deletes the given entity from the persistence layer and removes it from the cache.
+<div class="block">Deletes the given entity from the de.seggebaeing.sqlanalyzer.persistence layer and removes it from the cache.
  <p>
  Logs a warning if deletion fails.
  </p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="DAO.html#delete(T)">delete</a></code>&nbsp;in interface&nbsp;<code><a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;<a href="DTODAO.html" title="type parameter in DTODAO">T</a> extends <a href="../dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</code></dd>
+<dd><code><a href="DAO.html#delete(T)">delete</a></code>&nbsp;in interface&nbsp;<code><a href="DAO.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dao">DAO</a>&lt;<a href="DTODAO.html" title="type parameter in DTODAO">T</a> extends <a href="../dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>dto</code> - the entity to delete, must not be <code>null</code></dd>
 <dt>Throws:</dt>
@@ -301,7 +301,7 @@ implements <a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;T&
  </p></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="DAO.html#saveOrUpdate(T)">saveOrUpdate</a></code>&nbsp;in interface&nbsp;<code><a href="DAO.html" title="interface in persistence.dao">DAO</a>&lt;<a href="DTODAO.html" title="type parameter in DTODAO">T</a> extends <a href="../dto/Persistable.html" title="interface in persistence.dto">Persistable</a>&gt;</code></dd>
+<dd><code><a href="DAO.html#saveOrUpdate(T)">saveOrUpdate</a></code>&nbsp;in interface&nbsp;<code><a href="DAO.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dao">DAO</a>&lt;<a href="DTODAO.html" title="type parameter in DTODAO">T</a> extends <a href="../dto/Persistable.html" title="interface in de.seggebaeing.sqlanalyzer.persistence.dto">Persistable</a>&gt;</code></dd>
 <dt>Parameters:</dt>
 <dd><code>dto</code> - the entity to save or update, must not be <code>null</code></dd>
 <dt>Throws:</dt>

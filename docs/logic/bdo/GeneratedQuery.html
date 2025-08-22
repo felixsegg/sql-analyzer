@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: logic.bdo, class: GeneratedQuery">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.logic.bdo, class: GeneratedQuery">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,30 +69,30 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">logic.bdo</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.logic.bdo</a></div>
 <h1 title="Class GeneratedQuery" class="title">Class GeneratedQuery</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance"><a href="BusinessDomainObject.html" title="class in logic.bdo">logic.bdo.BusinessDomainObject</a>
-<div class="inheritance">logic.bdo.GeneratedQuery</div>
+<div class="inheritance"><a href="BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">de.seggebaeing.sqlanalyzer.logic.bdo.BusinessDomainObject</a>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.logic.bdo.GeneratedQuery</div>
 </div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQueryWrapper</a></code></dd>
+<dd><code><a href="SQLQueryWrapper.html" title="interface in de.seggebaeing.sqlanalyzer.logic.bdo">SQLQueryWrapper</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">GeneratedQuery</span>
-<span class="extends-implements">extends <a href="BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a>
-implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQueryWrapper</a></span></div>
+<span class="extends-implements">extends <a href="BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a>
+implements <a href="SQLQueryWrapper.html" title="interface in de.seggebaeing.sqlanalyzer.logic.bdo">SQLQueryWrapper</a></span></div>
 <div class="block">Business domain object (BDO) representing a generated SQL query.
  <p>
  Wraps observable JavaFX properties for the generated SQL,
- the <a href="LLM.html" title="class in logic.bdo"><code>LLM</code></a> that produced it, and the originating <a href="Prompt.html" title="class in logic.bdo"><code>Prompt</code></a>.
- Versioning is inherited from <a href="BusinessDomainObject.html" title="class in logic.bdo"><code>BusinessDomainObject</code></a>
+ the <a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>LLM</code></a> that produced it, and the originating <a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>Prompt</code></a>.
+ Versioning is inherited from <a href="BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo"><code>BusinessDomainObject</code></a>
  and automatically refreshed when observed properties change.
- Implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo"><code>SQLQueryWrapper</code></a>.
+ Implements <a href="SQLQueryWrapper.html" title="interface in de.seggebaeing.sqlanalyzer.logic.bdo"><code>SQLQueryWrapper</code></a>.
  </p>
 
  <p>The <a href="#toString()"><code>toString()</code></a> representation combines the generator’s name,
@@ -115,10 +115,10 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <div class="table-header col-first">Type</div>
 <div class="table-header col-second">Property</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>javafx.beans.property.ObjectProperty&lt;<a href="LLM.html" title="class in logic.bdo">LLM</a>&gt;</code></div>
+<div class="col-first even-row-color"><code>javafx.beans.property.ObjectProperty&lt;<a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a>&gt;</code></div>
 <div class="col-second even-row-color"><code><a href="#generatorProperty" class="member-name-link">generator</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>javafx.beans.property.ObjectProperty&lt;<a href="Prompt.html" title="class in logic.bdo">Prompt</a>&gt;</code></div>
+<div class="col-first odd-row-color"><code>javafx.beans.property.ObjectProperty&lt;<a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">Prompt</a>&gt;</code></div>
 <div class="col-second odd-row-color"><code><a href="#promptProperty" class="member-name-link">prompt</a></code></div>
 <div class="col-last odd-row-color">&nbsp;</div>
 <div class="col-first even-row-color"><code>javafx.beans.property.StringProperty</code></div>
@@ -140,14 +140,14 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <div class="block">Creates a new <code>GeneratedQuery</code> with default values.</div>
 </div>
 <div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(java.lang.String,logic.bdo.LLM,logic.bdo.Prompt)" class="member-name-link">GeneratedQuery</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sql,
- <a href="LLM.html" title="class in logic.bdo">LLM</a>&nbsp;generator,
- <a href="Prompt.html" title="class in logic.bdo">Prompt</a>&nbsp;prompt)</code></div>
+ <a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a>&nbsp;generator,
+ <a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">Prompt</a>&nbsp;prompt)</code></div>
 <div class="col-last odd-row-color">
 <div class="block">Creates a new <code>GeneratedQuery</code> with the given values.</div>
 </div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String,logic.bdo.LLM,logic.bdo.Prompt,java.lang.Long)" class="member-name-link">GeneratedQuery</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sql,
- <a href="LLM.html" title="class in logic.bdo">LLM</a>&nbsp;generator,
- <a href="Prompt.html" title="class in logic.bdo">Prompt</a>&nbsp;prompt,
+ <a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a>&nbsp;generator,
+ <a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">Prompt</a>&nbsp;prompt,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;version)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates a new <code>GeneratedQuery</code> with the given values and an optional version.</div>
@@ -166,15 +166,15 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>javafx.beans.property.ObjectProperty&lt;<a href="LLM.html" title="class in logic.bdo">LLM</a>&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>javafx.beans.property.ObjectProperty&lt;<a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#generatorProperty()" class="member-name-link">generatorProperty</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="LLM.html" title="class in logic.bdo">LLM</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getGenerator()" class="member-name-link">getGenerator</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the value of the property generator.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Prompt.html" title="class in logic.bdo">Prompt</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">Prompt</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPrompt()" class="member-name-link">getPrompt</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the value of the property prompt.</div>
@@ -184,16 +184,16 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Gets the value of the property sql.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>javafx.beans.property.ObjectProperty&lt;<a href="Prompt.html" title="class in logic.bdo">Prompt</a>&gt;</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>javafx.beans.property.ObjectProperty&lt;<a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">Prompt</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#promptProperty()" class="member-name-link">promptProperty</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setGenerator(logic.bdo.LLM)" class="member-name-link">setGenerator</a><wbr>(<a href="LLM.html" title="class in logic.bdo">LLM</a>&nbsp;generator)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setGenerator(logic.bdo.LLM)" class="member-name-link">setGenerator</a><wbr>(<a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a>&nbsp;generator)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the value of the property generator.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setPrompt(logic.bdo.Prompt)" class="member-name-link">setPrompt</a><wbr>(<a href="Prompt.html" title="class in logic.bdo">Prompt</a>&nbsp;prompt)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setPrompt(logic.bdo.Prompt)" class="member-name-link">setPrompt</a><wbr>(<a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">Prompt</a>&nbsp;prompt)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Sets the value of the property prompt.</div>
 </div>
@@ -214,7 +214,7 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 </div>
 </div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-logic.bdo.BusinessDomainObject">Methods inherited from class&nbsp;logic.bdo.<a href="BusinessDomainObject.html" title="class in logic.bdo">BusinessDomainObject</a></h3>
+<h3 id="methods-inherited-from-class-logic.bdo.BusinessDomainObject">Methods inherited from class&nbsp;de.seggebaeing.sqlanalyzer.logic.bdo.<a href="BusinessDomainObject.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">BusinessDomainObject</a></h3>
 <code><a href="BusinessDomainObject.html#getVersion()">getVersion</a>, <a href="BusinessDomainObject.html#refreshVersion()">refreshVersion</a>, <a href="BusinessDomainObject.html#registerProperties(javafx.beans.property.Property...)">registerProperties</a>, <a href="BusinessDomainObject.html#setVersion(java.lang.Long)">setVersion</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
@@ -248,7 +248,7 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <li>
 <section class="detail" id="generatorProperty">
 <h3>generator</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">javafx.beans.property.ObjectProperty&lt;<a href="LLM.html" title="class in logic.bdo">LLM</a>&gt;</span>&nbsp;<span class="element-name">generatorProperty</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">javafx.beans.property.ObjectProperty&lt;<a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a>&gt;</span>&nbsp;<span class="element-name">generatorProperty</span></div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -263,7 +263,7 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <li>
 <section class="detail" id="promptProperty">
 <h3>prompt</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">javafx.beans.property.ObjectProperty&lt;<a href="Prompt.html" title="class in logic.bdo">Prompt</a>&gt;</span>&nbsp;<span class="element-name">promptProperty</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">javafx.beans.property.ObjectProperty&lt;<a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">Prompt</a>&gt;</span>&nbsp;<span class="element-name">promptProperty</span></div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -298,8 +298,8 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <section class="detail" id="&lt;init&gt;(java.lang.String,logic.bdo.LLM,logic.bdo.Prompt)">
 <h3>GeneratedQuery</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">GeneratedQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sql,
- <a href="LLM.html" title="class in logic.bdo">LLM</a>&nbsp;generator,
- <a href="Prompt.html" title="class in logic.bdo">Prompt</a>&nbsp;prompt)</span></div>
+ <a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a>&nbsp;generator,
+ <a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">Prompt</a>&nbsp;prompt)</span></div>
 <div class="block">Creates a new <code>GeneratedQuery</code> with the given values.
  <p>
  Sets the version to <code>null</code>, causing it to be initialized automatically.
@@ -318,8 +318,8 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <section class="detail" id="&lt;init&gt;(java.lang.String,logic.bdo.LLM,logic.bdo.Prompt,java.lang.Long)">
 <h3>GeneratedQuery</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">GeneratedQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sql,
- <a href="LLM.html" title="class in logic.bdo">LLM</a>&nbsp;generator,
- <a href="Prompt.html" title="class in logic.bdo">Prompt</a>&nbsp;prompt,
+ <a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a>&nbsp;generator,
+ <a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">Prompt</a>&nbsp;prompt,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;version)</span></div>
 <div class="block">Creates a new <code>GeneratedQuery</code> with the given values and an optional version.
  <p>
@@ -370,7 +370,7 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <div class="block">Gets the value of the property sql.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="SQLQueryWrapper.html#getSql()">getSql</a></code>&nbsp;in interface&nbsp;<code><a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQueryWrapper</a></code></dd>
+<dd><code><a href="SQLQueryWrapper.html#getSql()">getSql</a></code>&nbsp;in interface&nbsp;<code><a href="SQLQueryWrapper.html" title="interface in de.seggebaeing.sqlanalyzer.logic.bdo">SQLQueryWrapper</a></code></dd>
 <dt>Property description:</dt>
 <dt>Returns:</dt>
 <dd>the SQL string</dd>
@@ -395,7 +395,7 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <li>
 <section class="detail" id="getGenerator()">
 <h3>getGenerator</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="LLM.html" title="class in logic.bdo">LLM</a></span>&nbsp;<span class="element-name">getGenerator</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a></span>&nbsp;<span class="element-name">getGenerator</span>()</div>
 <div class="block">Gets the value of the property generator.</div>
 <dl class="notes">
 <dt>Property description:</dt>
@@ -405,7 +405,7 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <li>
 <section class="detail" id="generatorProperty()">
 <h3>generatorProperty</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">javafx.beans.property.ObjectProperty&lt;<a href="LLM.html" title="class in logic.bdo">LLM</a>&gt;</span>&nbsp;<span class="element-name">generatorProperty</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">javafx.beans.property.ObjectProperty&lt;<a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a>&gt;</span>&nbsp;<span class="element-name">generatorProperty</span>()</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -420,7 +420,7 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <li>
 <section class="detail" id="getPrompt()">
 <h3>getPrompt</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Prompt.html" title="class in logic.bdo">Prompt</a></span>&nbsp;<span class="element-name">getPrompt</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">Prompt</a></span>&nbsp;<span class="element-name">getPrompt</span>()</div>
 <div class="block">Gets the value of the property prompt.</div>
 <dl class="notes">
 <dt>Property description:</dt>
@@ -430,7 +430,7 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <li>
 <section class="detail" id="promptProperty()">
 <h3>promptProperty</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">javafx.beans.property.ObjectProperty&lt;<a href="Prompt.html" title="class in logic.bdo">Prompt</a>&gt;</span>&nbsp;<span class="element-name">promptProperty</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">javafx.beans.property.ObjectProperty&lt;<a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">Prompt</a>&gt;</span>&nbsp;<span class="element-name">promptProperty</span>()</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd>
@@ -455,7 +455,7 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <li>
 <section class="detail" id="setGenerator(logic.bdo.LLM)">
 <h3>setGenerator</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setGenerator</span><wbr><span class="parameters">(<a href="LLM.html" title="class in logic.bdo">LLM</a>&nbsp;generator)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setGenerator</span><wbr><span class="parameters">(<a href="LLM.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">LLM</a>&nbsp;generator)</span></div>
 <div class="block">Sets the value of the property generator.</div>
 <dl class="notes">
 <dt>Property description:</dt>
@@ -465,7 +465,7 @@ implements <a href="SQLQueryWrapper.html" title="interface in logic.bdo">SQLQuer
 <li>
 <section class="detail" id="setPrompt(logic.bdo.Prompt)">
 <h3>setPrompt</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setPrompt</span><wbr><span class="parameters">(<a href="Prompt.html" title="class in logic.bdo">Prompt</a>&nbsp;prompt)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setPrompt</span><wbr><span class="parameters">(<a href="Prompt.html" title="class in de.seggebaeing.sqlanalyzer.logic.bdo">Prompt</a>&nbsp;prompt)</span></div>
 <div class="block">Sets the value of the property prompt.</div>
 <dl class="notes">
 <dt>Property description:</dt>

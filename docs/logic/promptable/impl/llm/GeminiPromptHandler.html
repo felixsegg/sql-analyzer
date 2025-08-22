@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="dc.created" content="2025-08-19">
-<meta name="description" content="declaration: package: logic.promptable.impl.llm, class: GeminiPromptHandler">
+<meta name="description" content="declaration: package: de.seggebaeing.sqlanalyzer.logic.promptable.impl.llm, class: GeminiPromptHandler">
 <meta name="generator" content="javadoc/ClassWriterImpl">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 <link rel="stylesheet" type="text/css" href="../../../../script-dir/jquery-ui.min.css" title="Style">
@@ -69,27 +69,27 @@ loadScripts(document, 'script');</script>
 <main role="main">
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">logic.promptable.impl.llm</a></div>
+<div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">de.seggebaeing.sqlanalyzer.logic.promptable.impl.llm</a></div>
 <h1 title="Class GeminiPromptHandler" class="title">Class GeminiPromptHandler</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance"><a href="AbstractLLMHandler.html" title="class in logic.promptable.impl.llm">logic.promptable.impl.llm.AbstractLLMHandler</a>
-<div class="inheritance">logic.promptable.impl.llm.GeminiPromptHandler</div>
+<div class="inheritance"><a href="AbstractLLMHandler.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.impl.llm">de.seggebaeing.sqlanalyzer.logic.promptable.impl.llm.AbstractLLMHandler</a>
+<div class="inheritance">de.seggebaeing.sqlanalyzer.logic.promptable.impl.llm.GeminiPromptHandler</div>
 </div>
 </div>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../../Promptable.html" title="interface in logic.promptable">Promptable</a></code></dd>
+<dd><code><a href="../../Promptable.html" title="interface in de.seggebaeing.sqlanalyzer.logic.promptable">Promptable</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">GeminiPromptHandler</span>
-<span class="extends-implements">extends <a href="AbstractLLMHandler.html" title="class in logic.promptable.impl.llm">AbstractLLMHandler</a></span></div>
+<span class="extends-implements">extends <a href="AbstractLLMHandler.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.impl.llm">AbstractLLMHandler</a></span></div>
 <div class="block">Handles communication with the Google Gemini API.
  <p>
  Builds a <code>generateContent</code> request, sends it via the shared HTTP client,
  and extracts the generated text from the response. Non-200 responses are parsed
- for provider error details; HTTP 429 triggers a <a href="../../exception/RateLimitException.html" title="class in logic.promptable.exception"><code>RateLimitException</code></a>.
+ for provider error details; HTTP 429 triggers a <a href="../../exception/RateLimitException.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.exception"><code>RateLimitException</code></a>.
  </p></div>
 <dl class="notes">
 <dt>Since:</dt>
@@ -105,7 +105,7 @@ loadScripts(document, 'script');</script>
 <section class="field-summary" id="field-summary">
 <h2>Field Summary</h2>
 <div class="inherited-list">
-<h3 id="fields-inherited-from-class-logic.promptable.impl.llm.AbstractLLMHandler">Fields inherited from class&nbsp;logic.promptable.impl.llm.<a href="AbstractLLMHandler.html" title="class in logic.promptable.impl.llm">AbstractLLMHandler</a></h3>
+<h3 id="fields-inherited-from-class-logic.promptable.impl.llm.AbstractLLMHandler">Fields inherited from class&nbsp;de.seggebaeing.sqlanalyzer.logic.promptable.impl.llm.<a href="AbstractLLMHandler.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.impl.llm">AbstractLLMHandler</a></h3>
 <code><a href="AbstractLLMHandler.html#client">client</a>, <a href="AbstractLLMHandler.html#gson">gson</a>, <a href="AbstractLLMHandler.html#log">log</a></code></div>
 </section>
 </li>
@@ -184,7 +184,7 @@ loadScripts(document, 'script');</script>
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;model,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;apiKey,
  double&nbsp;temperature)</span>
-              throws <span class="exceptions"><a href="../../exception/LLMException.html" title="class in logic.promptable.exception">LLMException</a></span></div>
+              throws <span class="exceptions"><a href="../../exception/LLMException.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.exception">LLMException</a></span></div>
 <div class="block">Sends a prompt request to the Gemini API and returns the model's response text.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -195,7 +195,7 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>the generated response text from Gemini</dd>
 <dt>Throws:</dt>
-<dd><code><a href="../../exception/LLMException.html" title="class in logic.promptable.exception">LLMException</a></code> - if the API returns an error, a rate limit is hit, or the response is invalid</dd>
+<dd><code><a href="../../exception/LLMException.html" title="class in de.seggebaeing.sqlanalyzer.logic.promptable.exception">LLMException</a></code> - if the API returns an error, a rate limit is hit, or the response is invalid</dd>
 </dl>
 </section>
 </li>
