@@ -7,8 +7,6 @@ package de.seggebaeing.sqlanalyzer.logic.util.eval.impl;
  * </p>
  */
 public enum ComparatorType {
-    /** Syntactic comparator (deterministic). */
-    SYNTACTIC("Syntactic", true),
     /** LLM-based comparator (non-deterministic). */
     LLM("LLM", false);
     

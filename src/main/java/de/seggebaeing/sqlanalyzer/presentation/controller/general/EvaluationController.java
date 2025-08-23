@@ -10,7 +10,6 @@ import de.seggebaeing.sqlanalyzer.logic.util.CsvExporter;
 import de.seggebaeing.sqlanalyzer.logic.util.eval.StatementComparator;
 import de.seggebaeing.sqlanalyzer.logic.util.eval.impl.ComparatorType;
 import de.seggebaeing.sqlanalyzer.logic.util.eval.impl.LLMComparator;
-import de.seggebaeing.sqlanalyzer.logic.util.eval.impl.SyntacticComparator;
 import de.seggebaeing.sqlanalyzer.logic.util.thread.EvaluationThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,7 +114,6 @@ public class EvaluationController extends WorkerWindow {
         addDualProgressBar("Progress", startedProperty, finishedProperty, rateLimitTargetProperty);
         
         StatementComparator comparator = switch (settings.getComparatorType()) {
-            case SYNTACTIC -> SyntacticComparator.getInstance();
             case LLM -> new LLMComparator(settings.getComparatorLlm(), settings.getComparatorTemp());
         };
         
