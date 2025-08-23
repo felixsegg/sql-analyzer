@@ -29,7 +29,7 @@ public class ResourceLoader {
      */
     public static Image loadIcon(String fileName) {
         Objects.requireNonNull(fileName);
-        InputStream iconInputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("icon/" + fileName);
+        InputStream iconInputStream = ResourceLoader.class.getResourceAsStream("/icon/" + fileName);
         if (iconInputStream != null)
             return new Image(iconInputStream);
         return null;
@@ -47,8 +47,8 @@ public class ResourceLoader {
     public static URL getHelpHtmlUrl(String fileName) {
         Objects.requireNonNull(fileName);
         
-        String path = "help/" + fileName + (fileName.endsWith(".html") ? "" : ".html");
-        URL url = Thread.currentThread().getContextClassLoader().getResource(path);
+        String path = "/help/" + fileName + (fileName.endsWith(".html") ? "" : ".html");
+        URL url = ResourceLoader.class.getResource(path);
         if (url != null) return url;
         
         log.warn("Could not load html URL for help window from path {}!", path);
@@ -66,7 +66,7 @@ public class ResourceLoader {
     public static URL getFxmlUrl(String fileName) {
         Objects.requireNonNull(fileName);
         
-        String path = "fxml/" + fileName + (fileName.endsWith(".fxml") ? "" : ".fxml");
-        return Thread.currentThread().getContextClassLoader().getResource(path);
+        String path = "/fxml/" + fileName + (fileName.endsWith(".fxml") ? "" : ".fxml");
+        return ResourceLoader.class.getResource(path);
     }
 }
