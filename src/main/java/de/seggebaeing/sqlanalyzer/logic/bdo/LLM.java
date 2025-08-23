@@ -78,13 +78,13 @@ public class LLM extends BusinessDomainObject {
      * @param minTemperature minimum temperature value
      * @param maxTemperature maximum temperature value
      * @param version        initial version value, or {@code null} for auto-generation
-     * @throws NullPointerException if {@code name}, {@code promptableApi}, {@code model}, or {@code apiKey} is {@code null}
+     * @throws NullPointerException if {@code name}, {@code model}, or {@code apiKey} is {@code null}
      */
     public LLM(String name, PromptableApi promptableApi, String model, String apiKey, double minTemperature, double maxTemperature, Long version) {
         super(version);
         
         this.name.set(Objects.requireNonNull(name));
-        this.llmApi.set(Objects.requireNonNull(promptableApi));
+        this.llmApi.set(promptableApi);
         this.model.set(Objects.requireNonNull(model));
         this.apiKey.set(Objects.requireNonNull(apiKey));
         this.minTemperature.set(minTemperature);
@@ -140,11 +140,10 @@ public class LLM extends BusinessDomainObject {
      * recreated on the next call to {@link #getPromptable()}.
      * </p>
      *
-     * @param promptableApi non-null API provider
-     * @throws NullPointerException if {@code promptableApi} is {@code null}
+     * @param promptableApi API provider
      */
     public void setLlmApi(PromptableApi promptableApi) {
-        this.llmApi.set(Objects.requireNonNull(promptableApi));
+        this.llmApi.set(promptableApi);
         this.promptable = null;
     }
     

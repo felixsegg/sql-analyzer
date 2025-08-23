@@ -46,7 +46,7 @@ public enum BdoWindowType implements WindowType {
      * @throws IllegalArgumentException if {@code clazz} is not a BDO type or has no mapping
      */
     public static BdoWindowType getForType(Class<?> clazz) {
-        if (!clazz.isAssignableFrom(BusinessDomainObject.class))
+        if (!BusinessDomainObject.class.isAssignableFrom(clazz))
             throw new IllegalArgumentException("Given class is not a BDO! " + clazz.getSimpleName());
         
         if (clazz == SampleQuery.class)

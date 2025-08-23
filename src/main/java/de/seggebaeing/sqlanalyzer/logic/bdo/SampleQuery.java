@@ -77,7 +77,7 @@ public class SampleQuery extends BusinessDomainObject implements SQLQueryWrapper
      * @param promptContext non-null prompt context
      * @param complexity    non-null complexity level
      * @param version       initial version value, or {@code null} to auto-generate
-     * @throws NullPointerException if any parameter except {@code version} is {@code null}
+     * @throws NullPointerException if any of the string parameters are {@code null}
      */
     public SampleQuery(String name, String description, String sql, String promptContext, Complexity complexity, Long version) {
         super(version);
@@ -85,7 +85,7 @@ public class SampleQuery extends BusinessDomainObject implements SQLQueryWrapper
         this.description.set(Objects.requireNonNull(description));
         this.sql.set(Objects.requireNonNull(sql));
         this.promptContext.set(Objects.requireNonNull(promptContext));
-        this.complexity.set(Objects.requireNonNull(complexity));
+        this.complexity.set(complexity);
         
         registerProperties(this.name, this.description, this.sql, this.promptContext, this.complexity);
     }
@@ -161,6 +161,6 @@ public class SampleQuery extends BusinessDomainObject implements SQLQueryWrapper
     }
     
     public void setComplexity(Complexity complexity) {
-        this.complexity.set(Objects.requireNonNull(complexity));
+        this.complexity.set(complexity);
     }
 }
