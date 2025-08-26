@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * <p>
  * Implementations convert between {@link de.seggebaeing.sqlanalyzer.logic.bdo.BusinessDomainObject} instances and
  * {@link de.seggebaeing.sqlanalyzer.persistence.dto.Persistable} records and may use an injected id supplier for new objects.
- * </p>
+ * 
  *
  * @param <B> business domain object type
  * @param <P> persistable DTO type

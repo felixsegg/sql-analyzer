@@ -10,7 +10,7 @@ import java.util.Set;
  * <p>
  * Provides basic CRUD-style operations and an optional dependency query for objects
  * that hold direct references to a given BDO.
- * </p>
+ * 
  *
  * @param <B> the type of business domain object managed by this service
  *
@@ -44,7 +44,7 @@ public interface BDOService<B extends BusinessDomainObject> {
      * Returns business objects that hold a direct reference to the given BDO.
      * <p>
      * Default implementation returns an empty list; override in services that track references.
-     * </p>
+     * 
      *
      * @param bdo the source business object
      * @return list of direct dependants; empty if none

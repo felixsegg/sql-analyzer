@@ -7,7 +7,7 @@ import java.util.Objects;
  * <p>
  * Holds identifier, version, prompt text, and foreign key references to
  * a sample query and a prompt type. The text field is non-null.
- * </p>
+ * 
  *
  * @param id            stable identifier
  * @param version       numeric value representing the modification state
@@ -23,7 +23,7 @@ public record PromptDTO(int id, long version, String text, int sampleQueryId, in
      * <p>
      * Ensures that {@code text} is non-null; otherwise a
      * {@link NullPointerException} is thrown.
-     * </p>
+     * 
      *
      * @param id            stable identifier
      * @param version       numeric value representing the modification state

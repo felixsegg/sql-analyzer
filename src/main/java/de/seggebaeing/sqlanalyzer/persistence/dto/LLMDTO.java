@@ -7,7 +7,7 @@ import java.util.Objects;
  * <p>
  * Holds identifier, version, and associated configuration fields. All string
  * fields are non-null.
- * </p>
+ * 
  *
  * @param id             stable identifier
  * @param version        numeric value representing the modification state
@@ -28,7 +28,7 @@ public record LLMDTO(int id, long version, String name, String api, String model
      * <p>
      * Ensures that {@code name}, {@code api}, {@code model}, and {@code apiKey}
      * are non-null; otherwise a {@link NullPointerException} is thrown.
-     * </p>
+     * 
      *
      * @param id             stable identifier
      * @param version        numeric value representing the modification state

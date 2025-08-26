@@ -11,8 +11,8 @@ import de.seggebaeing.sqlanalyzer.persistence.dto.LLMDTO;
  * a newer {@code version}. For DTO→BDO, parses the API enum via
  * {@link de.seggebaeing.sqlanalyzer.logic.promptable.util.PromptableApi#valueOf(String)}. For BDO→DTO,
  * allocates an ID via the inherited {@code idSupplier} when no cached DTO exists.
- * </p>
- * <p>Singleton — access via {@link #getInstance()}.</p>
+ * 
+ * <p>Singleton — access via {@link #getInstance()}.
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -36,7 +36,7 @@ public class LLMMapper extends AbstractBusinessDomainMapper<LLM, LLMDTO> {
      * {@code LLM} from the DTO fields (converting {@code api} via
      * {@link de.seggebaeing.sqlanalyzer.logic.promptable.util.PromptableApi#valueOf(String)}), updates the
      * bidirectional cache, and returns it.
-     * </p>
+     * 
      *
      * @param dto the source DTO; may be {@code null}
      * @return the mapped {@link LLM}, or {@code null} if {@code dto} is {@code null}
@@ -67,7 +67,7 @@ public class LLMMapper extends AbstractBusinessDomainMapper<LLM, LLMDTO> {
      * Returns the cached DTO if present and up to date; otherwise creates a new DTO,
      * reusing the existing ID if cached or allocating one via {@code idSupplier} if not.
      * The cache is refreshed when the BDO's {@code version} is newer than the cached DTO's.
-     * </p>
+     * 
      *
      * @param bdo the source business object; may be {@code null}
      * @return the mapped {@link de.seggebaeing.sqlanalyzer.persistence.dto.LLMDTO}, or {@code null} if {@code bdo} is {@code null}

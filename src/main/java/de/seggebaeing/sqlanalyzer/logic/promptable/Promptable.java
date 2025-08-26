@@ -9,7 +9,7 @@ import de.seggebaeing.sqlanalyzer.logic.promptable.exception.LLMException;
  * APIs that can process natural language input and return a response.
  * Some implementations may act as dummies or mocks for testing or offline usage,
  * mimicking the behavior of real models without calling an external service.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0

@@ -22,7 +22,7 @@ import java.util.Set;
  * {@link de.seggebaeing.sqlanalyzer.persistence.dao.DAOImpl.SampleQueryDAOImpl}. Implements a singleton
  * (use {@link #getInstance()}) and synchronizes public operations for basic
  * thread safety. Provides dependant lookup (e.g., {@link de.seggebaeing.sqlanalyzer.logic.bdo.Prompt} referencing a sample query).
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -47,7 +47,7 @@ public class SampleQueryService implements BDOService<SampleQuery> {
      * Retrieves all persisted sample queries and maps them to business objects.
      * <p>
      * Thread-safe: synchronized to guard access to the underlying DAO and mapper.
-     * </p>
+     * 
      *
      * @return a set of {@link SampleQuery}; may be empty
      */
@@ -60,7 +60,7 @@ public class SampleQueryService implements BDOService<SampleQuery> {
     
     /**
      * Deletes the given sample query by mapping it to its DTO and delegating to the DAO.
-     * <p>Thread-safe: synchronized to guard DAO/mapper access.</p>
+     * <p>Thread-safe: synchronized to guard DAO/mapper access.
      *
      * @param bdo the sample query to delete
      */
@@ -71,7 +71,7 @@ public class SampleQueryService implements BDOService<SampleQuery> {
     
     /**
      * Saves a new sample query or updates an existing one by mapping it to its DTO and delegating to the DAO.
-     * <p>Thread-safe: synchronized to guard DAO/mapper access.</p>
+     * <p>Thread-safe: synchronized to guard DAO/mapper access.
      *
      * @param bdo the sample query to save or update
      */
@@ -85,7 +85,7 @@ public class SampleQueryService implements BDOService<SampleQuery> {
      * <p>
      * Scans all {@link Prompt} instances and collects those whose {@code getSampleQuery()}
      * is the same instance as {@code object} (reference equality).
-     * </p>
+     * 
      *
      * @param object the sample query whose dependants to collect
      * @return list of dependants; empty if none

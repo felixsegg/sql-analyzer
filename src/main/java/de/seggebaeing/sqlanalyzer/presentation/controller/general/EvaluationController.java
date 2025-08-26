@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Controller for the evaluation workflow. Extends {@link de.seggebaeing.sqlanalyzer.presentation.uielements.window.WorkerWindow}
  * to run an {@link de.seggebaeing.sqlanalyzer.logic.util.thread.EvaluationThread}, choose a {@link de.seggebaeing.sqlanalyzer.logic.util.eval.StatementComparator}
- * (syntactic or LLM-based), show progress (and optional rate-limit countdown), and export
+ * (e.g. LLM-based), show progress (and optional rate-limit countdown), and export
  * results to CSV on save.
  *
  * @author Felix Seggebäing
@@ -95,7 +95,7 @@ public class EvaluationController extends WorkerWindow {
      * Constructs the evaluation worker thread and wires UI progress bindings.
      * Sets up started/finished counters, an optional rate-limit countdown target,
      * adds a {@code DualProgressBar}, selects the {@link StatementComparator}
-     * (syntactic or LLM-based), and returns a configured {@link EvaluationThread}
+     * (e.g. LLM-based), and returns a configured {@link EvaluationThread}
      * that reports progress via {@link Platform#runLater(Runnable)} callbacks.
      *
      * @return a not-yet-started {@link Thread} ready to evaluate the selected queries

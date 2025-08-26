@@ -26,7 +26,7 @@ public class CsvExporter {
      * Writes a header and one row per entry with columns:
      * {@code score,llm_name,prompt_type_name,sample_query_name,sample_query_complexity}.
      * Creates parent directories if needed and overwrites any existing file.
-     * </p>
+     * 
      *
      * @param results map of {@link GeneratedQuery} to its score
      * @param path    target directory for the CSV file

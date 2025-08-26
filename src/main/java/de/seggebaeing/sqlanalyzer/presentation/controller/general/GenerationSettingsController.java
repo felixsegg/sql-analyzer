@@ -186,7 +186,7 @@ public class GenerationSettingsController extends TitledInitializableWindow {
      * Numeric options persist via {@link de.seggebaeing.sqlanalyzer.logic.service.ConfigService} when updated.
      *
      * <p>Exposed as a singleton via {@link GenerationSettingsController#getSettings()}.
-     * Not thread-safe; use from the JavaFX Application Thread.</p>
+     * Not thread-safe; use from the JavaFX Application Thread.
      *
      * @author Felix Seggebäing
      * @since 1.0

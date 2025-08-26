@@ -8,7 +8,7 @@ import de.seggebaeing.sqlanalyzer.persistence.dto.LLMDTO;
  * <p>
  * Provides CRUD operations for LLM DTOs by extending {@link de.seggebaeing.sqlanalyzer.persistence.dao.DTODAO}.
  * This class is a singleton; use {@link #getInstance()} to obtain the instance.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0

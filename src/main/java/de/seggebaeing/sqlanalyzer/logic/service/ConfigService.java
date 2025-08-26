@@ -15,7 +15,7 @@ import java.util.Properties;
  * Linux/Unix {@code $XDG_CONFIG_HOME or ~/.config/sql-analyzer}, then loads/saves {@code config.properties}.
  * Provides typed accessors and defaults, and exposes a base path for persistent saves.
  * Access via {@link #getInstance()}.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -52,7 +52,7 @@ public class ConfigService {
      * <p>
      * Windows: {@code %APPDATA%/sql-analyzer}, macOS: {@code ~/Library/Application Support/sql-analyzer},
      * Linux/Unix: {@code $XDG_CONFIG_HOME} or {@code ~/.config/sql-analyzer}.
-     * </p>
+     * 
      *
      * @return the path to {@code config.properties} in the resolved directory
      * @throws RuntimeException if the configuration directory cannot be created
@@ -87,7 +87,7 @@ public class ConfigService {
      * <p>
      * If {@code CONFIG_PATH} exists, reads properties from it; otherwise initializes
      * defaults via {@link #setDefaults()} and persists them via {@link #save()}.
-     * </p>
+     * 
      *
      * @throws IOException if reading an existing configuration file fails
      */
@@ -132,7 +132,7 @@ public class ConfigService {
      * <p>
      * Creates or overwrites the configuration file and writes a {@code "Config"} comment header.
      * Wraps any {@link IOException} in a {@link RuntimeException}.
-     * </p>
+     * 
      */
     public void save() {
         try (OutputStream out = Files.newOutputStream(CONFIG_PATH)) {
@@ -154,7 +154,7 @@ public class ConfigService {
     
     /**
      * Sets the value for the given configuration key in memory.
-     * <p>Call {@link #save()} to persist changes to disk.</p>
+     * <p>Call {@link #save()} to persist changes to disk.
      *
      * @param key   the property key
      * @param value the property value

@@ -5,7 +5,7 @@ package de.seggebaeing.sqlanalyzer.persistence.exception;
  * <p>
  * Signals failures during saving, loading, or deleting persistable objects,
  * such as I/O errors, invalid JSON, or version conflicts.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0

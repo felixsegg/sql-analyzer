@@ -11,11 +11,11 @@ import java.time.Instant;
  * bound JavaFX {@link javafx.beans.property.Property} values change.
  * Subclasses should call {@link #registerProperties(Property[])}
  * at the end of their constructors to ensure version tracking.
- * </p>
+ * 
  *
  * <p><strong>Versioning:</strong> The {@code version} is either set
  * explicitly or refreshed to the current time when properties change.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -25,7 +25,7 @@ public abstract class BusinessDomainObject {
      * Numeric version value representing the modification state of this object.
      * <p>
      * Updated explicitly or via {@link #refreshVersion()} when observed properties change.
-     * </p>
+     * 
      */
     private long version;
     
@@ -34,7 +34,7 @@ public abstract class BusinessDomainObject {
      * <p>
      * Initializes the version to the given value if non-null,
      * otherwise sets it to the current time.
-     * </p>
+     * 
      *
      * @param version initial version value, or {@code null} to auto-generate
      */
@@ -49,7 +49,7 @@ public abstract class BusinessDomainObject {
      * that the version is updated only after all initial property values have been set.
      * Once registered, any change to one of the observed properties triggers
      * {@link #refreshVersion()}.
-     * </p>
+     * 
      *
      * @param properties the properties to observe for changes
      */
@@ -63,7 +63,7 @@ public abstract class BusinessDomainObject {
      * <p>
      * If a non-null value is provided, it is used directly.
      * If {@code null}, the version is refreshed to the current time.
-     * </p>
+     * 
      *
      * @param version explicit version value, or {@code null} to auto-generate
      */
@@ -85,7 +85,7 @@ public abstract class BusinessDomainObject {
      * Refreshes the version value to the current time.
      * <p>
      * Sets {@code version} to the number of seconds since the Unix epoch.
-     * </p>
+     * 
      */
     protected void refreshVersion() {
         version = Instant.now().getEpochSecond();

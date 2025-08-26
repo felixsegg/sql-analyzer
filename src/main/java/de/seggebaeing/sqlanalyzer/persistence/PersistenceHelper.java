@@ -21,15 +21,15 @@ import java.util.stream.Stream;
  * (<code>&lt;basePath&gt;/&lt;SimpleClassName&gt;/&lt;id&gt;.json</code>). Provides CRUD-style helpers:
  * {@code persist}, {@code load}, {@code loadAll}, and {@code delete}. Serialization uses Gson (pretty printed).
  * A small normalization step ensures top-level {@code String} fields of Java {@code record}s are non-null.
- * </p>
+ * 
  *
  * <p><strong>Versioning:</strong> {@link #persist} compares the on-disk {@code version()} with the candidate.
  * Older or equal versions are not overwritten; newer candidates replace the file. Attempting to save an older
- * version results in a {@link de.seggebaeing.sqlanalyzer.persistence.exception.PersistenceException}.</p>
+ * version results in a {@link de.seggebaeing.sqlanalyzer.persistence.exception.PersistenceException}.
  *
  * <p><strong>Threading/Concurrency:</strong> This is a static, process-local helper. It is not a full
  * concurrency control mechanism; coordinate concurrent writes at a higher level if multiple threads/processes
- * may persist the same object.</p>
+ * may persist the same object.
  *
  * @apiNote Call {@link #initializeBasePath(java.nio.file.Path)} exactly once before any other method.
  * The base path is immutable afterward. Directory names are derived from {@code clazz.getSimpleName()}.
@@ -49,7 +49,7 @@ public class PersistenceHelper {
      * <p>
      * Must be called exactly once before any other method of this helper is used.
      * Subsequent calls will throw an {@link IllegalStateException}.
-     * </p>
+     * 
      *
      * @param basePath the directory under which all persisted objects will be stored;
      *                 subdirectories are created per class name
@@ -73,7 +73,7 @@ public class PersistenceHelper {
      *   <li>If the versions are equal, nothing is changed.</li>
      *   <li>If the existing version is greater, a {@link de.seggebaeing.sqlanalyzer.persistence.exception.PersistenceException} is thrown.</li>
      * </ul>
-     * </p>
+     * 
      *
      * @param p the persistable object to save
      * @throws de.seggebaeing.sqlanalyzer.persistence.exception.PersistenceException if file access fails,
@@ -116,7 +116,7 @@ public class PersistenceHelper {
      * Reads the JSON file named {@code &lt;id&gt;.json} from the directory corresponding
      * to the given class, deserializes it with Gson, and normalizes top-level string
      * fields for record types.
-     * </p>
+     * 
      *
      * @param <T>   the type of the object to load
      * @param clazz the class of the object, used to resolve the directory and target type
@@ -148,7 +148,7 @@ public class PersistenceHelper {
      * Scans the directory associated with {@code clazz} for <code>.json</code> files,
      * deserializes each into an instance of {@code T}, and returns them as a set.
      * Invalid or unreadable files are skipped with a logged warning.
-     * </p>
+     * 
      *
      * @param <T>   the type of objects to load
      * @param clazz the class whose persisted instances should be loaded
@@ -187,7 +187,7 @@ public class PersistenceHelper {
      * <p>
      * Resolves the JSON file path from the object's class and {@code id()}, then attempts
      * to delete it from disk.
-     * </p>
+     * 
      *
      * @param p the persistable object whose file should be removed
      * @throws de.seggebaeing.sqlanalyzer.persistence.exception.PersistenceException if the file does not exist
@@ -214,7 +214,7 @@ public class PersistenceHelper {
      * {@code String} that is missing or {@code null} in the JSON object will be
      * replaced with an empty string. This prevents deserialization failures when
      * the record requires non-null string values.
-     * </p>
+     * 
      *
      * @param <T>         the target type
      * @param json        the JSON string to normalize; may be {@code null}
@@ -242,7 +242,7 @@ public class PersistenceHelper {
      * <p>
      * Ensures that the parent directory exists before writing. The file name is
      * suffixed with <code>.json</code>.
-     * </p>
+     * 
      *
      * @param dir      the target directory
      * @param fileName the base file name without extension
@@ -260,7 +260,7 @@ public class PersistenceHelper {
      * <p>
      * Returns the file content as a UTF-8 string if the file exists, otherwise
      * returns {@code null}.
-     * </p>
+     * 
      *
      * @param dir      the directory containing the file
      * @param fileName the base file name without extension
@@ -293,7 +293,7 @@ public class PersistenceHelper {
      * <p>
      * Ensures the directory exists, then returns the base names (without the
      * <code>.json</code> extension) of all JSON files found.
-     * </p>
+     * 
      *
      * @param dir the directory to scan
      * @return an array of file names without extension; may be empty if no JSON files exist
@@ -314,7 +314,7 @@ public class PersistenceHelper {
      * Ensures that the given directory exists.
      * <p>
      * If the directory does not exist, it and any missing parent directories are created.
-     * </p>
+     * 
      *
      * @param dir the directory to check or create
      * @throws IOException if the directory cannot be created
@@ -329,7 +329,7 @@ public class PersistenceHelper {
      * <p>
      * The path is derived from the initialized base path combined with the class's
      * simple name. Requires that {@link #initializeBasePath(Path)} has been called.
-     * </p>
+     * 
      *
      * @param clazz the class whose directory should be resolved
      * @return the directory path for the class

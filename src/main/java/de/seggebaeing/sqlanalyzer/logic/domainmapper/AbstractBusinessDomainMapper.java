@@ -16,7 +16,7 @@ import java.util.function.Supplier;
  * ({@code BDO→DTO} and {@code DTO→BDO}). Provides {@link #initialize(Supplier)} to inject
  * an ID supplier required by concrete mappers, and convenience methods
  * {@link #putIntoMaps(B, P)} / {@link #putIntoMaps(P, B)} to register paired objects.
- * </p>
+ * 
  *
  * @param <B> business domain object type
  * @param <P> persistable DTO type

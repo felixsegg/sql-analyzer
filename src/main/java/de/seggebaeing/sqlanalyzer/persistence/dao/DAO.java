@@ -9,7 +9,7 @@ import java.util.Set;
  * <p>
  * Defines CRUD-style operations to retrieve, persist, update, and delete
  * domain objects in the de.seggebaeing.sqlanalyzer.persistence layer.
- * </p>
+ * 
  *
  * @param <T> the type of persistable entity managed by this DAO
  *
@@ -44,7 +44,7 @@ public interface DAO<T extends Persistable> {
      * <p>
      * If the entity does not yet exist, it is created. If it already exists,
      * its stored state is updated.
-     * </p>
+     * 
      *
      * @param dto the entity to save or update
      */

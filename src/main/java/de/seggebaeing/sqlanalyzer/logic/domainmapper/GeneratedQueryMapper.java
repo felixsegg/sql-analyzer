@@ -13,7 +13,7 @@ import de.seggebaeing.sqlanalyzer.persistence.dto.GeneratedQueryDTO;
  * side has a newer {@code version}. Resolves associated objects via
  * {@link LLMMapper} / {@link PromptMapper} and their DAOs to map generator
  * and prompt references. Singleton — access via {@link #getInstance()}.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -39,7 +39,7 @@ public class GeneratedQueryMapper extends AbstractBusinessDomainMapper<Generated
      * Resolves {@code generatorId} and {@code promptId} via DAOs and maps them using
      * {@link LLMMapper} and {@link PromptMapper}. Refreshes the cache entry when the DTO's
      * {@code version} is newer than the cached BDO.
-     * </p>
+     * 
      *
      * @param dto the source DTO; may be {@code null}
      * @return the mapped {@link de.seggebaeing.sqlanalyzer.logic.bdo.GeneratedQuery}, or {@code null} if {@code dto} is {@code null}
@@ -65,7 +65,7 @@ public class GeneratedQueryMapper extends AbstractBusinessDomainMapper<Generated
      * or allocating one via {@code idSupplier}. Generator and prompt references are mapped via
      * {@link LLMMapper} and {@link PromptMapper}; {@code -1} is stored if a reference is {@code null}
      * or cannot be mapped. The cache is refreshed when the BDO's {@code version} is newer.
-     * </p>
+     * 
      *
      * @param bdo the source business object; may be {@code null}
      * @return the mapped DTO, or {@code null} if {@code bdo} is {@code null}

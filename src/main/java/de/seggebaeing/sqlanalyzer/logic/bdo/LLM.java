@@ -14,11 +14,11 @@ import java.util.Objects;
  * API key, and temperature bounds. Versioning is inherited from
  * {@link de.seggebaeing.sqlanalyzer.logic.bdo.BusinessDomainObject} and updated automatically when
  * observed properties change.
- * </p>
+ * 
  *
  * <p>A lazily created {@link de.seggebaeing.sqlanalyzer.logic.promptable.Promptable} instance can be obtained
  * from the configured {@link de.seggebaeing.sqlanalyzer.logic.promptable.util.PromptableApi} using
- * {@link de.seggebaeing.sqlanalyzer.logic.promptable.util.PromptableFactory}.</p>
+ * {@link de.seggebaeing.sqlanalyzer.logic.promptable.util.PromptableFactory}.
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -39,7 +39,7 @@ public class LLM extends BusinessDomainObject {
      * <p>
      * Initializes all string fields as empty, the API as {@code null},
      * temperatures as {@code 0} and {@code 1}, and the version as {@code null}.
-     * </p>
+     * 
      */
     public LLM() {
         this("", null, "", "", 0, 1, null);
@@ -49,7 +49,7 @@ public class LLM extends BusinessDomainObject {
      * Creates a new {@code LLM} instance with the given configuration.
      * <p>
      * Sets the version to {@code null}, causing it to be initialized automatically.
-     * </p>
+     * 
      *
      * @param name           non-null name of the LLM
      * @param promptableApi  non-null API provider
@@ -69,7 +69,7 @@ public class LLM extends BusinessDomainObject {
      * Initializes all fields and registers property listeners so that changes
      * automatically update the version. If {@code version} is {@code null},
      * the version is initialized to the current time.
-     * </p>
+     * 
      *
      * @param name           non-null name of the LLM
      * @param promptableApi  non-null API provider
@@ -97,7 +97,7 @@ public class LLM extends BusinessDomainObject {
      * Returns a human-readable string representation of this LLM.
      * <p>
      * Format: {@code name (model)}.
-     * </p>
+     * 
      *
      * @return string representation of this LLM
      */
@@ -119,7 +119,7 @@ public class LLM extends BusinessDomainObject {
      * <p>
      * The instance is created lazily via {@link PromptableFactory} using the
      * current {@link #getLlmApi()} value and cached for subsequent calls.
-     * </p>
+     * 
      *
      * @return the lazily initialized {@code Promptable} for this LLM
      */
@@ -138,7 +138,7 @@ public class LLM extends BusinessDomainObject {
      * <p>
      * Also resets the cached {@link Promptable} instance so it will be
      * recreated on the next call to {@link #getPromptable()}.
-     * </p>
+     * 
      *
      * @param promptableApi API provider
      */

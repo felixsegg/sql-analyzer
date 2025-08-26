@@ -12,10 +12,10 @@ import java.io.Serializable;
  *   <li>{@link #version()} — a monotonically increasing version number to
  *       support optimistic overwrite checks.</li>
  * </ul>
- * </p>
+ * 
  *
  * <p>This interface extends {@link java.io.Serializable} so that all
- * persistable objects are guaranteed to be serializable.</p>
+ * persistable objects are guaranteed to be serializable.
  *
  * @author Felix Seggebäing
  * @since 1.0

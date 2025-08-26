@@ -4,7 +4,7 @@ package de.seggebaeing.sqlanalyzer.logic.util.eval.impl;
  * Enumeration of available statement comparator types.
  * <p>
  * Each constant provides a UI display name and whether the comparator is deterministic.
- * </p>
+ * 
  */
 public enum ComparatorType {
     /** LLM-based comparator (non-deterministic). */

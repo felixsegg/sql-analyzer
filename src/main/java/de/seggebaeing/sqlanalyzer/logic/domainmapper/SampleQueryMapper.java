@@ -8,10 +8,10 @@ import de.seggebaeing.sqlanalyzer.persistence.dto.SampleQueryDTO;
  * <p>
  * Maintains caches in both directions and refreshes entries when the source side has a newer {@code version}.
  * Allocates IDs via an injected supplier for new DTOs.
- * </p>
+ * 
  * <p>
  * Singleton — access via {@link #getInstance()}.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -35,7 +35,7 @@ public class SampleQueryMapper extends AbstractBusinessDomainMapper<SampleQuery,
      * {@code SampleQuery} from the DTO fields (converting {@code complexity} string
      * to {@link SampleQuery.Complexity} when non-null), updates the bidirectional
      * cache, and returns it.
-     * </p>
+     * 
      *
      * @param dto the source DTO; may be {@code null}
      * @return the mapped {@link SampleQuery}, or {@code null} if {@code dto} is {@code null}
@@ -65,7 +65,7 @@ public class SampleQueryMapper extends AbstractBusinessDomainMapper<SampleQuery,
      * Returns the cached DTO if present and up to date; otherwise creates a new DTO,
      * reusing the existing ID if cached or allocating one via {@code idSupplier} if not.
      * The cache is refreshed when the BDO's {@code version} is newer than the cached DTO's.
-     * </p>
+     * 
      *
      * @param bdo the source business object; may be {@code null}
      * @return the mapped {@link de.seggebaeing.sqlanalyzer.persistence.dto.SampleQueryDTO}, or {@code null} if {@code bdo} is {@code null}

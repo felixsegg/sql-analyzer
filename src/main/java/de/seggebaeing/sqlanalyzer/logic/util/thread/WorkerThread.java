@@ -7,10 +7,10 @@ package de.seggebaeing.sqlanalyzer.logic.util.thread;
  * Subclasses implement {@link #run()} to perform the work, typically using up to
  * {@link #poolSize} parallel subworkers. When the work completes
  * successfully, they should invoke {@link #signalDone}.
- * </p>
+ * 
  * <p>
  * The aggregated outcome can be obtained via {@link #getResult()} after a successful run.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -38,7 +38,7 @@ public abstract class WorkerThread extends Thread {
      * <p>
      * Implementations may use up to {@link #poolSize} parallel subworkers.
      * On successful completion, they should invoke {@link #signalDone}.
-     * </p>
+     * 
      */
     public abstract void run();
     
@@ -47,7 +47,7 @@ public abstract class WorkerThread extends Thread {
      * <p>
      * Behavior is undefined if invoked before the thread has completed successfully.
      * Callers must ensure successful completion before calling this method.
-     * </p>
+     * 
      *
      * @return the result object
      */

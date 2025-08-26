@@ -8,7 +8,7 @@ import de.seggebaeing.sqlanalyzer.persistence.dto.PromptTypeDTO;
  * <p>
  * Maintains BDO↔DTO caches and refreshes entries when the source side has a newer {@code version}.
  * Allocates IDs via an injected supplier for new DTOs. Singleton — access via {@link #getInstance()}.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -30,7 +30,7 @@ public class PromptTypeMapper extends AbstractBusinessDomainMapper<PromptType, P
      * <p>
      * Returns the cached BDO if present and current; otherwise creates a new instance from the DTO,
      * updates the bidirectional cache, and returns it.
-     * </p>
+     * 
      *
      * @param dto the source DTO; may be {@code null}
      * @return the mapped {@link de.seggebaeing.sqlanalyzer.logic.bdo.PromptType}, or {@code null} if {@code dto} is {@code null}

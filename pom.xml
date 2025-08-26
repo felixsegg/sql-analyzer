@@ -9,8 +9,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.version>21.0.2</javafx.version>
         <main.class>de.seggebaeing.sqlanalyzer.Main</main.class>
@@ -31,9 +31,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.14.0</version>
                 <configuration>
-                    <release>17</release>
-                    <source>17</source>
-                    <target>17</target>
+                    <release>21</release>
+                    <source>21</source>
+                    <target>21</target>
                 </configuration>
             </plugin>
 
@@ -60,18 +60,18 @@
                 </executions>
             </plugin>
 
-            <!--plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
                 <configuration>
                     <archive>
-                        <manifest>
-                            <mainClass>${main.class}</mainClass>
-                        </manifest>
+                        <manifestEntries>
+                            <Automatic-Module-Name>de.seggebaeing.sqlanalyzer</Automatic-Module-Name>
+                        </manifestEntries>
                     </archive>
                 </configuration>
-            </plugin-->
+            </plugin>
             <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -116,7 +116,6 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.11.3</version>
                 <configuration>
-                    <additionalOptions>-Xdoclint:-missing</additionalOptions>
                     <tags>
                         <tag>
                             <name>implNote</name>
@@ -131,6 +130,8 @@
                     </tags>
                 </configuration>
             </plugin>
+
+
         </plugins>
     </build>
 

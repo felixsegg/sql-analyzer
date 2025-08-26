@@ -7,7 +7,7 @@ import java.util.Objects;
  * <p>
  * Holds identifier, version, and descriptive fields. All string
  * fields are non-null.
- * </p>
+ * 
  *
  * @param id          stable identifier
  * @param version     numeric value representing the modification state
@@ -23,7 +23,7 @@ public record PromptTypeDTO(int id, long version, String name, String descriptio
      * <p>
      * Ensures that {@code name} and {@code description} are non-null;
      * otherwise a {@link NullPointerException} is thrown.
-     * </p>
+     * 
      *
      * @param id          stable identifier
      * @param version     numeric value representing the modification state

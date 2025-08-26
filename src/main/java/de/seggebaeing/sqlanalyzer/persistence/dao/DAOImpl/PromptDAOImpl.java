@@ -9,7 +9,7 @@ import de.seggebaeing.sqlanalyzer.persistence.dto.PromptDTO;
  * Provides CRUD operations for prompt DTOs by extending
  * {@link de.seggebaeing.sqlanalyzer.persistence.dao.DTODAO}. This class is a singleton; use
  * {@link #getInstance()} to obtain the instance.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0

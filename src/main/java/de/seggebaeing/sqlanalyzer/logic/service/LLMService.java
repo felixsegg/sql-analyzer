@@ -22,7 +22,7 @@ import java.util.Set;
  * Initializes the mapper with an id supplier from the DAO. Implements a singleton pattern
  * (use {@link #getInstance()}) and synchronizes public mutating/access methods for basic thread safety.
  * Also exposes direct dependants lookup (e.g., {@link de.seggebaeing.sqlanalyzer.logic.bdo.GeneratedQuery} that reference an LLM).
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -47,7 +47,7 @@ public class LLMService implements BDOService<LLM> {
      * Retrieves all persisted LLMs and maps them to business objects.
      * <p>
      * Thread-safe: synchronized to guard access to the underlying DAO and mapper.
-     * </p>
+     * 
      *
      * @return a set of {@link LLM}; may be empty
      */
@@ -62,7 +62,7 @@ public class LLMService implements BDOService<LLM> {
      * Deletes the given LLM by mapping it to its DTO and delegating to the DAO.
      * <p>
      * Thread-safe: synchronized to guard DAO/mapper access.
-     * </p>
+     * 
      *
      * @param bdo the LLM to delete
      */
@@ -73,7 +73,7 @@ public class LLMService implements BDOService<LLM> {
     
     /**
      * Saves a new LLM or updates an existing one by mapping it to its DTO and delegating to the DAO.
-     * <p>Thread-safe: synchronized to guard DAO/mapper access.</p>
+     * <p>Thread-safe: synchronized to guard DAO/mapper access.
      *
      * @param bdo the LLM to save or update
      */
@@ -87,7 +87,7 @@ public class LLMService implements BDOService<LLM> {
      * <p>
      * Scans all {@link GeneratedQuery} instances and collects those whose
      * generator is the provided {@code object}.
-     * </p>
+     * 
      *
      * @param object the LLM whose dependants to collect
      * @return list of dependants; empty if none

@@ -18,12 +18,12 @@ import java.util.function.Consumer;
  * Sends both SQL statements to the configured {@link de.seggebaeing.sqlanalyzer.logic.bdo.LLM} using a fixed instruction
  * prompt and expects a numeric score 0–100. The result is normalized to {@code 0.0–1.0};
  * if parsing fails or the call errors, {@link Double#NaN} is returned.
- * </p>
+ * 
  * <p>
  * Rate limiting is handled via {@link de.seggebaeing.sqlanalyzer.logic.promptable.util.PromptAuthorizer}; an optional
  * {@link #setRateLimitReporter(java.util.function.Consumer)} receives retry instants.
  * Calls are blocking and may wait for rate limits—avoid invoking on UI threads.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -78,7 +78,7 @@ public class LLMComparator implements StatementComparator {
      * Builds a fixed instruction prompt, requests an integer score (0–100),
      * and returns the normalized value in {@code 0.0–1.0}. If the response is
      * absent or unparsable, returns {@link Double#NaN}.
-     * </p>
+     * 
      *
      * @param query1 first SQL statement wrapper
      * @param query2 second SQL statement wrapper
@@ -101,7 +101,7 @@ public class LLMComparator implements StatementComparator {
      * Waits via {@link PromptAuthorizer} if a retry deadline is registered. On
      * {@link RateLimitException}, reports the retry {@link Instant} and registers it,
      * then retries. Logs and returns {@code null} if an {@link LLMException} occurs.
-     * </p>
+     * 
      *
      * @param prompt the fully constructed instruction sent to the LLM
      * @return the raw LLM response string, or {@code null} if the call ultimately fails

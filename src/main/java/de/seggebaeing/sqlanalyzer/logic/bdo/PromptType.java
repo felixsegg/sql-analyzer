@@ -11,7 +11,7 @@ import java.util.Objects;
  * Wraps observable JavaFX properties for name and description.
  * Versioning is inherited from {@link de.seggebaeing.sqlanalyzer.logic.bdo.BusinessDomainObject}
  * and automatically refreshed when observed properties change.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -25,7 +25,7 @@ public class PromptType extends BusinessDomainObject {
      * Creates a new {@code PromptType} with default values.
      * <p>
      * Initializes all string fields as empty and the version as {@code null}.
-     * </p>
+     * 
      */
     public PromptType() {
         this("", "", null);
@@ -35,7 +35,7 @@ public class PromptType extends BusinessDomainObject {
      * Creates a new {@code PromptType} with the given values.
      * <p>
      * Sets the version to {@code null}, causing it to be initialized automatically.
-     * </p>
+     * 
      *
      * @param name        non-null name
      * @param description non-null description
@@ -51,7 +51,7 @@ public class PromptType extends BusinessDomainObject {
      * Initializes all fields and registers property listeners so that changes
      * automatically refresh the version. If {@code version} is {@code null},
      * the version is initialized to the current time.
-     * </p>
+     * 
      *
      * @param name        non-null name
      * @param description non-null description
@@ -70,7 +70,7 @@ public class PromptType extends BusinessDomainObject {
      * Returns a string representation of this prompt type.
      * <p>
      * Format: {@code name}.
-     * </p>
+     * 
      *
      * @return the name of this prompt type
      */

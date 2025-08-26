@@ -14,10 +14,10 @@ import java.util.Objects;
  * the associated {@link SampleQuery}, and the {@link PromptType}.
  * Versioning is inherited from {@link de.seggebaeing.sqlanalyzer.logic.bdo.BusinessDomainObject}
  * and is automatically refreshed when observed properties change.
- * </p>
+ * 
  *
  * <p>The {@link #toString()} representation concatenates the names of the
- * sample query and the prompt type.</p>
+ * sample query and the prompt type.
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -33,7 +33,7 @@ public class Prompt extends BusinessDomainObject {
      * <p>
      * Initializes text as an empty string, sample query and type as {@code null},
      * and the version as {@code null}.
-     * </p>
+     * 
      */
     public Prompt() {
         this("", null, null, null);
@@ -43,7 +43,7 @@ public class Prompt extends BusinessDomainObject {
      * Creates a new {@code Prompt} with the given values.
      * <p>
      * Sets the version to {@code null}, causing it to be initialized automatically.
-     * </p>
+     * 
      *
      * @param text        non-null prompt text
      * @param sampleQuery optional related sample query
@@ -60,7 +60,7 @@ public class Prompt extends BusinessDomainObject {
      * Initializes all fields and registers property listeners so that changes
      * automatically refresh the version. If {@code version} is {@code null},
      * the version is initialized to the current time.
-     * </p>
+     * 
      *
      * @param text        non-null prompt text
      * @param sampleQuery optional related sample query
@@ -82,7 +82,7 @@ public class Prompt extends BusinessDomainObject {
      * <p>
      * Format: {@code "<sampleQueryName> - <typeName>"}. If either reference
      * is {@code null}, the string {@code "null"} is used in its place.
-     * </p>
+     * 
      *
      * @return string representation of this prompt
      */

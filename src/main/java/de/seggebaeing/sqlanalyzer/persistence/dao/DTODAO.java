@@ -14,10 +14,10 @@ import java.util.*;
  * Provides a simple in-memory cache (id → DTO) synchronized from disk via
  * {@link de.seggebaeing.sqlanalyzer.persistence.PersistenceHelper}. Subclasses specify the DTO type by
  * implementing {@link #getDtoClass()}.
- * </p>
+ * 
  *
  * <p><strong>Notes:</strong> Cache synchronization is eager on construction and on
- * selected operations; this class is not thread-safe.</p>
+ * selected operations; this class is not thread-safe.
  *
  * @param <T> the DTO type
  *
@@ -31,7 +31,7 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
      * In-memory cache mapping DTO identifiers to their instances.
      * <p>
      * Keeps recently loaded or persisted objects to reduce file system access.
-     * </p>
+     * 
      */
     protected final Map<Integer, T> cache = new HashMap<>();
     
@@ -47,7 +47,7 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
      * Returns all cached entities.
      * <p>
      * The result is a snapshot copy of the current cache contents.
-     * </p>
+     * 
      *
      * @return a set of all entities; may be empty if none are cached
      */
@@ -62,7 +62,7 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
      * First checks the in-memory cache; if not present, attempts to load
      * the entity from the de.seggebaeing.sqlanalyzer.persistence layer and refreshes the cache.
      * Returns {@code null} if the id is {@code -1}, not found, or loading fails.
-     * </p>
+     * 
      *
      * @param id the identifier of the entity
      * @return the entity with the given id, or {@code null} if not found or load failed
@@ -89,7 +89,7 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
      * Deletes the given entity from the de.seggebaeing.sqlanalyzer.persistence layer and removes it from the cache.
      * <p>
      * Logs a warning if deletion fails.
-     * </p>
+     * 
      *
      * @param dto the entity to delete, must not be {@code null}
      * @throws NullPointerException if {@code dto} is {@code null}
@@ -109,7 +109,7 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
      * Persists or updates the given entity and refreshes the cache entry.
      * <p>
      * Logs a warning if the operation fails.
-     * </p>
+     * 
      *
      * @param dto the entity to save or update, must not be {@code null}
      * @throws NullPointerException if {@code dto} is {@code null}
@@ -130,7 +130,7 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
      * <p>
      * Loads all entities of the managed type and replaces the current cache
      * contents. Logs a warning if batch loading fails.
-     * </p>
+     * 
      */
     private void syncCache() {
         Set<T> dtos = new HashSet<>();
@@ -150,7 +150,7 @@ public abstract class DTODAO<T extends Persistable> implements DAO<T> {
      * <p>
      * Uses random numbers in the positive {@code int} range until an unused id is found.
      * This implementation is simple but not guaranteed to be efficient.
-     * </p>
+     * 
      *
      * @return a free identifier
      */

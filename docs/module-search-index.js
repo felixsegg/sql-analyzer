@@ -1,1 +1,1 @@
-moduleSearchIndex = [];updateSearchResults();
+moduleSearchIndex = [{"l":"de.seggebaeing.sqlanalyzer"}];updateSearchResults();

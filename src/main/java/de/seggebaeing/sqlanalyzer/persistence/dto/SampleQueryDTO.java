@@ -6,7 +6,7 @@ import java.util.Objects;
  * Data transfer object (DTO) for persisting a sample query.
  * <p>
  * Holds identifier, version, and associated string fields. All fields are non-null.
- * </p>
+ * 
  *
  * @param id            stable identifier
  * @param version       numeric value representing the modification state
@@ -26,7 +26,7 @@ public record SampleQueryDTO(int id, long version, String name, String descripti
      * <p>
      * Ensures that all string fields are non-null; otherwise a
      * {@link NullPointerException} is thrown.
-     * </p>
+     * 
      *
      * @param id            stable identifier
      * @param version       numeric value representing the modification state

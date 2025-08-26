@@ -5,9 +5,9 @@ import de.seggebaeing.sqlanalyzer.logic.bdo.SQLQueryWrapper;
 /**
  * Strategy interface for comparing two SQL statements and producing a similarity score.
  * <p>
- * Implementations define how similarity is measured (e.g., syntactic or LLM-based).
+ * Implementations define how similarity is measured (e.g. LLM-based).
  * The score is typically normalized to {@code 0.0}–{@code 1.0}.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0

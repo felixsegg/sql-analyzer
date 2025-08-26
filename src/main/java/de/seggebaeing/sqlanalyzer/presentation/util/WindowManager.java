@@ -27,7 +27,7 @@ import java.util.function.Predicate;
  * custom controllers, and coordinates lifecycle and refresh behavior across stages.
  *
  * <p><strong>Threading:</strong> All public methods must be called on the JavaFX Application Thread.
- * This class is not thread-safe.</p>
+ * This class is not thread-safe.
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -56,7 +56,7 @@ public class WindowManager {
      * instead. If it is closed while no other non-help stages are visible, the application
      * terminates via {@code System.exit(0)}.
      *
-     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.</p>
+     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.
      *
      * @param primaryStage the primary JavaFX stage provided by the runtime
      * @throws IllegalStateException if the WindowManager has already been initialized
@@ -89,7 +89,7 @@ public class WindowManager {
      * {@code resizable=true}. Title, icon, and scene are applied during initialization.
      * Failures during FXML/controller loading are logged and the window will not be shown.
      *
-     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.</p>
+     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.
      *
      * @param windowType the type of general window to open; must not be {@code null}
      */
@@ -111,7 +111,7 @@ public class WindowManager {
      * <p><strong>External filter:</strong> An optional predicate may be provided to pre-filter items
      * in the UI; it may be {@code null} to omit external filtering.
      *
-     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.</p>
+     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.
      *
      * @param bdoWindowType the kind of BDO overview to open; must not be {@code null}
      * @param filter optional external filter applied by the overview; may be {@code null}
@@ -137,7 +137,7 @@ public class WindowManager {
      * Delegates to {@link #initializeAndShow(TitledInitializableWindow, String, boolean)} with
      * {@code resizable=true}; title, icon, and scene are applied during initialization.
      *
-     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.</p>
+     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.
      *
      * @param bdo the domain object to view or edit; must not be {@code null}
      * @throws NullPointerException if {@code bdo} is {@code null}
@@ -157,7 +157,7 @@ public class WindowManager {
      * {@link HelpWindow#loadHtml(String)} with the URL’s external form. If the resource
      * cannot be found, an error is logged and the window remains in its default state.
      *
-     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.</p>
+     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.
      *
      * @param htmlFileName help key or file name (typically without {@code .html}); if no
      *                     resource is found, content is not loaded and an error is logged
@@ -179,7 +179,7 @@ public class WindowManager {
      * {@link de.seggebaeing.sqlanalyzer.presentation.uielements.window.OverviewWindow#refresh()} on each.
      * If no overview windows are registered for the type, this method is a no-op.
      *
-     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.</p>
+     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.
      *
      * @param windowType the overview category to refresh; must not be {@code null}
      */
@@ -199,7 +199,7 @@ public class WindowManager {
      *   <li>Applies the {@code resizable} flag and enforces a minimum size based on the root’s preferred size.</li>
      * </ul>
      *
-     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.</p>
+     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.
      *
      * @param controller the window controller; must not be {@code null}
      * @param fxmlName   the FXML base name to load (without extension); must not be {@code null}
@@ -229,7 +229,7 @@ public class WindowManager {
      * and applies the shared application icon if available. Failures are logged and the stage
      * remains unchanged.
      *
-     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.</p>
+     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.
      *
      * @param stage      target stage to receive the loaded scene; must not be {@code null}
      * @param fxmlName   FXML base name (without extension) to load; must not be {@code null}
@@ -257,7 +257,7 @@ public class WindowManager {
      * and adds these deltas to the root node’s preferred min size so the user cannot shrink
      * the window below its designed layout.
      *
-     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.</p>
+     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.
      *
      * @param stage      the target stage whose minimum size is set; must not be {@code null}
      * @param controller the controller providing the root node; must not be {@code null}
@@ -276,7 +276,7 @@ public class WindowManager {
      * and excludes stages whose {@code userData} is an instance of {@link HelpWindow},
      * so help windows do not keep the application “alive”.
      *
-     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.</p>
+     * <p><strong>Threading:</strong> Must be called on the JavaFX Application Thread.
      *
      * @return a set of visible, non-help stages; never {@code null}
      */

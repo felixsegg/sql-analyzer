@@ -34,7 +34,7 @@ public class GenerationController extends WorkerWindow {
      * numeric values persist via {@link de.seggebaeing.sqlanalyzer.logic.service.ConfigService} on change.
      *
      * <p>Updated when the user confirms the settings dialog; treated as read-only here.
-     * Access from the JavaFX Application Thread.</p>
+     * Access from the JavaFX Application Thread.
      */
     private final GenerationSettingsController.SettingsObject settings = GenerationSettingsController.getSettings();
     

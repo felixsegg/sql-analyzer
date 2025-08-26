@@ -24,9 +24,9 @@ import java.util.*;
  * for dependants and can route to their overview windows.
  *
  * <p>Subclasses supply the backing {@link de.seggebaeing.sqlanalyzer.logic.service.BDOService} and implement
- * {@link #refresh()} and {@link #getTitle()}.</p>
+ * {@link #refresh()} and {@link #getTitle()}.
  *
- * <p>Intended for use on the JavaFX Application Thread.</p>
+ * <p>Intended for use on the JavaFX Application Thread.
  *
  * @param <T> the concrete {@link de.seggebaeing.sqlanalyzer.logic.bdo.BusinessDomainObject} handled by the window
  * @author Felix Seggebäing

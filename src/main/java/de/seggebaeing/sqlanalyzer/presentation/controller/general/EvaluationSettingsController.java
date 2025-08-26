@@ -21,7 +21,7 @@ import java.util.*;
 
 /**
  * Controller for the Evaluation Settings dialog.
- * Lets users choose the comparator (syntactic or LLM) and, if LLM is selected,
+ * Lets users choose the comparator (e.g. LLM-based) and, if LLM is selected,
  * configure model and temperature. Also configures thread pool size, max reps,
  * CSV output directory, and the set of {@link de.seggebaeing.sqlanalyzer.logic.bdo.GeneratedQuery} items to evaluate.
  * Persists options via a shared {@link EvaluationSettingsController.SettingsObject}
@@ -285,14 +285,14 @@ public class EvaluationSettingsController extends TitledInitializableWindow {
     }
     
     /**
-     * Mutable container for evaluation settings: comparator choice (syntactic or LLM),
+     * Mutable container for evaluation settings: comparator choice (e.g. LLM-based),
      * optional LLM and temperature, selected generated queries, thread pool size,
      * max repetitions, and CSV output path. Persists options via
      * {@link de.seggebaeing.sqlanalyzer.logic.service.ConfigService}.
      *
      * <p>Exposed as a package-private singleton via
      * {@link de.seggebaeing.sqlanalyzer.presentation.controller.general.EvaluationSettingsController#getSettingsObject()}.
-     * Not thread-safe; use on the JavaFX Application Thread.</p>
+     * Not thread-safe; use on the JavaFX Application Thread.
      *
      * @author Felix Seggebäing
      * @since 1.0

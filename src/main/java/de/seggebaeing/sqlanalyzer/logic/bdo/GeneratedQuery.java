@@ -15,10 +15,10 @@ import java.util.Objects;
  * Versioning is inherited from {@link de.seggebaeing.sqlanalyzer.logic.bdo.BusinessDomainObject}
  * and automatically refreshed when observed properties change.
  * Implements {@link SQLQueryWrapper}.
- * </p>
+ * 
  *
  * <p>The {@link #toString()} representation combines the generator’s name,
- * the prompt type name, and the sample query name.</p>
+ * the prompt type name, and the sample query name.
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -34,7 +34,7 @@ public class GeneratedQuery extends BusinessDomainObject implements SQLQueryWrap
      * <p>
      * Initializes SQL as an empty string, generator and prompt as {@code null},
      * and the version as {@code null}.
-     * </p>
+     * 
      */
     public GeneratedQuery() {
         this("", null, null, null);
@@ -44,7 +44,7 @@ public class GeneratedQuery extends BusinessDomainObject implements SQLQueryWrap
      * Creates a new {@code GeneratedQuery} with the given values.
      * <p>
      * Sets the version to {@code null}, causing it to be initialized automatically.
-     * </p>
+     * 
      *
      * @param sql       non-null generated SQL string
      * @param generator optional generator LLM
@@ -61,7 +61,7 @@ public class GeneratedQuery extends BusinessDomainObject implements SQLQueryWrap
      * Initializes all fields and registers property listeners so that changes
      * automatically refresh the version. If {@code version} is {@code null},
      * the version is initialized to the current time.
-     * </p>
+     * 
      *
      * @param sql       non-null generated SQL string
      * @param generator optional generator LLM
@@ -84,7 +84,7 @@ public class GeneratedQuery extends BusinessDomainObject implements SQLQueryWrap
      * <p>
      * Format: {@code "<llmName> - <promptTypeName> - <sampleQueryName>"}.
      * If any of these values are {@code null}, the string {@code "null"} is used instead.
-     * </p>
+     * 
      *
      * @return string representation of this generated query
      */

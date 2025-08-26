@@ -8,7 +8,7 @@ import java.util.Objects;
  * Holds identifier, version, the generated SQL string, and foreign key
  * references to the generator and the originating prompt. The SQL field
  * is non-null.
- * </p>
+ * 
  *
  * @param id          stable identifier
  * @param version     numeric value representing the modification state
@@ -25,7 +25,7 @@ public record GeneratedQueryDTO(int id, long version, String sql, int generatorI
      * <p>
      * Ensures that {@code sql} is non-null; otherwise a
      * {@link NullPointerException} is thrown.
-     * </p>
+     * 
      *
      * @param id          stable identifier
      * @param version     numeric value representing the modification state

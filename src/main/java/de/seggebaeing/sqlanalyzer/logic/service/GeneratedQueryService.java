@@ -19,11 +19,11 @@ import java.util.Set;
  * {@link de.seggebaeing.sqlanalyzer.persistence.dao.DAOImpl.GeneratedQueryDAOImpl}. Implements a singleton
  * (use {@link #getInstance()}) and synchronizes public operations for basic
  * thread safety.
- * </p>
+ * 
  * <p>
  * Uses the default {@link de.seggebaeing.sqlanalyzer.logic.service.BDOService#getDependants(BusinessDomainObject)}
  * implementation, which returns an empty list.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -46,7 +46,7 @@ public class GeneratedQueryService implements BDOService<GeneratedQuery> {
     
     /**
      * Retrieves all persisted generated queries and maps them to business objects.
-     * <p>Thread-safe: synchronized to guard DAO/mapper access.</p>
+     * <p>Thread-safe: synchronized to guard DAO/mapper access.
      *
      * @return a set of {@link GeneratedQuery}; may be empty
      */
@@ -59,7 +59,7 @@ public class GeneratedQueryService implements BDOService<GeneratedQuery> {
     
     /**
      * Deletes the given generated query by mapping it to its DTO and delegating to the DAO.
-     * <p>Thread-safe: synchronized to guard DAO/mapper access.</p>
+     * <p>Thread-safe: synchronized to guard DAO/mapper access.
      *
      * @param bdo the generated query to delete
      */
@@ -70,7 +70,7 @@ public class GeneratedQueryService implements BDOService<GeneratedQuery> {
     
     /**
      * Saves a new generated query or updates an existing one by mapping it to its DTO and delegating to the DAO.
-     * <p>Thread-safe: synchronized to guard DAO/mapper access.</p>
+     * <p>Thread-safe: synchronized to guard DAO/mapper access.
      *
      * @param bdo the generated query to save or update
      */

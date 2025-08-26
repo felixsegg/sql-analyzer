@@ -23,7 +23,7 @@ import java.util.Set;
  * (use {@link #getInstance()}) and synchronizes public operations for basic
  * thread safety. Provides dependant lookup (e.g., {@link de.seggebaeing.sqlanalyzer.logic.bdo.GeneratedQuery}
  * referencing a given prompt).
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -46,7 +46,7 @@ public class PromptService implements BDOService<Prompt> {
     
     /**
      * Retrieves all persisted prompts and maps them to business objects.
-     * <p>Thread-safe: synchronized to guard DAO/mapper access.</p>
+     * <p>Thread-safe: synchronized to guard DAO/mapper access.
      *
      * @return a set of {@link Prompt}; may be empty
      */
@@ -59,7 +59,7 @@ public class PromptService implements BDOService<Prompt> {
     
     /**
      * Deletes the given prompt by mapping it to its DTO and delegating to the DAO.
-     * <p>Thread-safe: synchronized to guard DAO/mapper access.</p>
+     * <p>Thread-safe: synchronized to guard DAO/mapper access.
      *
      * @param bdo the prompt to delete
      */
@@ -70,7 +70,7 @@ public class PromptService implements BDOService<Prompt> {
     
     /**
      * Saves a new prompt or updates an existing one by mapping it to its DTO and delegating to the DAO.
-     * <p>Thread-safe: synchronized to guard DAO/mapper access.</p>
+     * <p>Thread-safe: synchronized to guard DAO/mapper access.
      *
      * @param bdo the prompt to save or update
      */
@@ -84,7 +84,7 @@ public class PromptService implements BDOService<Prompt> {
      * <p>
      * Scans all {@link GeneratedQuery} instances and collects those whose
      * {@code getPrompt()} is the same instance as {@code object} (reference equality).
-     * </p>
+     * 
      *
      * @param object the prompt whose dependants to collect
      * @return list of dependants; empty if none

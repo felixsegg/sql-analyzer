@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * Builds a {@code generateContent} request, sends it via the shared HTTP client,
  * and extracts the generated text from the response. Non-200 responses are parsed
  * for provider error details; HTTP 429 triggers a {@link de.seggebaeing.sqlanalyzer.logic.promptable.exception.RateLimitException}.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0

@@ -23,7 +23,7 @@ import java.util.Set;
  * (use {@link #getInstance()}) and synchronizes public operations for basic
  * thread safety. Provides dependant lookup (e.g., {@link de.seggebaeing.sqlanalyzer.logic.bdo.Prompt}
  * referencing a given prompt type).
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -46,7 +46,7 @@ public class PromptTypeService implements BDOService<PromptType> {
     
     /**
      * Retrieves all persisted prompt types and maps them to business objects.
-     * <p>Thread-safe: synchronized to guard DAO/mapper access.</p>
+     * <p>Thread-safe: synchronized to guard DAO/mapper access.
      *
      * @return a set of {@link PromptType}; may be empty
      */
@@ -59,7 +59,7 @@ public class PromptTypeService implements BDOService<PromptType> {
     
     /**
      * Deletes the given prompt type by mapping it to its DTO and delegating to the DAO.
-     * <p>Thread-safe: synchronized to guard DAO/mapper access.</p>
+     * <p>Thread-safe: synchronized to guard DAO/mapper access.
      *
      * @param bdo the prompt type to delete
      */
@@ -70,7 +70,7 @@ public class PromptTypeService implements BDOService<PromptType> {
     
     /**
      * Saves a new prompt type or updates an existing one by mapping it to its DTO and delegating to the DAO.
-     * <p>Thread-safe: synchronized to guard DAO/mapper access.</p>
+     * <p>Thread-safe: synchronized to guard DAO/mapper access.
      *
      * @param bdo the prompt type to save or update
      */
@@ -84,7 +84,7 @@ public class PromptTypeService implements BDOService<PromptType> {
      * <p>
      * Scans all {@link Prompt} instances and collects those whose {@code getType()}
      * is the same instance as {@code object} (reference equality).
-     * </p>
+     * 
      *
      * @param object the prompt type whose dependants to collect
      * @return list of dependants; empty if none

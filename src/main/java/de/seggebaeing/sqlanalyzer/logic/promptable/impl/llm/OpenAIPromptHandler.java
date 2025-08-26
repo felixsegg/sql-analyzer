@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * This class builds and sends requests to the OpenAI endpoint using the provided
  * API key, model, and prompt data. It parses responses to extract the generated
  * message text and handles rate-limiting or error responses.
- * </p>
+ * 
  */
 public class OpenAIPromptHandler extends AbstractLLMHandler {
     

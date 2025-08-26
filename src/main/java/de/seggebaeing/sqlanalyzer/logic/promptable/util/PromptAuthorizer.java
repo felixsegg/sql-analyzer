@@ -45,7 +45,7 @@ public class PromptAuthorizer {
      * until the recorded {@link Instant}; if interrupted, logs a warning and
      * returns early. If the deadline is updated while waiting, the method adapts
      * to the newest value.
-     * </p>
+     * 
      *
      * @param llm non-null LLM whose rate-limit deadline should be respected
      * @implNote Uses a sleep-based loop by design; do not call from the JavaFX
@@ -79,7 +79,7 @@ public class PromptAuthorizer {
      * <p>
      * Stores {@code waitUntil} if no deadline exists or if it is later than the
      * currently stored one (monotonic extension). Synchronized for thread safety.
-     * </p>
+     * 
      *
      * @param llm       the LLM to rate-limit
      * @param waitUntil the time after which prompting is allowed again

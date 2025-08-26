@@ -15,7 +15,7 @@ import java.util.Objects;
  * {@link de.seggebaeing.sqlanalyzer.logic.bdo.BusinessDomainObject} and is refreshed when observed
  * properties change (after {@link #registerProperties(javafx.beans.property.Property[])} is called).
  * Implements {@link SQLQueryWrapper}.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -40,7 +40,7 @@ public class SampleQuery extends BusinessDomainObject implements SQLQueryWrapper
      * <p>
      * Initializes all string fields as empty, complexity as {@code null},
      * and the version as {@code null}.
-     * </p>
+     * 
      */
     public SampleQuery() {
         this("", "", "", "", null, null);
@@ -50,7 +50,7 @@ public class SampleQuery extends BusinessDomainObject implements SQLQueryWrapper
      * Creates a new {@code SampleQuery} with the given values.
      * <p>
      * Sets the version to {@code null}, causing it to be initialized automatically.
-     * </p>
+     * 
      *
      * @param name          non-null name
      * @param description   non-null description
@@ -69,7 +69,7 @@ public class SampleQuery extends BusinessDomainObject implements SQLQueryWrapper
      * Initializes all fields and registers property listeners so that changes
      * automatically refresh the version. If {@code version} is {@code null},
      * the version is initialized to the current time.
-     * </p>
+     * 
      *
      * @param name          non-null name
      * @param description   non-null description
@@ -94,7 +94,7 @@ public class SampleQuery extends BusinessDomainObject implements SQLQueryWrapper
      * Returns a string representation of this sample query.
      * <p>
      * Format: {@code name}.
-     * </p>
+     * 
      *
      * @return the name of this sample query
      */
