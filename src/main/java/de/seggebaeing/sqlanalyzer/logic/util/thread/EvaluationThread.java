@@ -24,11 +24,11 @@ import java.util.function.Consumer;
  * is signaled via {@code startedProgress}/{@code finishedProgress}. If the comparator is an
  * {@link de.seggebaeing.sqlanalyzer.logic.util.eval.impl.LLMComparator}, a rate-limit reporter is registered.
  * On full success, {@code signalDone} is invoked.
- * </p>
+ * 
  * <p>
  * Threading: results are stored in a synchronized map; interruption is honored and cancels work.
  * Read results via {@link #getResult()} only after successful completion.
- * </p>
+ * 
  *
  * @author Felix Seggebäing
  * @since 1.0
@@ -83,7 +83,7 @@ public class EvaluationThread extends WorkerThread {
      * then attempts up to {@code repCountIfFailure} comparisons until a numeric (non-NaN) score
      * is obtained. Checks for interruption again before finishing, then invokes
      * {@code finishedProgress}, logs the score, and stores it in {@code scores}.
-     * </p>
+     * 
      *
      * @param comparator the {@link de.seggebaeing.sqlanalyzer.logic.util.eval.StatementComparator} to compute the score
      * @param gq         the {@link de.seggebaeing.sqlanalyzer.logic.bdo.GeneratedQuery} to evaluate
@@ -115,15 +115,14 @@ public class EvaluationThread extends WorkerThread {
      * Initializes a synchronized score map, submits all tasks, then shuts down the pool and awaits completion
      * (practically unbounded). On full success, invokes {@code signalDone} if non-null. On interruption,
      * cancels subworkers, logs, and re-interrupts the thread; on timeout, logs an error.
-     * </p>
+     * 
      */
     @Override
     public void run() {
-        ExecutorService subworkerThreadPool = Executors.newFixedThreadPool(poolSize);
         if (comparator instanceof LLMComparator llmComparator)
             llmComparator.setRateLimitReporter(reportRetryIn);
         
-        try {
+        try (ExecutorService subworkerThreadPool = Executors.newFixedThreadPool(poolSize)) {
             scores = Collections.synchronizedMap(new HashMap<>());
             
             log.info("Starting thread pool for subworkers in evaluation with pool size of {}.", poolSize);
@@ -136,7 +135,6 @@ public class EvaluationThread extends WorkerThread {
             
             if (signalDone != null) signalDone.run();
         } catch (InterruptedException e) {
-            subworkerThreadPool.shutdownNow();
             log.info("Canceled.");
             Thread.currentThread().interrupt();
         } catch (TimeoutException e) {
@@ -148,7 +146,7 @@ public class EvaluationThread extends WorkerThread {
      * Returns the computed similarity scores per {@link GeneratedQuery}.
      * <p>
      * Behavior is undefined if called before the worker has completed successfully.
-     * </p>
+     * 
      *
      * @return a synchronized map of queries to their scores
      * @implNote The returned map is a {@code Collections.synchronizedMap}; synchronize on it when iterating.

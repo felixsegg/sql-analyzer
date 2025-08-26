@@ -87,18 +87,18 @@ public class GenerationThread extends WorkerThread {
      * Creates a {@link java.util.concurrent.ExecutorService} with {@code poolSize}, submits one task per
      * combination, then shuts down the pool and waits for completion. On full success
      * (no timeout/interruption), invokes {@code signalDone}. Honors interruption by cancelling subworkers.
-     * </p>
+     * 
      *
      * @implNote Results are accumulated in a synchronized set; read them only after the thread finishes.
      */
     @Override
     public void run() {
-        ExecutorService subworkerThreadPool = Executors.newFixedThreadPool(poolSize);
         log.info("Starting thread pool for subworkers in generation with pool size of {}.", poolSize);
         
         gqs = Collections.synchronizedSet(new HashSet<>());
         
-        try {
+        
+        try (ExecutorService subworkerThreadPool = Executors.newFixedThreadPool(poolSize)) {
             for (Prompt prompt : prompts) {
                 if (Thread.currentThread().isInterrupted()) {
                     subworkerThreadPool.shutdownNow();
@@ -133,7 +133,7 @@ public class GenerationThread extends WorkerThread {
      * On success, contextualizes the prompt, calls the LLM, strips optional Markdown
      * fences (```sql / ```), and stores a new {@link GeneratedQuery} in {@code gqs}.
      * Any {@link LLMException} is logged and swallowed.
-     * </p>
+     * 
      *
      * @param prompt    the prompt to use
      * @param llm       the target LLM
@@ -178,7 +178,7 @@ public class GenerationThread extends WorkerThread {
      * <p>
      * If contextualization fails (e.g., missing references), logs the error and
      * returns the raw prompt text as a fallback.
-     * </p>
+     * 
      *
      * @param prompt the prompt whose text and sample query context are used
      * @return the contextualized prompt string, or the raw prompt text on failure
@@ -196,7 +196,7 @@ public class GenerationThread extends WorkerThread {
      * Returns the set of generated queries produced by this worker.
      * <p>
      * Behavior is undefined if called before the thread has completed successfully.
-     * </p>
+     * 
      *
      * @return the (synchronized) result set of {@link GeneratedQuery}
      * @implNote The returned set is a {@code Collections.synchronizedSet}; synchronize on it when iterating.
