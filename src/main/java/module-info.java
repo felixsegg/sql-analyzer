@@ -2,27 +2,27 @@
  * SQL Analyzer — JavaFX desktop application for systematic generation and evaluation
  * of SQL statements using Large Language Models (LLMs).
  *
- * <p><strong>Exports</strong></p>
+ * <p><strong>Exports</strong>
  * <ul>
- *   <li>{@code de.seggebaeing.sqlanalyzer} — base package of the application.</li>
+ *   <li>{@link de.seggebaeing.sqlanalyzer} — base package of the application.</li>
  * </ul>
  *
- * <p><strong>Opens (reflection access)</strong></p>
+ * <p><strong>Opens (reflection access)</strong>
  * <ul>
- *   <li>{@code de.seggebaeing.sqlanalyzer.presentation.uielements.window} to {@code javafx.fxml}</li>
- *   <li>{@code de.seggebaeing.sqlanalyzer.presentation.controller.overview} to {@code javafx.fxml}</li>
- *   <li>{@code de.seggebaeing.sqlanalyzer.presentation.controller.details} to {@code javafx.fxml}</li>
- *   <li>{@code de.seggebaeing.sqlanalyzer.presentation.controller.general} to {@code javafx.fxml}</li>
- *   <li>{@code de.seggebaeing.sqlanalyzer.persistence.dto} to {@code com.google.gson}</li>
+ *   <li>{@link de.seggebaeing.sqlanalyzer.presentation.uielements.window} to {@code javafx.fxml}</li>
+ *   <li>{@link de.seggebaeing.sqlanalyzer.presentation.controller.overview} to {@code javafx.fxml}</li>
+ *   <li>{@link de.seggebaeing.sqlanalyzer.presentation.controller.details} to {@code javafx.fxml}</li>
+ *   <li>{@link de.seggebaeing.sqlanalyzer.presentation.controller.general} to {@code javafx.fxml}</li>
+ *   <li>{@link de.seggebaeing.sqlanalyzer.persistence.dto} to {@code com.google.gson}</li>
  * </ul>
  *
- * <p><strong>Requires</strong></p>
+ * <p><strong>Requires</strong>
  * <ul>
  *   <li>JavaFX controls, FXML, and WebView</li>
  *   <li>Gson (JSON), SLF4J/Log4j (logging), {@code java.net.http} (HTTP clients)</li>
  * </ul>
  *
- * <p><strong>Notes</strong></p>
+ * <p><strong>Notes</strong>
  * <ul>
  *   <li>FXML controllers are instantiated reflectively by {@code FXMLLoader}, hence the {@code opens} directives.</li>
  *   <li>DTOs are (de)serialized by Gson via reflection, hence the {@code opens} to {@code com.google.gson}.</li>
