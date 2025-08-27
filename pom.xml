@@ -96,6 +96,9 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.11.3</version>
                 <configuration>
+                    <sourcepath>${project.build.sourceDirectory}</sourcepath>
+                    <subpackages>de.seggebaeing.sqlanalyzer</subpackages>
+                    <failOnError>false</failOnError>
                     <tags>
                         <tag>
                             <name>implNote</name>
