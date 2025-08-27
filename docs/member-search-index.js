@@ -1,1 +1,0 @@
-memberSearchIndex = [{"p":"de.seggebaeing.sqlanalyzer","c":"App","l":"App()","u":"%3Cinit%3E()"},{"p":"de.seggebaeing.sqlanalyzer","c":"Main","l":"main(String[])","u":"main(java.lang.String[])"},{"p":"de.seggebaeing.sqlanalyzer","c":"App","l":"start(Stage)","u":"start(javafx.stage.Stage)"}];updateSearchResults();

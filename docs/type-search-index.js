@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"de.seggebaeing.sqlanalyzer","l":"App"},{"p":"de.seggebaeing.sqlanalyzer","l":"Main"}];updateSearchResults();
