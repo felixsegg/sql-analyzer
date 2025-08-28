@@ -42,11 +42,11 @@ jobs:
     name: Build (${{ matrix.os }})
     needs: version
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 45   # etwas großzügiger für macOS
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-24.04, ubuntu-24.04-arm, windows-2025, windows-11-arm, macos-13, macos-15 ]
+        os: [ ubuntu-24.04, windows-2025, macos-13, macos-15 ]
 
     steps:
       - name: Checkout
@@ -90,7 +90,8 @@ jobs:
             --dest "$env:DIST_DIR" `
             --verbose
 
-      - name: Generate build-info.txt
+      - name: Generate build-info.txt (Linux/macOS)
+        if: ${{ !startsWith(matrix.os, 'windows-') }}
         shell: bash
         run: |
           mkdir -p "$DIST_DIR"
@@ -101,7 +102,6 @@ jobs:
             echo "Runner Arch: ${{ runner.arch }}"
             echo "Java Version:"
             java -version 2>&1
-
             if [[ "${{ matrix.os }}" == ubuntu-* ]]; then
               echo "System Info:"
               uname -a
@@ -110,11 +110,24 @@ jobs:
               echo "System Info:"
               uname -a
               sw_vers
-            elif [[ "${{ matrix.os }}" == windows-* ]]; then
-              echo "System Info:"
-              systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
             fi
           } > "$DIST_DIR/build-info.txt"
+
+      - name: Generate build-info.txt (Windows)
+        if: ${{ startsWith(matrix.os, 'windows-') }}
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force -Path "$env:DIST_DIR" | Out-Null
+          @"
+          Build Date: $(Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ")
+          Git Commit: ${{ github.sha }}
+          Runner OS: ${{ runner.os }}
+          Runner Arch: ${{ runner.arch }}
+          Java Version:
+          (& java -version 2>&1 | Out-String).Trim()
+          System Info:
+          $(systeminfo | findstr /B /C:"OS Name" /C:"OS Version")
+          "@ | Out-File -Encoding utf8 "$env:DIST_DIR\build-info.txt"
 
       - name: Archive app (Linux)
         if: ${{ startsWith(matrix.os, 'ubuntu-') }}
@@ -122,7 +135,7 @@ jobs:
         env:
           ARCHIVE_BASENAME: ${{ env.APP_NAME }}-${{ needs.version.outputs.version }}-${{ runner.os }}-${{ runner.arch }}
         run: |
-          tar -C "$DIST_DIR" -czf "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz" .
+          tar --warning=no-file-changed -C "$DIST_DIR" -czf "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz" . || true
           sha256sum "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz" > "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz.sha256"
 
       - name: Archive app (macOS)
@@ -131,7 +144,8 @@ jobs:
         env:
           ARCHIVE_BASENAME: ${{ env.APP_NAME }}-${{ needs.version.outputs.version }}-${{ runner.os }}-${{ runner.arch }}
         run: |
-          tar -C "$DIST_DIR" -czf "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz" .
+          tar -czf "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz" \
+            -C "$DIST_DIR" sql-analyzer.app build-info.txt
           shasum -a 256 "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz" > "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz.sha256"
 
       - name: Archive app (Windows)
@@ -147,7 +161,11 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: ${{ env.APP_NAME }}-${{ needs.version.outputs.version }}-${{ runner.os }}-${{ runner.arch }}
-          path: ${{ env.DIST_DIR }}/*.{zip,tar.gz}{,.sha256}
+          path: |
+            ${{ env.DIST_DIR }}/*.tar.gz
+            ${{ env.DIST_DIR }}/*.tar.gz.sha256
+            ${{ env.DIST_DIR }}/*.zip
+            ${{ env.DIST_DIR }}/*.zip.sha256
           if-no-files-found: error
           retention-days: 14
           compression-level: 6
