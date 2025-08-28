@@ -1,0 +1,190 @@
+name: Release Runtime Images
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  APP_NAME: sql-analyzer
+  MAIN_MODULE: de.seggebaeing.sqlanalyzer/de.seggebaeing.sqlanalyzer.Main
+  RUNTIME_IMAGE: target/image
+  DIST_DIR: dist
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Set up JDK 21 for Maven
+        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+
+      - name: Read version from pom.xml
+        id: get-version
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+  build:
+    name: Build (${{ matrix.os }})
+    needs: version
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45   # etwas großzügiger für macOS
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-24.04, ubuntu-24.04-arm, windows-2025, windows-11-arm, macos-13, macos-15 ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Set up JDK 21 (Temurin) with Maven cache
+        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+
+      - name: Build runtime image with Maven
+        run: mvn -B -ntp clean javafx:jlink
+
+      - name: Package app with jpackage (Linux/macOS)
+        if: ${{ !startsWith(matrix.os, 'windows-') }}
+        shell: bash
+        run: |
+          mkdir -p "$DIST_DIR"
+          jpackage \
+            --type app-image \
+            --name "$APP_NAME" \
+            --app-version "${{ needs.version.outputs.version }}" \
+            --runtime-image "$RUNTIME_IMAGE" \
+            --module "$MAIN_MODULE" \
+            --dest "$DIST_DIR" \
+            --verbose
+
+      - name: Package app with jpackage (Windows)
+        if: ${{ startsWith(matrix.os, 'windows-') }}
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force -Path "$env:DIST_DIR" | Out-Null
+          jpackage `
+            --type app-image `
+            --name "$env:APP_NAME" `
+            --app-version "${{ needs.version.outputs.version }}" `
+            --runtime-image "$env:RUNTIME_IMAGE" `
+            --module "$env:MAIN_MODULE" `
+            --dest "$env:DIST_DIR" `
+            --verbose
+
+      - name: Generate build-info.txt
+        shell: bash
+        run: |
+          mkdir -p "$DIST_DIR"
+          {
+            echo "Build Date: $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+            echo "Git Commit: ${{ github.sha }}"
+            echo "Runner OS: ${{ runner.os }}"
+            echo "Runner Arch: ${{ runner.arch }}"
+            echo "Java Version:"
+            java -version 2>&1
+
+            if [[ "${{ matrix.os }}" == ubuntu-* ]]; then
+              echo "System Info:"
+              uname -a
+              lsb_release -a 2>/dev/null || true
+            elif [[ "${{ matrix.os }}" == macos-* ]]; then
+              echo "System Info:"
+              uname -a
+              sw_vers
+            elif [[ "${{ matrix.os }}" == windows-* ]]; then
+              echo "System Info:"
+              systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
+            fi
+          } > "$DIST_DIR/build-info.txt"
+
+      - name: Archive app (Linux)
+        if: ${{ startsWith(matrix.os, 'ubuntu-') }}
+        shell: bash
+        env:
+          ARCHIVE_BASENAME: ${{ env.APP_NAME }}-${{ needs.version.outputs.version }}-${{ runner.os }}-${{ runner.arch }}
+        run: |
+          tar -C "$DIST_DIR" -czf "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz" .
+          sha256sum "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz" > "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz.sha256"
+
+      - name: Archive app (macOS)
+        if: ${{ startsWith(matrix.os, 'macos-') }}
+        shell: bash
+        env:
+          ARCHIVE_BASENAME: ${{ env.APP_NAME }}-${{ needs.version.outputs.version }}-${{ runner.os }}-${{ runner.arch }}
+        run: |
+          tar -C "$DIST_DIR" -czf "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz" .
+          shasum -a 256 "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz" > "$DIST_DIR/${ARCHIVE_BASENAME}.tar.gz.sha256"
+
+      - name: Archive app (Windows)
+        if: ${{ startsWith(matrix.os, 'windows-') }}
+        shell: powershell
+        env:
+          ARCHIVE_BASENAME: ${{ env.APP_NAME }}-${{ needs.version.outputs.version }}-${{ runner.os }}-${{ runner.arch }}
+        run: |
+          Compress-Archive -Path "$env:DIST_DIR\*" -DestinationPath "$env:DIST_DIR\$env:ARCHIVE_BASENAME.zip" -Force
+          (Get-FileHash -Algorithm SHA256 -Path "$env:DIST_DIR\$env:ARCHIVE_BASENAME.zip").Hash + "  " + "$env:ARCHIVE_BASENAME.zip" | Out-File -Encoding ascii "$env:DIST_DIR\$env:ARCHIVE_BASENAME.zip.sha256"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ${{ env.APP_NAME }}-${{ needs.version.outputs.version }}-${{ runner.os }}-${{ runner.arch }}
+          path: ${{ env.DIST_DIR }}/*.{zip,tar.gz}{,.sha256}
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 6
+
+  publish:
+    name: Publish GitHub Release
+    needs: [version, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout (for tagging)
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Ensure version tag exists
+        run: |
+          git fetch --tags
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -f v${{ needs.version.outputs.version }} ${{ github.sha }}
+          git push -f origin v${{ needs.version.outputs.version }}
+
+      - name: Download all build artifacts
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          path: release
+          merge-multiple: true
+
+      - name: Create / Update GitHub Release and upload assets
+        uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8 # v2.3.2
+        with:
+          tag_name: v${{ needs.version.outputs.version }}
+          name: Release ${{ needs.version.outputs.version }}
+          target_commitish: ${{ github.sha }}
+          generate_release_notes: true
+          files: |
+            release/**
